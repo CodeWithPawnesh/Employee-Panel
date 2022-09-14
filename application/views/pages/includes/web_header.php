@@ -14,6 +14,7 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="assets/assets/assets-for-demo/demo.css" rel="stylesheet" />
+    <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
     <!-- iframe removal -->
     <script type="text/javascript">
     if (document.readyState === 'complete') {

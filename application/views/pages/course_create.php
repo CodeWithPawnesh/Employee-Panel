@@ -11,7 +11,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form>
+                        <form action="admin/course_create" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -88,6 +88,70 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
+                                        <label>First Section Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="sec_1_heading" type="text" class="form-control"
+                                            placeholder="Start Writing Here..." required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>First Section Image</label>
+                                    </div>
+                                    <input type="file" name="sec_1_img" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>First Section Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="sec_1_desc" row="10" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Second Section Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="sec_2_heading" type="text" class="form-control"
+                                            placeholder="Start Writing Here..." required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Second Section Sub Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="sec_2_sub_heading" type="text" class="form-control"
+                                            placeholder="Start Writing Here..." required>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Second Section Image</label>
+                                    </div>
+                                    <input type="file" name="sec_2_img" class="form-control" required>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Second Section Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="sec_2_desc" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
                                         <label>Course Overview Heading</label>
                                     </div>
                                     <div class="form-group">
@@ -115,81 +179,54 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course Overview Heading</label>
+                                        <label>Course Keyoutcome Heading</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="overview_heading" type="text" class="form-control"
+                                        <input name="keyoutcome_heading" type="text" class="form-control"
                                             placeholder="Start Writing Here..." required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course Overview Image</label>
+                                        <label>Course Keyoutcome Image</label>
                                     </div>
-                                    <input type="file" name="overview_img" class="form-control" required>
+                                    <input type="file" name="keyoutcome_img" class="form-control" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course Overview Description</label>
+                                        <label>Course Keyoutcome Description</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea name="overview_desc" row="10" class="form-control"></textarea>
+                                        <textarea name="keyoutcome_desc" row="10" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course Overview Heading</label>
+                                        <label>Course Benifits Heading</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="overview_heading" type="text" class="form-control"
+                                        <input name="benifits_heading" type="text" class="form-control"
                                             placeholder="Start Writing Here..." required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course Overview Image</label>
+                                        <label>Course Benifits Image</label>
                                     </div>
-                                    <input type="file" name="overview_img" class="form-control" required>
+                                    <input type="file" name="benifits_img" class="form-control" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course Overview Description</label>
+                                        <label>Course Benifits Description</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea name="overview_desc" row="10" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Course Overview Heading</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="overview_heading" type="text" class="form-control"
-                                            placeholder="Start Writing Here..." required>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Course Overview Image</label>
-                                    </div>
-                                    <input type="file" name="overview_img" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Course Overview Description</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea name="overview_desc" row="10" class="form-control"></textarea>
+                                        <textarea name="benifits_desc" row="10" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -204,3 +241,18 @@
         <!-- End Main Content -->
     </div>
 </div>
+<script>
+     CKEDITOR.replace( 'overview_desc' );
+ </script>
+ <script>
+     CKEDITOR.replace( 'keyoutcome_desc' );
+ </script>
+ <script>
+     CKEDITOR.replace( 'benifits_desc' );
+ </script>
+  <script>
+     CKEDITOR.replace( 'sec_1_desc' );
+ </script>
+  <script>
+     CKEDITOR.replace( 'sec_2_desc' );
+ </script>
