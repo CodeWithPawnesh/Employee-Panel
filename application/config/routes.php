@@ -54,6 +54,7 @@ $route['Admin-Dashboard'] = 'Admin';
 $route['Course-List'] = 'Admin/course_list';
 $route['Course-Create'] = 'Admin/course_create';
 $route['Course-Edit'] = 'Admin/course_edit';
+$route['Testimonial-Create']='Admin/testimonial_create';
 $route['login']="Auth/login";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

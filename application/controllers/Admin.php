@@ -27,4 +27,9 @@ class Admin extends CI_Controller {
 	public function course_edit(){
 		$this->load->admin_temp('course_edit');
 	}
+	public function testimonial_create(){
+
+		$this->load->admin_temp('testimonial_create');
+		
+	}
 }
