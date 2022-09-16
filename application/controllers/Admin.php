@@ -20,9 +20,11 @@ class Admin extends CI_Controller {
 		$this->load->admin_temp('dashboard');
 	}
 	public function course_list(){
-		$this->load->admin_temp('course_list');
+		$data['page_name']="Course List";
+		$this->load->admin_temp('course_list',$data);
 	}
 	public function course_create(){
+		$data['page_name']="Course Create";
 		if(isset($_POST['submit']))
 		{
 			$course_name = $_POST['course_name'];
@@ -139,14 +141,74 @@ class Admin extends CI_Controller {
 			);
 			$this->CM->save($data,$table_name);
 	    }  
-		$this->load->admin_temp('course_create');
+		$this->load->admin_temp('course_create',$data);
 	}
 	public function course_edit(){
 		$this->load->admin_temp('course_edit');
 	}
 	public function testimonial_create(){
 
-		$this->load->admin_temp('testimonial_create');
+		if(isset($_POST['submit']))
+		{
+			$student_id = $_POST['student_id'];
+			$testimonial_desc = $_POST['testimonial_desc'];
+			$star_rating = $_POST['star_rating'];
+			$status = "1";
+			$created_at = time(); 
+
+		$table_name = "tc_testimonial";
+			$data =array(
+				"student_id"=>$student_id,
+				"testimonial_desc"=>$testimonial_desc,
+				"star_rating"=>$star_rating,
+				"status"=>$status,
+				"created_at"=>$created_at
+			);
+			$redirect = "Testimonial-List"
+			$this->CM->save($data,$table_name,$redirect);
+		}
+		$data['page_name']="Testimonial Create";
+		$this->load->admin_temp('testimonial_create',$data);
+	}
+
+
+	public function testimonial_list(){
+		$table_name="tc_testimonial";
+        $data['testimonial_data']=$this->CM->get($table_name);
+		$this->load->admin_temp('testimonial_list',$data);
+		
+	}
+	public function testimonial_edit(){
+		if(isset($_GET['id'])){
+			$id = $_GET['id'];
+			$where =array(
+				"testimonial_id"=>$id
+			);
+			$table_name="tc_testimonial";
+			$data['testimonial_edit_data']=$this->CM->get($table_name,$where);
+			$data['testimonial_edit_data']=$data['testimonial_edit_data'][0];
+		}
+			if(isset($_POST['submit'])){
+				$student_id = $_POST['student_id'];
+				$testimonial_desc = $_POST['testimonial_desc'];
+				$star_rating = $_POST['star_rating'];
+				$id = $_POST['id'];
+				$updated_at = time(); 
+				$table_name = "tc_testimonial";
+				$redirect = "Testimonial-List";
+				$data =array(
+					"student_id"=>$student_id,
+					"testimonial_desc"=>$testimonial_desc,
+					"star_rating"=>$star_rating,
+					"updated_at"=>$updated_at
+				);
+				$where = array(
+					"testimonial_id"=>$id
+				);
+				$this->CM->update($data,$table_name,$where,$redirect);
+			}
+		$data['page_name']="Testimonial Edit";
+		$this->load->admin_temp('testimonial_edit',$data);
 		
 	}
 }
