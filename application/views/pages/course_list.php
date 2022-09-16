@@ -9,7 +9,14 @@
                             <h4 class="card-title">Course List</h4>
                         </div>
                     </div>
-                
+                <?php if($this->session->Flashdata('message')){ ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <?= $this->$session->Flashdata('message'); ?>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <?php } ?>
                     <div class="card-body">
                     <a href="<?= base_url('Course-Create') ?>" class="btn btn-md btn-success">Create</a>
                         <table class="table table-hover">

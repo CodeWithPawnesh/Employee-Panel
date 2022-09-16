@@ -108,7 +108,7 @@
                                         <label>First Section Description</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea name="sec_1_desc" row="10" class="form-control"></textarea>
+                                        <input type="text" name="sec_1_desc"  class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -249,10 +249,4 @@
  </script>
  <script>
      CKEDITOR.replace( 'benifits_desc' );
- </script>
-  <script>
-     CKEDITOR.replace( 'sec_1_desc' );
- </script>
-  <script>
-     CKEDITOR.replace( 'sec_2_desc' );
  </script>

@@ -5,10 +5,11 @@ class crud_model extends CI_Model
         $query = $this->db->insert($table_name, $data);
         if($query)
         {
+           $this->$session->setFlashdata('item', 'value');
             redirect('Course-List');
         }
     }
-    function update($data,$table_name,$where_data){
+    function update($data,$table_name,$where){
         
     }
 }
