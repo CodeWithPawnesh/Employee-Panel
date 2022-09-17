@@ -17,7 +17,8 @@ class Admin extends CI_Controller {
     }
 	public function index()
 	{
-		$this->load->admin_temp('dashboard');
+		$data['page_name']="Dashboard";
+		$this->load->admin_temp('dashboard',$data);
 	}
 	public function course_list(){
 		$data['page_name']="Course List";
@@ -144,7 +145,8 @@ class Admin extends CI_Controller {
 		$this->load->admin_temp('course_create',$data);
 	}
 	public function course_edit(){
-		$this->load->admin_temp('course_edit');
+		$data['page_name']="Course Edit";
+		$this->load->admin_temp('course_edit',$data);
 	}
 	public function testimonial_create(){
 
@@ -164,7 +166,7 @@ class Admin extends CI_Controller {
 				"status"=>$status,
 				"created_at"=>$created_at
 			);
-			$redirect = "Testimonial-List"
+			$redirect = "Testimonial-List";
 			$this->CM->save($data,$table_name,$redirect);
 		}
 		$data['page_name']="Testimonial Create";

@@ -96,25 +96,69 @@
                     </div>
                 </div>
                 <ul class="nav">
-                    <li class="nav-item active ">
-                        <a class="nav-link" href="">
+                    <?php
+                    $active="";
+                   $current_page =  $_SERVER['REQUEST_URI'] ;
+                   $current_page = explode("/",$current_page);
+                   foreach($current_page as $c_p)
+                   {
+                    if($c_p=="Admin"){
+                        $active = "active";
+                    }
+                   }
+                     ?>
+                    <li class="nav-item <?= $active ?> ">
+                        <a class="nav-link" href="<?= base_url('Admin') ?>">
                             <i class="material-icons">dashboard</i>
                             <p> Dashboard </p>
                         </a>
                     </li>
-                    <li class="nav-item  ">
+                    <?php
+                    $active = "";
+                   $current_page =  $_SERVER['REQUEST_URI'] ;
+                   $current_page = explode("/",$current_page);
+                   foreach($current_page as $c_p)
+                   {
+                    if($c_p=="Course-List"){
+                        $active = "active";
+                    }
+                   }
+                     ?>
+                    <li class="nav-item <?= $active; ?> ">
                         <a class="nav-link" href="<?= base_url('Course-List') ?>">
                             <i class="material-icons">laptop</i>
                             <p> Course </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Batch-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item" <?= $active; ?>>
                         <a class="nav-link" href="">
                             <i class="material-icons">people</i>
                             <p>Batch</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Testimonial-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Testimonial-List">
                             <i class="material-icons">book</i>
                             <p> Testimonial</p>
