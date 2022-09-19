@@ -108,7 +108,7 @@
                                         <label>First Section Description</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea name="sec_1_desc" row="10" class="form-control"></textarea>
+                                        <input type="text" name="sec_1_desc"  class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -144,9 +144,19 @@
                                     <div class="form-group">
                                         <label>Second Section Description</label>
                                     </div>
-                                    <div class="form-group">
-                                        <textarea name="sec_2_desc" class="form-control"></textarea>
+                                    <div id="inputFormRow">
+                                        <div class="input-group mb-3">
+                                               <input type="text" name="sec_2_desc[heading][]" class="form-control m-input" placeholder="Enter Heading" autocomplete="off" rquired>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                               <input type="text" name="sec_2_desc[desc][]" class="form-control m-input" placeholder="Enter Description" autocomplete="off" required>
+                                        </div>
+                                            <div class="input-group-append">
+                                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                                            </div>
                                     </div>
+                                    <div id="newRow"></div>
+                                      <button id="addRow" type="button" class="btn btn-info">Add Row</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -172,7 +182,24 @@
                                         <label>Course Overview Description</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea name="overview_desc" row="10" class="form-control"></textarea>
+                                        <textarea name="overview_desc" row="5" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Overview Point</label>
+                                    </div>
+                                <div class="form-group">
+                                    <div id="overview_pointsinputFormRow">
+                                        <div class="input-group mb-3">
+                                               <input type="text" name="course_overview_points[]" class="form-control m-input" placeholder="Enter Point" autocomplete="off" rquired>
+                                            <div class="input-group-append">
+                                                <button id="removeOverview_PointsRow" type="button" class="btn btn-danger">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="OverViewPointsRow"></div>
+                                      <button id="addOverViewPointsRow" type="button" class="btn btn-info">Add Row</button>
                                     </div>
                                 </div>
                             </div>
@@ -202,6 +229,23 @@
                                         <textarea name="keyoutcome_desc" row="10" class="form-control"></textarea>
                                     </div>
                                 </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Keyoutcome Point</label>
+                                    </div>
+                                <div class="form-group">
+                                    <div id="Keyoutcome_pointsinputFormRow">
+                                        <div class="input-group mb-3">
+                                               <input type="text" name="course_keyoutcome_points[]" class="form-control m-input" placeholder="Enter Point" autocomplete="off" rquired>
+                                            <div class="input-group-append">
+                                                <button id="removeKeyoutcome_PointsRow" type="button" class="btn btn-danger">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="KeyoutcomePointsRow"></div>
+                                      <button id="addKeyoutcomePointsRow" type="button" class="btn btn-info">Add Row</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col">
@@ -229,6 +273,24 @@
                                         <textarea name="benifits_desc" row="10" class="form-control"></textarea>
                                     </div>
                                 </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Benifits Point</label>
+                                    </div>
+                                <div class="form-group">
+                                    <div id="Benifits_pointsinputFormRow">
+                                        <div class="input-group mb-3">
+                                               <input type="text" name="course_Benifits_points[]" class="form-control m-input" placeholder="Enter Point" autocomplete="off" rquired>
+                                            <div class="input-group-append">
+                                                <button id="removeBenifits_PointsRow" type="button" class="btn btn-danger">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="BenifitsPointsRow"></div>
+                                      <button id="addBenifitsPointsRow" type="button" class="btn btn-info">Add Row</button>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                     </div>
                     <div class="card-footer ">
@@ -250,9 +312,86 @@
  <script>
      CKEDITOR.replace( 'benifits_desc' );
  </script>
-  <script>
-     CKEDITOR.replace( 'sec_1_desc' );
- </script>
-  <script>
-     CKEDITOR.replace( 'sec_2_desc' );
- </script>
+    <script type="text/javascript">
+        // add row
+        $("#addRow").click(function () {
+            var html = '';
+            html += '<div id="inputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="sec_2_desc[heading][]" class="form-control m-input" placeholder="Enter Heading" autocomplete="off" rquired>';
+            html += '</div>';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="sec_2_desc[desc][]" class="form-control m-input" placeholder="Enter Description" autocomplete="off" required>';
+            html += '</div>';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+
+            $('#newRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#inputFormRow').remove();
+        });
+    </script>
+    <script type="text/javascript">
+        // add row
+        $("#addOverViewPointsRow").click(function () {
+            var html = '';
+            html += '<div id="overview_pointsinputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="course_overview_points[]" class="form-control m-input" placeholder="Enter Point" autocomplete="off" rquired>';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeOverview_PointsRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#OverViewPointsRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeOverview_PointsRow', function () {
+            $(this).closest('#overview_pointsinputFormRow').remove();
+        });
+    </script>
+    <script type="text/javascript">
+        // add row
+        $("#addKeyoutcomePointsRow").click(function () {
+            var html = '';
+            html += '<div id="Keyoutcome_pointsinputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="course_Keyoutcome_points[]" class="form-control m-input" placeholder="Enter Point" autocomplete="off" rquired>';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeKeyoutcome_PointsRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#KeyoutcomePointsRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeKeyoutcome_PointsRow', function () {
+            $(this).closest('#Keyoutcome_pointsinputFormRow').remove();
+        });
+    </script>
+     <script type="text/javascript">
+        // add row
+        $("#addBenifitsPointsRow").click(function () {
+            var html = '';
+            html += '<div id="Benifits_pointsinputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="course_Benifits_points[]" class="form-control m-input" placeholder="Enter Point" autocomplete="off" rquired>';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeBenifits_PointsRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#BenifitsPointsRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeBenifits_PointsRow', function () {
+            $(this).closest('#Benifits_pointsinputFormRow').remove();
+        });
+    </script>

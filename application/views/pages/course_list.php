@@ -9,57 +9,63 @@
                             <h4 class="card-title">Course List</h4>
                         </div>
                     </div>
-                
+                    <?php if($this->session->Flashdata('message')){ ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <?= $this->$session->Flashdata('message'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php } ?>
                     <div class="card-body">
-                    <a href="<?= base_url('Course-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <a href="<?= base_url('Course-Create') ?>" class="btn btn-md btn-success">Create</a>
                         <table class="table table-hover">
-                            <caption>List of users</caption>
+                            <caption>List of Course</caption>
                             <thead>
                                 <tr>
 
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                    <th scope="col">Handle</th>
-                                    <th scope="col">Action</th>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Course Name</th>
+                                    <th class="text-center">Course Title</th>
+                                    <th class="text-center">Course Abber</th>
+                                    <th class="text-center">Course Level</th>
+                                    <th class="text-center">No. of Seats</th>
+                                    <th class="text-center">No. of Lessons</th>
+                                    <th class="text-center">Language</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i=1; foreach($course_data as $c_d){ ?>
                                 <tr>
-
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td><a href="<?= base_url('Course-Edit') ?>" class="btn btn-sm btn-success">Edit</a></td>
+                                    <td class="text-center"><?= $i++ ; ?></td>
+                                    <td class="text-center"><?= $c_d['course_name']; ?></td>
+                                    <td class="text-center"><?= $c_d['course_title']; ?></td>
+                                    <td class="text-center"><?= $c_d['course_abber']; ?></td>
+                                    <td class="text-center"><?= $c_d['course_level']; ?></td>
+                                    <td class="text-center"><?= $c_d['no_of_seats']; ?></td>
+                                    <td class="text-center"><?= $c_d['no_of_lessons']; ?></td>
+                                    <td class="text-center"><?= $c_d['language']; ?></td>
+                                    <?php if($c_d['status']=='1'){ ?>
+                                    <td class="text-center text-success">Active</td>
+                                    <?php } ?>
+                                    <?php if($c_d['status']=='0'){ ?>
+                                    <td class="text-center text-danger">In-Active</td>
+                                    <?php } ?>
+                                    <td>
+                                        <a href="<?= base_url('Course-Edit?id='); echo $c_d['course_id']; ?>" class="btn btn-sm btn-success">Edit</a>
+                                        <br>
+                                        <?php if($c_d['status']=='1'){ ?>
+                                            <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=0" class="btn btn-sm btn-danger">Un-Publish</a>
+                                         <?php } ?>
+                                         <?php if($c_d['status']=='0'){ ?>
+                                            <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=1" class="btn btn-sm btn-success">Publish</a>
+                                         <?php } ?>
+                                    </td>
                                 </tr>
-                                <tr>
-
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td><a href="<?= base_url('Course-Edit') ?>" class="btn btn-sm btn-success">Edit</a></td>
-                                </tr>
-                                <tr>
-
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td><a href="<?= base_url('Course-Edit') ?>" class="btn btn-sm btn-success">Edit</a></td>
-                                </tr>
-                                <tr>
-
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td><a href="<?= base_url('Course-Edit') ?>" class="btn btn-sm btn-success">Edit</a></td>
-                                </tr>
-
+                                <?php } ?>
                             </tbody>
-
                         </table>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
