@@ -52,16 +52,6 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="col">
-                                    <div class="form-group">
-                                        <label>status</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="status" type="radio" value="0">active
-                                        <input name="status" type="radio" value="1">inactive
-                                    </div>
-                                </div> -->
-
                             </div>
                             <div class="card-footer ">
                         <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>

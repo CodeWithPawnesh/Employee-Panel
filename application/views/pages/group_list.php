@@ -6,31 +6,32 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Batch List</h4>
+                            <h4 class="card-title">Group List</h4>
                         </div>
                     </div>
 
                     <div class="card-body">
-                    <a href="<?= base_url('batch-create') ?>" class="btn btn-md btn-success">Create</a>
+                    <a href="<?= base_url('Group-Create') ?>" class="btn btn-md btn-success">Create</a>
                         <table class="table table-hover">
                             <caption>List of users</caption>
                             <thead>
                                 <tr>
 
-                                    <th class="text-center">batch_id</th>
-                                    <th scope="col">batch_name</th>
-                                    <th scope="col">course_id</th>
-                                    <th scope="col">Action</th>
+                                    <th class="text-center">Group_Id</th>
+                                    <th scope="col">Group Name</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Batch</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($batch_data as $row) { ?>
+                            <?php foreach ($group_data as $row) { ?>
                                 <tr>
-                                    <td><?php echo $row['batch_id']; ?></td>
-                                    <td><?php echo $row['batch_name']; ?></td>
+                                    <td><?php echo $row['group_id']; ?></td>
+                                    <td><?php echo $row['group_name']; ?></td>
                                     <td><?php echo $row['course_id']; ?></td>
-                                    <td><a href="<?= base_url('Batch-Edit?id=');echo $row['batch_id']; ?>" class="btn btn-sm btn-success">Edit</a></td>
+                                    <td><?php echo $row['batch_id']; ?></td>
+                                    <td><a href="<?= base_url('Group-Edit?id=');echo $row['group_id']; ?>" class="btn btn-sm btn-success">Edit</a></td>
                                 </tr>
                                 <?php } ?>
                                 
