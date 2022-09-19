@@ -15,6 +15,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="assets/assets/assets-for-demo/demo.css" rel="stylesheet" />
     <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- iframe removal -->
     <script type="text/javascript">
     if (document.readyState === 'complete') {

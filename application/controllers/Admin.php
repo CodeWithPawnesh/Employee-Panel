@@ -21,7 +21,22 @@ class Admin extends CI_Controller {
 		$this->load->admin_temp('dashboard',$data);
 	}
 	public function course_list(){
+		if(isset($_GET['id']) && isset($_GET['status']) ){
+			$id = $_GET['id'];
+			$status =$_GET['status'];
+			$table_name = "tc_course";
+			$data = array(
+				"status"=>$status
+			);
+			$where = array(
+				"course_id"=>$id
+			);
+			$this->CM->update($data,$table_name,$where);
+		}
 		$data['page_name']="Course List";
+		$table_name="tc_course";
+        $data['course_data']=$this->CM->get($table_name);
+	 
 		$this->load->admin_temp('course_list',$data);
 	}
 	public function course_create(){
@@ -37,15 +52,22 @@ class Admin extends CI_Controller {
 			$language = $_POST['language'];
 			$overview_heading = $_POST['overview_heading'];
 			$overview_desc = $_POST['overview_desc'];
+			$overview_points = $_POST['course_overview_points'];
+			$overview_points =json_encode($overview_points);
 			$keyoutcome_heading = $_POST['keyoutcome_heading'];
 			$keyoutcome_desc = $_POST['keyoutcome_desc'];
+			$keyoutcome_points = $_POST['course_keyoutcome_points'];
+			$keyoutcome_points = json_encode($keyoutcome_points);
 			$benifits_heading = $_POST['benifits_heading'];
 			$benifits_desc = $_POST['benifits_desc'];
+			$benifits_points = $_POST['course_Benifits_points'];
+			$benifits_points = json_encode($benifits_points);
 			$sec_1_heading = $_POST['sec_1_heading'];
 			$sec_1_desc = $_POST['sec_1_desc'];
 			$sec_2_heading = $_POST['sec_2_heading'];
 			$sec_2_sub_heading = $_POST['sec_2_sub_heading'];
 			$sec_2_desc = $_POST['sec_2_desc'];
+			$sec_2_desc = json_encode($sec_2_desc);
 			$created_at = time() ;
 			if($_FILES['overview_img']['size']>0)
 			{
@@ -113,6 +135,7 @@ class Admin extends CI_Controller {
 				}
 		    }
 			$table_name = "tc_course";
+			$redirect = "Course-List";
 			$data =array(
 				"course_name"=>$course_name,
 				"course_title"=>$course_title,
@@ -137,15 +160,27 @@ class Admin extends CI_Controller {
 				"sec_2_sub_heading"=>$sec_2_sub_heading,
 				"sec_2_desc"=>$sec_2_desc,
 				"sec_2_img"=>$sec_2_img,
+				"overview_points"=>$overview_points,
+				"keyoutcome_points"=>$keyoutcome_points,
+				"benifits_points"=>$benifits_points,
 				"created_at"=>$created_at,
 				"status"=>"1"
 			);
-			$this->CM->save($data,$table_name);
+			$this->CM->save($data,$table_name,$redirect);
 	    }  
 		$this->load->admin_temp('course_create',$data);
 	}
 	public function course_edit(){
+		if(isset($_GET['id'])){
 		$data['page_name']="Course Edit";
+		$table_name="tc_course";
+		$id = $_GET['id'];
+		$where=array(
+			"course_id"=>$id
+		);
+        $data['course_data']=$this->CM->get($table_name,$where);
+		$data['course_data']=$data['course_data'][0]; 
+		}
 		$this->load->admin_temp('course_edit',$data);
 	}
 	public function testimonial_create(){

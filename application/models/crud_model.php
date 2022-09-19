@@ -8,10 +8,10 @@ class crud_model extends CI_Model
             redirect($redirect);
         }
     }
-    function update($data,$table_name,$where,$redirect){
+    function update($data,$table_name,$where,$redirect=NULL){
         $this->db->where($where);
         $query = $this->db->update($table_name, $data);
-        if($query){
+        if($query && $redirect!=NULL){
             redirect($redirect);
         }
     }
