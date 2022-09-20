@@ -33,10 +33,18 @@ class Admin extends CI_Controller {
 			);
 			$this->CM->update($data,$table_name,$where);
 		}
-		$data['page_name']="Course List";
+		if(isset($_GET['page'])){
+			$page_no = $_GET['page']; 
+		}else{
+			$page_no = 1;
+		}
+		$order_by = "course_id";
 		$table_name="tc_course";
-        $data['course_data']=$this->CM->get($table_name);
-	 
+		$limit = 1;
+		$offset = ($page_no-1) * $limit; 
+		$row = $this->CM->get_row($table_name);
+		$data['total_pages'] = ceil($row/$limit);
+        $data['course_data']=$this->CM->get($table_name,$limit,$offset,$order_by);
 		$this->load->admin_temp('course_list',$data);
 	}
 	public function course_create(){
