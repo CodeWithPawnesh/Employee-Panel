@@ -254,6 +254,131 @@ class Admin extends CI_Controller {
 			}
 		$data['page_name']="Testimonial Edit";
 		$this->load->admin_temp('testimonial_edit',$data);
-		
 	}
+
+     public function batch_create(){
+		if(isset($_POST['submit'])){
+			$course_id = $_POST['course_id'];
+			$batch_name = $_POST['batch_name'];
+			$created_at = time();
+
+            $table_name = "tc_batch";
+			$data = array(
+                "course_id" => $course_id,
+				"batch_name" => $batch_name,
+				"created_at"=>$created_at
+			);
+
+			$redirect = "";
+			$this->CM->save($data,$table_name,$redirect);
+
+		}
+        $data['page_name']="batch create";
+		$this->load->admin_temp('batch_create',$data);
+	 }
+
+	 public function batch_list(){
+		$table_name="tc_batch";
+        $data['batch_data']=$this->CM->get($table_name);
+		$this->load->admin_temp('batch_list',$data);
+	 }
+
+	 public function batch_edit(){
+
+		if(isset($_GET['id'])){
+			$id = $_GET['id'];
+			$where =array(
+				"batch_id"=>$id
+			);
+			$table_name="tc_batch";
+			$data['batch_edit_data']=$this->CM->get($table_name,$where);
+			$data['batch_edit_data']=$data['batch_edit_data'][0];
+		}
+			if(isset($_POST['submit'])){
+				$course_id = $_POST['course_id'];
+			    $batch_name = $_POST['batch_name'];
+				$id = $_POST['id'];
+				$updated_at = time(); 
+				$table_name = "tc_batch";
+				$redirect = "batch-List";
+				$data =array(
+					"course_id" => $course_id,
+				    "batch_name" => $batch_name,
+					"updated_at"=>$updated_at
+				);
+				$where = array(
+					"batch_id"=>$id
+				);
+				$this->CM->update($data,$table_name,$where,$redirect);
+			}
+        $data['page_name']="batch edit";
+		$this->load->admin_temp('batch_edit',$data);
+}
+
+        public function group_create(){
+
+	if(isset($_POST['submit'])){
+		$group_name = $_POST['group_name'];
+		$course_id = $_POST['course_id'];
+		$batch_id = $_POST['batch_id'];
+		$created_at = time();
+
+		$table_name = "tc_batch_group";
+		$data = array(
+			"group_name" => $group_name,
+			"course_id" => $course_id,
+			"batch_id" => $batch_id,
+			"created_at"=>$created_at
+		);
+
+		$redirect = "group_list";
+		$this->CM->save($data,$table_name,$redirect);
+
+	}
+
+	$data['page_name']="Group Create";
+	$this->load->admin_temp('group_create',$data);
+}
+
+  public function group_list(){
+	    $table_name="tc_batch_group";
+        $data['group_data']=$this->CM->get($table_name);
+		$this->load->admin_temp('group_list',$data);
+  }
+
+  public function group_edit(){
+
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		$where =array(
+			"group_id"=>$id
+		);
+		$table_name="tc_batch_group";
+		$data['group_edit_data']=$this->CM->get($table_name,$where);
+		$data['group_edit_data']=$data['group_edit_data'][0];
+	}
+		if(isset($_POST['submit'])){
+			$group_name = $_POST['group_name'];
+		    $course_id = $_POST['course_id'];
+		    $batch_id = $_POST['batch_id'];
+		    $created_at = time();
+			$id = $_POST['id']; 
+			$table_name = "tc_batch_group";
+			$redirect = "group_list";
+			$data =array(
+				"group_name" => $group_name,
+			    "course_id" => $course_id,
+			    "batch_id" => $batch_id,
+			    "created_at"=>$created_at   
+			);
+			$where = array(
+				"group_id"=>$id
+			);
+			$this->CM->update($data,$table_name,$where,$redirect);
+		}
+
+	$data['page_name']="Group Create";
+	$this->load->admin_temp('group_create',$data);
+  }
+
 }
