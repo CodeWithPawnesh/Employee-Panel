@@ -17,8 +17,8 @@
                                         <label>Course</label>
                                     </div>
                                     <div class="form-group">
-                                        <select name="course_id" class="form-control">
-                                            <option value="0">course1</option>
+                                        <select name="course_id" class="form-control" required>
+                                            <option value="0">Select Any One Option</option>
                                             <option value="1">course2</option>
                                             <option value="2">course3</option>
                                             <option value="3">course4</option>
@@ -30,7 +30,7 @@
                                 <label>Batch Name</label>
                                  </div>
                                  <div class="form-group">
-                                   <input type="text" name="batch_name">
+                                   <input type="text" name="batch_name" class="form-control" placeholder="Start Writing Here..." required>
                                  </div>
                                 </div>
                             </div>

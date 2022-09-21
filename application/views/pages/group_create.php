@@ -18,7 +18,7 @@
                                         <label>Group Name</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="group_name">
+                                        <input type="text" class="form-control" name="group_name">
                                     </div>
                                 </div>
 

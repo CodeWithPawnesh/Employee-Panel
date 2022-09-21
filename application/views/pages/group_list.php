@@ -17,21 +17,38 @@
                             <thead>
                                 <tr>
 
-                                    <th class="text-center">Group_Id</th>
-                                    <th scope="col">Group Name</th>
-                                    <th scope="col">Course</th>
-                                    <th scope="col">Batch</th>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Group Name</th>
+                                    <th class="text-center">Course</th>
+                                    <th class="text-center">Batch</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($group_data as $row) { ?>
+                            <?php $i=1; foreach ($group_data as $g_d) { ?>
                                 <tr>
-                                    <td><?php echo $row['group_id']; ?></td>
-                                    <td><?php echo $row['group_name']; ?></td>
-                                    <td><?php echo $row['course_id']; ?></td>
-                                    <td><?php echo $row['batch_id']; ?></td>
-                                    <td><a href="<?= base_url('Group-Edit?id=');echo $row['group_id']; ?>" class="btn btn-sm btn-success">Edit</a></td>
+                                    <td class="text-center"><?= $i++; ?></td>
+                                    <td class="text-center"><?= $g_d['group_name']; ?></td>
+                                    <td class="text-center"><?= $g_d ['course_id']; ?></td>
+                                    <td class="text-center"><?= $g_d ['batch_id']; ?></td>
+                                    <?php  if($g_d['status']=='1'){ ?>
+                                    <td class="text-success text-center">Active</td>
+                                    <?php } ?>
+                                    <?php  if($g_d['status']=='0'){ ?>
+                                    <td class="text-danger text-center">In Active</td>
+                                    <?php } ?>
+                                    <td class="text-center">
+                                        <a href="<?= base_url('Group-Edit?id=');echo $g_d['group_id']; ?>" class="btn btn-sm btn-success">Edit</a>
+                                        <br>
+                                        <?php if($g_d['status']=='1'){ ?>
+                                            <a href="<?= base_url('Group-List?id='); echo $g_d['group_id']; ?>&status=0" class="btn btn-sm btn-danger">Un-Publish</a>
+                                         <?php } ?>
+                                         <?php if($g_d['status']=='0'){ ?>
+                                            <a href="<?= base_url('Group-List?id='); echo $g_d['group_id']; ?>&status=1" class="btn btn-sm btn-success">Publish</a>
+                                         <?php } ?>
+                                    </td>
                                 </tr>
                                 <?php } ?>
                                 
@@ -41,14 +58,15 @@
                         </table>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                <li class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
+                                    <a class="page-link" href="<?= base_url('Group-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>" tabindex="-1">Previous</a>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <?php for($i=1; $i<=$total_pages;$i++){ ?>
+    
+                                <li class="page-item"><a class="page-link" href="<?= base_url('Group-List?page='); echo $i ?>"><?= $i; ?></a></li>
+                                <?php } ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                    <a class="page-link" href="<?= base_url('Group-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>

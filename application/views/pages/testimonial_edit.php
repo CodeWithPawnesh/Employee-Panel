@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>student id</label>
+                                        <label>Student id</label>
                                     </div>
                                     <div class="form-group">
                                         <select name="student_id" class="form-control">
@@ -39,15 +39,16 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>star rating</label>
+                                        <label>Star rating</label>
                                     </div>
                                     <div class="form-group">
                                     <select name="star_rating" class="form-control">
-                                            <option value="0">0</option>
+                                            <option value="">Select Any One Option</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
+                                            <option value="5">5</option>
                                         </select>
                                     </div>
                                 </div>

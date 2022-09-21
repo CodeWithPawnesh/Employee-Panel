@@ -70,14 +70,14 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 <li class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
-                                    <a class="page-link" href="<?= base_url('Course-List?page='); echo $_GET['page']-1 ; ?>" tabindex="-1">Previous</a>
+                                    <a class="page-link" href="<?= base_url('Course-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>" tabindex="-1">Previous</a>
                                 </li>
                                 <?php for($i=1; $i<=$total_pages;$i++){ ?>
     
                                 <li class="page-item"><a class="page-link" href="<?= base_url('Course-List?page='); echo $i ?>"><?= $i; ?></a></li>
                                 <?php } ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= base_url('Course-List?page='); echo $_GET['page']+1 ; ?>">Next</a>
+                                    <a class="page-link" href="<?= base_url('Course-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>

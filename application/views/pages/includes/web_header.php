@@ -142,10 +142,27 @@
                      }
                     }
                      ?>
-                    <li class="nav-item" <?= $active; ?>>
-                        <a class="nav-link" href="">
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Batch-List">
                             <i class="material-icons">people</i>
                             <p>Batch</p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Group-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Group-List">
+                            <i class="material-icons">group</i>
+                            <p>Group</p>
                         </a>
                     </li>
                     <?php

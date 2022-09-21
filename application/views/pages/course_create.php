@@ -149,7 +149,7 @@
                                                <input type="text" name="sec_2_desc[heading][]" class="form-control m-input" placeholder="Enter Heading" autocomplete="off" rquired>
                                         </div>
                                         <div class="input-group mb-3">
-                                               <input type="text" name="sec_2_desc[desc][]" class="form-control m-input" placeholder="Enter Description" autocomplete="off" required>
+                                               <textarea type="text" name="sec_2_desc[desc][]" class="form-control m-input" placeholder="Enter Description" autocomplete="off"></textarea>
                                         </div>
                                             <div class="input-group-append">
                                                 <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
@@ -244,7 +244,7 @@
                                     </div>
                                     <div id="KeyoutcomePointsRow"></div>
                                       <button id="addKeyoutcomePointsRow" type="button" class="btn btn-info">Add Row</button>
-                                    </div>
+                                </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -288,14 +288,14 @@
                                     </div>
                                     <div id="BenifitsPointsRow"></div>
                                       <button id="addBenifitsPointsRow" type="button" class="btn btn-info">Add Row</button>
-                                    </div>
+                                </div>
                                 </div>
                             </div>
                             </div>
                     </div>
                     <div class="card-footer ">
                         <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
-                    </div>
+                    </div>  
                 </div>
                 </form>
             </div>
@@ -321,7 +321,7 @@
             html += '<input type="text" name="sec_2_desc[heading][]" class="form-control m-input" placeholder="Enter Heading" autocomplete="off" rquired>';
             html += '</div>';
             html += '<div class="input-group mb-3">';
-            html += '<input type="text" name="sec_2_desc[desc][]" class="form-control m-input" placeholder="Enter Description" autocomplete="off" required>';
+            html += '<textarea type="text" name="sec_2_desc[desc][]" class="form-control m-input" placeholder="Enter Description" autocomplete="off"></textarea>';
             html += '</div>';
             html += '<div class="input-group-append">';
             html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
