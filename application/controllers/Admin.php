@@ -423,15 +423,29 @@ class Admin extends CI_Controller {
 
      public function batch_create(){
 		$user_info = $this->session->userdata('user_data');
+		$table_name = "tc_course";
+		$select = 'course_id,course_name,course_abber';
+		$data['course_data'] = $this->CM->get($table_name,$limit=NULL,$offset=NULL,$order_by=NULL,$where=Null,$select); 
 		if(isset($_POST['submit'])){
-			$course_id = $_POST['course_id'];
-			$batch_name = $_POST['batch_name'];
+			$course_data = $_POST['course_data'];
+			$course_data = explode(',',$course_data);
+			$course_id = $course_data[0];
+			$course_abber = $course_data[1];
+			$table_name = "tc_batch";
+			$where = array(
+				"course_id"=>$course_id
+			);
+		    $batch_row=$this->CM->get_row($table_name,$where=Null);
+			$batch_id = $batch_row +1;
+		    $batch_number = $course_abber."-BATCH-".$batch_id;
+		    $batch_name = $_POST['batch_name'];
 			$created_at = time();
 			$created_by = $user_info->id;
             $table_name = "tc_batch";
 			$data = array(
                 "course_id" => $course_id,
 				"batch_name" => $batch_name,
+				"batch_number" => $batch_number,
 				"created_at"=>$created_at,
 				"created_by"=>$created_by,
 				"status"=>'1'
@@ -469,7 +483,8 @@ class Admin extends CI_Controller {
 		$offset = ($page_no-1) * $limit; 
 		$row = $this->CM->get_row($table_name);
 		$data['total_pages'] = ceil($row/$limit);
-        $data['batch_data']=$this->CM->get($table_name,$limit,$offset,$order_by);
+		$sql = "SELECT b.*, c.course_name FROM tc_batch as b, tc_course as c WHERE b.course_id = c.course_id";
+        $data['batch_data']=$this->CM->get_join($sql); 
 		$this->load->admin_temp('batch_list',$data);
 	 }
 
@@ -504,9 +519,131 @@ class Admin extends CI_Controller {
         $data['page_name']="batch edit";
 		$this->load->admin_temp('batch_edit',$data);
 }
+         public function batch_instructor_list()
+		   {
+			if(isset($_GET['id']) && isset($_GET['status']) ){
+				$id = $_GET['id'];
+				$status =$_GET['status'];
+				$table_name = "tc_batch";
+				$data = array(
+					"status"=>$status
+				);
+				$where = array(
+					"batch_id"=>$id
+				);
+				$this->CM->update($data,$table_name,$where);
+			}	
+			if(isset($_GET['batch_id'])){
+				$batch_id = $_GET['batch_id'];
+				if(isset($_GET['page'])){
+					$page_no = $_GET['page']; 
+				}else{
+					$page_no = 1;
+				}
+				$order_by = "emp_id";
+				$limit = 10;
+				$offset = ($page_no-1) * $limit; 
+				$table_name="tc_employee";
+				$where= array(
+					"batch_id"=> $batch_id
+				);
+				$row = $this->CM->get_row($table_name,$where);
+				$data['total_pages'] = ceil($row/$limit);
+
+				$data['batch_inst_data']=$this->CM->get($table_name,$limit,$offset,$order_by,$where);
+			}
+			$data['page_name']="batch instructor";
+		    $this->load->admin_temp('batch_instructor_list',$data);
+           }
+		   public function add_instructor(){
+			$data['page_name']="batch instructor";
+			if(isset($_GET['id']) && isset($_GET['status']) ){
+				$id = $_GET['id'];
+				$status =$_GET['status'];
+				$table_name = "tc_";
+				$data = array(
+					"status"=>$status
+				);
+				$where = array(
+					"batch_id"=>$id
+				);
+				$this->CM->update($data,$table_name,$where);
+			}	
+			if(isset($_GET['batch_id'])){
+				$sql = "SELECT em.emp_id AS emp_id, co.course_name AS course_name, co.course_level AS levels, co.no_of_seats AS seats,
+				 em.emp_name AS emp_name, em.role AS role, em.group_id AS group_id, em.designation AS designation FROM tc_employee AS 
+				 em, tc_course AS co, tc_batch AS b WHERE em.status = 1 AND co.status = 1 AND b.status = 1 AND co.course_id = em.course_id 
+				 AND b.course_id = co.course_id AND b.batch_id = ".$_GET['batch_id']."";
+				$data['batch_inst_data']=$this->CM->get_join($sql);
+			}
+			if(isset($_POST['submit'])){
+				$instructor_id = $_POST['instructor_id'];
+				$batch_id = $_POST['batch_id'];
+				$data= array(
+					"batch_id"=>$batch_id,
+				);
+				$where =$instructor_id;
+			$table_name = "tc_employee";
+			$redirect = "Batch-Instructor-List?page=1&batch_id=".$batch_id;
+			$where_in_column = "emp_id";
+			$this->CM->update_in($data,$table_name,$where,$redirect,$where_in_column);
+			}
+			if(isset($_GET['group_id'])){
+				$sql = "SELECT em.emp_id AS emp_id, co.course_name AS course_name, co.course_level AS levels, co.no_of_seats AS seats,
+				 em.emp_name AS emp_name, em.role AS role, em.group_id AS group_id, em.designation AS designation FROM tc_employee AS 
+				 em, tc_course AS co, tc_batch_group AS g WHERE em.status = 1 AND co.status = 1 AND g.status = 1 AND co.course_id = em.course_id 
+				 AND g.course_id = co.course_id AND g.group_id = ".$_GET['group_id']." AND g.batch_id = em.batch_id";
+				$data['group_inst_data']=$this->CM->get_join($sql);
+			}
+			if(isset($_POST['inst_add_submit'])){
+				$instructor_id = $_POST['instructor_id'];
+				$group_id = $_POST['group_id'];
+				$data= array(
+					"group_id"=>$group_id,
+				);
+				$where =$instructor_id;
+			$table_name = "tc_employee";
+			$redirect = "Group-Instructor-List?page=1&group_id=".$group_id;
+			$where_in_column = "emp_id";
+			$this->CM->update_in($data,$table_name,$where,$redirect,$where_in_column);
+			}
+		    $this->load->admin_temp('add_instructor',$data);
+		   }
 
         public function group_create(){
-
+			if(isset($_POST['course_id'])){
+				$course_id = $_POST['course_id'];
+				$table_name = "tc_batch";
+				$select = "batch_id, batch_name, batch_number";
+				$where = " status = 1 AND course_id =".$course_id;
+				$data['batch_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
+			}
+			if(isset($_POST['submit'])){
+				$course_id = $_POST['course_id'];
+				$batch_id = $_POST['batch_id'];
+				$group_name = $_POST['group_name'];
+				$table_name = "tc_course";
+				$select = "course_abber";
+				$where = " status = 1 AND course_id =".$course_id;
+				$course_abber = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
+				$course_abber = $course_abber[0]['course_abber'];
+				$table_name = "tc_batch_group";
+				$group_row=$this->CM->get_row($table_name,);
+			    $group_id = $group_row +1;
+		        $group_number = $course_abber."-GROUP-".$group_id;
+				$table_name = "tc_batch_group";
+				$created_at = time();
+				$data = array(
+					"group_name"=>$group_name,
+					"group_number"=>$group_number,
+					"course_id"=>$course_id,
+					"batch_id"=>$batch_id,
+					"created_at"=>$created_at,
+					"status"=>"1"
+				);
+				$redirect = "Group-List";
+				$this->CM->save($data,$table_name,$redirect);
+			}
 	if(isset($_POST['submit'])){
 		$group_name = $_POST['group_name'];
 		$course_id = $_POST['course_id'];
@@ -522,11 +659,14 @@ class Admin extends CI_Controller {
 			"created_at"=>$created_at
 		);
 
-		$redirect = "group_list";
+		$redirect = "Group-List";
 		$this->CM->save($data,$table_name,$redirect);
 
 	}
-
+	$table_name = "tc_course";
+	$select = "course_id, course_name";
+	$where = "status = 1";
+	$data['course_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
 	$data['page_name']="Group Create";
 	$this->load->admin_temp('group_create',$data);
 }
@@ -555,7 +695,9 @@ class Admin extends CI_Controller {
 	$offset = ($page_no-1) * $limit; 
 	$row = $this->CM->get_row($table_name);
 	$data['total_pages'] = ceil($row/$limit);
-    $data['group_data']=$this->CM->get($table_name,$limit,$offset,$order_by);
+	$sql = "SELECT g.*, c.course_name, b.batch_name, b.batch_number FROM tc_batch_group AS g, tc_batch AS b, tc_course AS c WHERE 
+	c.course_id = g.course_id AND b.batch_id = g.batch_id";
+    $data['group_data']=$this->CM->get_join($sql);
 	$this->load->admin_temp('group_list',$data);
   }
 
@@ -592,6 +734,42 @@ class Admin extends CI_Controller {
 
 	$data['page_name']="Group Create";
 	$this->load->admin_temp('group_create',$data);
+  }
+  public function group_inst_list(){
+	
+	if(isset($_GET['id']) && isset($_GET['status']) ){
+		$id = $_GET['id'];
+		$status =$_GET['status'];
+		$table_name = "tc_batch";
+		$data = array(
+			"status"=>$status
+		);
+		$where = array(
+			"batch_id"=>$id
+		);
+		$this->CM->update($data,$table_name,$where);
+	}	
+	if(isset($_GET['group_id'])){
+		$group_id = $_GET['group_id'];
+		if(isset($_GET['page'])){
+			$page_no = $_GET['page']; 
+		}else{
+			$page_no = 1;
+		}
+		$order_by = "emp_id";
+		$limit = 10;
+		$offset = ($page_no-1) * $limit; 
+		$table_name="tc_employee";
+		$where= array(
+			"group_id"=> $group_id
+		);
+		$row = $this->CM->get_row($table_name,$where);
+		$data['total_pages'] = ceil($row/$limit);
+
+		$data['group_inst_data']=$this->CM->get($table_name,$limit,$offset,$order_by,$where);
+	}
+	$data['page_name']="Group Create";
+	$this->load->admin_temp('group_instructor_list',$data);
   }
 
 }

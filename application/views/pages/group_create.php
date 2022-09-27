@@ -3,6 +3,37 @@
         <!-- Main content start -->
         <div class="row">
             <div class="col-md-12">
+                <?php if(!isset($_POST['course_id'])){ ?>
+                <div class="card">
+                    <div class="card-header card-header-text card-header-info">
+                        <div class="card-text">
+                            <h4 class="card-title">Group Create</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form  method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="course_id" class="form-control">
+                                            <?php foreach($course_data as $c_d){ ?>
+                                            <option value="<?= $c_d['course_id'] ; ?>"><?= $c_d['course_name']; ?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="card-footer ">
+                        <button  class="btn btn-sm btn-success">Next</button>
+                    </div>
+                    </form>
+                </div>
+                <?php } if(isset($_POST['course_id'])){ ?>
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
@@ -12,53 +43,35 @@
                     <div class="card-body">
                         <form action="admin/group_create" method="post">
                             <div class="row">
-
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Select One Batch</label>
+                                    </div>
+                                    <input type="hidden" name="course_id" value = "<?= $_POST['course_id']; ?>">
+                                    <div class="form-group">
+                                        <select name="batch_id" class="form-control">
+                                            <?php foreach($batch_data as $b_d){ ?>
+                                            <option value="<?= $b_d['batch_id'] ; ?>"><?= $b_d['batch_name']; ?> (<?= $b_d['batch_number']; ?>)</option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Group Name</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="group_name">
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Course</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <select name="course_id" class="form-control">
-                                            <option value="0">Course1</option>
-                                            <option value="1">Course2</option>
-                                            <option value="2">Course3</option>
-                                            <option value="3">Course4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Batch</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <select name="batch_id" class="form-control">
-                                            <option value="0">batch1</option>
-                                            <option value="1">batch2</option>
-                                            <option value="2">batch3</option>
-                                            <option value="3">batch4</option>
-                                        </select>
+                                        <input type="text" class="form-control" name="group_name" required>
                                     </div>
                                 </div>
                             </div>
                     </div>
-
                     <div class="card-footer ">
                         <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
                     </div>
                     </form>
                 </div>
-
+                <?php } ?>
             </div>
         </div>
     </div>

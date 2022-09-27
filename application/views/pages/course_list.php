@@ -43,7 +43,15 @@
                                     <td class="text-center"><?= $c_d['course_name']; ?></td>
                                     <td class="text-center"><?= $c_d['course_title']; ?></td>
                                     <td class="text-center"><?= $c_d['course_abber']; ?></td>
-                                    <td class="text-center"><?= $c_d['course_level']; ?></td>
+                                    <?php if($c_d['course_level']=='1'){ ?>
+                                    <td class="text-center">Beginner</td>
+                                    <?php } ?>
+                                    <?php if($c_d['course_level']=='2'){ ?>
+                                    <td class="text-center">Intermediate</td>
+                                    <?php } ?>
+                                    <?php if($c_d['course_level']=='3'){ ?>
+                                    <td class="text-center">Advance</td>
+                                    <?php } ?>
                                     <td class="text-center"><?= $c_d['no_of_seats']; ?></td>
                                     <td class="text-center"><?= $c_d['no_of_lessons']; ?></td>
                                     <td class="text-center"><?= $c_d['language']; ?></td>

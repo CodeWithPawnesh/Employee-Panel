@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="assets/assets/css/material-dashboard.min.css?v=2.0.1">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="assets/assets/assets-for-demo/demo.css" rel="stylesheet" />
     <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
@@ -127,7 +129,7 @@
                      ?>
                     <li class="nav-item <?= $active; ?> ">
                         <a class="nav-link" href="<?= base_url('Course-List') ?>">
-                            <i class="material-icons">laptop</i>
+                            <i class="material-icons">book-open</i>
                             <p> Course </p>
                         </a>
                     </li>
@@ -144,7 +146,7 @@
                      ?>
                     <li class="nav-item <?= $active; ?>" >
                         <a class="nav-link" href="Batch-List">
-                            <i class="material-icons">people</i>
+                            <i class="material-icons">laptop</i>
                             <p>Batch</p>
                         </a>
                     </li>
@@ -171,6 +173,40 @@
                     $current_page = explode("/",$current_page);
                     foreach($current_page as $c_p)
                     {
+                     if($c_p=="Assignment"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Assignment">
+                            <i class="material-icons">assignment</i>
+                            <p>Assignment</p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Quiz"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Quiz">
+                            <i class="material-icons">quiz</i>
+                            <p> Quiz</p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
                      if($c_p=="Testimonial-List"){
                          $active = "active";
                      }
@@ -178,7 +214,7 @@
                      ?>
                     <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Testimonial-List">
-                            <i class="material-icons">book</i>
+                            <i class="material-icons">star</i>
                             <p> Testimonial</p>
                         </a>
                     </li>

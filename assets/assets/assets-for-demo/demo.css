@@ -6,6 +6,9 @@ label{
     color: #9C27B0;
     font-size: large;
 }
+.opt_row{
+    display: none;
+}
 .presentation-page {
     overflow-x: hidden;
 }

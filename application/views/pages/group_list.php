@@ -19,6 +19,8 @@
 
                                     <th class="text-center">#</th>
                                     <th class="text-center">Group Name</th>
+                                    <th class="text-center">Group Number</th>
+                                    <th class="text-center">View Instructor</th>
                                     <th class="text-center">Course</th>
                                     <th class="text-center">Batch</th>
                                     <th class="text-center">Status</th>
@@ -31,8 +33,10 @@
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?= $g_d['group_name']; ?></td>
-                                    <td class="text-center"><?= $g_d ['course_id']; ?></td>
-                                    <td class="text-center"><?= $g_d ['batch_id']; ?></td>
+                                    <td class="text-center"><?= $g_d['group_number']; ?></td>
+                                    <td class="text-center"><a href="<?= base_url('Group-Instructor-List?page=1&group_id='); echo $g_d['group_id']?>" class="">View Instructors</a></td>
+                                    <td class="text-center"><?= $g_d ['course_name']; ?></td>
+                                    <td class="text-center"><?= $g_d ['batch_name']; ?> (<?= $g_d ['batch_number']; ?>)</td>
                                     <?php  if($g_d['status']=='1'){ ?>
                                     <td class="text-success text-center">Active</td>
                                     <?php } ?>

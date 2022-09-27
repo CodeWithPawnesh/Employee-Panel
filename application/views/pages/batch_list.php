@@ -19,6 +19,8 @@
 
                                     <th class="text-center">#</th>
                                     <th class="text-center">Batch Name</th>
+                                    <th class="text-center">Batch Number</th>
+                                    <th class="text-center">Instructor</th>
                                     <th class="text-center">Course</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
@@ -30,7 +32,9 @@
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?php echo $b_d['batch_name']; ?></td>
-                                    <td class="text-center"><?php echo $b_d['course_id']; ?></td>
+                                    <td class="text-center"><?php echo $b_d['batch_number']; ?></td>
+                                    <td class="text-center"><a href="<?= base_url('Batch-Instructor-List?page=1&batch_id='); echo $b_d['batch_id']?>" class="">View Instructors</a></td>
+                                    <td class="text-center"><?php echo $b_d['course_name']; ?></td>
                                     <?php if($b_d['status']=='1'){ ?>
                                     <td class="text-center text-success">Active</td>
                                     <?php } ?>

@@ -60,6 +60,8 @@
 <script src="assets/assets/js/plugins/sweetalert2.js"></script>
 <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
 <script src="assets/assets/js/plugins/fullcalendar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 <script>
 function logout() {
     $.post("scripts/logout.php", "logout", function(data) {
@@ -181,6 +183,9 @@ $(document).ready(function() {
         });
     });
 });
+</script>
+<script>
+CKEDITOR.replace('assignment');
 </script>
 
 </html>

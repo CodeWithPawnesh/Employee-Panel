@@ -17,11 +17,11 @@
                                         <label>Course</label>
                                     </div>
                                     <div class="form-group">
-                                        <select name="course_id" class="form-control" required>
+                                        <select name="course_data" class="form-control" required>
                                             <option value="0">Select Any One Option</option>
-                                            <option value="1">course2</option>
-                                            <option value="2">course3</option>
-                                            <option value="3">course4</option>
+                                            <?php foreach($course_data AS $c_d){ ?>
+                                            <option value="<?= $c_d['course_id']; ?>,<?= $c_d['course_abber']; ?>"><?= $c_d['course_name'] ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -39,8 +39,8 @@
                     </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+</div>
