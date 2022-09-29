@@ -11,7 +11,7 @@
                     </div>
                     <?php if(!isset($_POST['course_id']) && !isset($_POST['course'])){ ?>
                     <div class="card-body">
-                        <form  method="post">
+                        <form method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -23,21 +23,22 @@
                                             <?php if(!empty($course_data)){ 
                                                 foreach($course_data as $c_d){
                                              ?>
-                                            <option value="<?= $c_d['course_id']; ?>"><?= $c_d['course_name']; ?></option>
+                                            <option value="<?= $c_d['course_id']; ?>"><?= $c_d['course_name']; ?>
+                                            </option>
                                             <?php } } ?>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer ">
-                                <button  class="btn btn-sm btn-success">Next</button>
+                                <button class="btn btn-sm btn-success">Next</button>
                             </div>
                         </form>
                     </div>
                     <?php } ?>
                     <?php if(isset($_POST['course_id']) ){ ?>
                     <div class="card-body">
-                        <form  method="post">
+                        <form method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -57,14 +58,14 @@
                                 </div>
                             </div>
                             <div class="card-footer ">
-                                <button  class="btn btn-sm btn-success">Next</button>
+                                <button class="btn btn-sm btn-success">Next</button>
                             </div>
                         </form>
                     </div>
                     <?php } ?>
                     <?php if(isset($_POST['batch_id']) ){ ?>
                     <div class="card-body">
-                        <form  method="post">
+                        <form method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -78,21 +79,22 @@
                                             <?php if(!empty($group_data)){ 
                                                 foreach($group_data as $g_d){
                                              ?>
-                                            <option value="<?= $g_d['group_id']; ?>"><?= $g_d['group_name']; ?> (<?= $g_d['group_number']; ?>)</option>
+                                            <option value="<?= $g_d['group_id']; ?>"><?= $g_d['group_name']; ?>
+                                                (<?= $g_d['group_number']; ?>)</option>
                                             <?php } } ?>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer ">
-                                <button  class="btn btn-sm btn-success">Next</button>
+                                <button class="btn btn-sm btn-success">Next</button>
                             </div>
                         </form>
                     </div>
                     <?php } ?>
                     <?php if(isset($_POST['group_id']) ){ ?>
                     <div class="card-body">
-                        <form action="Assignment/assignment_create"  method="post">
+                        <form action="Assignment/assignment_create" method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -102,12 +104,13 @@
                                         <input type="hidden" name="course" value="<?= $_POST['course']; ?>">
                                         <input type="hidden" name="batch" value="<?= $_POST['batch']; ?>">
                                         <input type="hidden" name="group" value="<?= $_POST['group_id']; ?>">
-                                        <textarea name="assignment" class="form-control" id="" cols="30" rows="10"></textarea>
+                                        <textarea name="assignment" class="form-control" id="" cols="30"
+                                            rows="10"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                            <div class="col">
+                                <div class="col">
                                     <div class="form-group">
                                         <label>Assignment Start Date</label>
                                     </div>
@@ -135,3 +138,20 @@
         </div>
     </div>
 </div>
+<footer class="footer">
+    <div class="container">
+        <div class="copyright pull-right">
+            &copy;
+            <script>
+            document.write(new Date().getFullYear())
+            </script>,Think-Champ
+        </div>
+    </div>
+</footer>
+<a class="text-white shadow" href="?page=student_chat"
+    style="z-index:9999; position:fixed; bottom:30px; right:20px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
+    <i class="material-icons" style="font-size:35px">forum</i>
+</a>
+</div>
+</div>
+</body>

@@ -62,14 +62,17 @@
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
                                     <td>
-                                        <a href="<?= base_url('Course-Edit?id='); echo $c_d['course_id']; ?>" class="btn btn-sm btn-success">Edit</a>
+                                        <a href="<?= base_url('Course-Edit?id='); echo $c_d['course_id']; ?>"
+                                            class="btn btn-sm btn-success">Edit</a>
                                         <br>
                                         <?php if($c_d['status']=='1'){ ?>
-                                            <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=0" class="btn btn-sm btn-danger">Un-Publish</a>
-                                         <?php } ?>
-                                         <?php if($c_d['status']=='0'){ ?>
-                                            <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=1" class="btn btn-sm btn-success">Publish</a>
-                                         <?php } ?>
+                                        <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=0"
+                                            class="btn btn-sm btn-danger">Un-Publish</a>
+                                        <?php } ?>
+                                        <?php if($c_d['status']=='0'){ ?>
+                                        <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=1"
+                                            class="btn btn-sm btn-success">Publish</a>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -77,15 +80,20 @@
                         </table>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
-                                <li class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
-                                    <a class="page-link" href="<?= base_url('Course-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>" tabindex="-1">Previous</a>
+                                <li
+                                    class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
+                                    <a class="page-link"
+                                        href="<?= base_url('Course-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
+                                        tabindex="-1">Previous</a>
                                 </li>
                                 <?php for($i=1; $i<=$total_pages;$i++){ ?>
-    
-                                <li class="page-item"><a class="page-link" href="<?= base_url('Course-List?page='); echo $i ?>"><?= $i; ?></a></li>
+
+                                <li class="page-item"><a class="page-link"
+                                        href="<?= base_url('Course-List?page='); echo $i ?>"><?= $i; ?></a></li>
                                 <?php } ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= base_url('Course-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
+                                    <a class="page-link"
+                                        href="<?= base_url('Course-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>
@@ -96,3 +104,20 @@
         <!-- End Main Content -->
     </div>
 </div>
+<footer class="footer">
+    <div class="container">
+        <div class="copyright pull-right">
+            &copy;
+            <script>
+            document.write(new Date().getFullYear())
+            </script>,Think-Champ
+        </div>
+    </div>
+</footer>
+<a class="text-white shadow" href="?page=student_chat"
+    style="z-index:9999; position:fixed; bottom:30px; right:20px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
+    <i class="material-icons" style="font-size:35px">forum</i>
+</a>
+</div>
+</div>
+</body>

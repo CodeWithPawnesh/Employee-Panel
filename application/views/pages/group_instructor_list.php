@@ -18,7 +18,8 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <a href="<?= base_url('Add-Instructor?group_id=');echo $_GET['group_id']; ?>" class="btn btn-md btn-success">ADD+</a>
+                        <a href="<?= base_url('Add-Instructor?group_id=');echo $_GET['group_id']; ?>"
+                            class="btn btn-md btn-success">ADD+</a>
                         <table class="table table-hover">
                             <caption>List of Instructor</caption>
                             <thead>
@@ -26,7 +27,7 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Intructor Employee</th>
                                     <th class="text-center">E-Mail</th>
-                                    <th class="text-center">Action</th>  
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,21 +39,26 @@
                                     <td class="text-center"><a href="" class="btn btn-sm btn-danger">Remove</a></td>
                                 </tr>
                                 <?php } }else{ ?>
-                                    <h1 class="">No Data Found</h1>
+                                <h1 class="">No Data Found</h1>
                                 <?php } ?>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
-                                <li class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
-                                    <a class="page-link" href="<?= base_url('Course-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>" tabindex="-1">Previous</a>
+                                <li
+                                    class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
+                                    <a class="page-link"
+                                        href="<?= base_url('Course-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
+                                        tabindex="-1">Previous</a>
                                 </li>
                                 <?php for($i=1; $i<=$total_pages;$i++){ ?>
-    
-                                <li class="page-item"><a class="page-link" href="<?= base_url('Course-List?page='); echo $i ?>"><?= $i; ?></a></li>
+
+                                <li class="page-item"><a class="page-link"
+                                        href="<?= base_url('Course-List?page='); echo $i ?>"><?= $i; ?></a></li>
                                 <?php } ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= base_url('Course-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
+                                    <a class="page-link"
+                                        href="<?= base_url('Course-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>
@@ -63,3 +69,20 @@
         <!-- End Main Content -->
     </div>
 </div>
+<footer class="footer">
+    <div class="container">
+        <div class="copyright pull-right">
+            &copy;
+            <script>
+            document.write(new Date().getFullYear())
+            </script>,Think-Champ
+        </div>
+    </div>
+</footer>
+<a class="text-white shadow" href="?page=student_chat"
+    style="z-index:9999; position:fixed; bottom:30px; right:20px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
+    <i class="material-icons" style="font-size:35px">forum</i>
+</a>
+</div>
+</div>
+</body>

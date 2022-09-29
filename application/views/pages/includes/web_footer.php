@@ -1,27 +1,3 @@
-<footer class="footer">
-    <div class="container">
-        <div class="copyright pull-right">
-            &copy;
-            <script>
-            document.write(new Date().getFullYear())
-            </script>,Think-Champ
-        </div>
-    </div>
-</footer>
-<!--<a class="text-white shadow" href="?page=teacher_chat" style="z-index:9999; position:fixed; bottom:40px; right:100px; height:34px; border-radius:1000px; background: #e91e63; padding:5px 10px 0; text-align:center">
-                Chat With Thai Admin
-            </a>-->
-<a class="text-white shadow" href="?page=student_chat"
-    style="z-index:9999; position:fixed; bottom:30px; right:20px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
-    <i class="material-icons" style="font-size:35px">forum</i>
-</a>
-<!--<a class="text-white shadow" href="https://houseofsoftskills.whereby.com/hossadmin" target="_blank" style="z-index:9999; position:fixed; bottom:30px; right:100px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
-                <i class="material-icons" style="font-size:35px">ondemand_video</i>
-            </a>-->
-
-</div>
-</div>
-</body>
 <!--   Core JS Files   -->
 <script src="assets/assets/js/core/jquery.min.js"></script>
 <script src="assets/assets/js/core/popper.min.js"></script>

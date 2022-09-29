@@ -11,7 +11,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form  method="post">
+                        <form method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -29,7 +29,7 @@
                             </div>
                     </div>
                     <div class="card-footer ">
-                        <button  class="btn btn-sm btn-success">Next</button>
+                        <button class="btn btn-sm btn-success">Next</button>
                     </div>
                     </form>
                 </div>
@@ -47,11 +47,12 @@
                                     <div class="form-group">
                                         <label>Select One Batch</label>
                                     </div>
-                                    <input type="hidden" name="course_id" value = "<?= $_POST['course_id']; ?>">
+                                    <input type="hidden" name="course_id" value="<?= $_POST['course_id']; ?>">
                                     <div class="form-group">
                                         <select name="batch_id" class="form-control">
                                             <?php foreach($batch_data as $b_d){ ?>
-                                            <option value="<?= $b_d['batch_id'] ; ?>"><?= $b_d['batch_name']; ?> (<?= $b_d['batch_number']; ?>)</option>
+                                            <option value="<?= $b_d['batch_id'] ; ?>"><?= $b_d['batch_name']; ?>
+                                                (<?= $b_d['batch_number']; ?>)</option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -76,3 +77,20 @@
         </div>
     </div>
 </div>
+<footer class="footer">
+    <div class="container">
+        <div class="copyright pull-right">
+            &copy;
+            <script>
+            document.write(new Date().getFullYear())
+            </script>,Think-Champ
+        </div>
+    </div>
+</footer>
+<a class="text-white shadow" href="?page=student_chat"
+    style="z-index:9999; position:fixed; bottom:30px; right:20px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
+    <i class="material-icons" style="font-size:35px">forum</i>
+</a>
+</div>
+</div>
+</body>

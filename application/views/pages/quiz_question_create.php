@@ -108,6 +108,23 @@
         </div>
     </div>
 </div>
+<footer class="footer">
+    <div class="container">
+        <div class="copyright pull-right">
+            &copy;
+            <script>
+            document.write(new Date().getFullYear())
+            </script>,Think-Champ
+        </div>
+    </div>
+</footer>
+<a class="text-white shadow" href="?page=student_chat"
+    style="z-index:9999; position:fixed; bottom:30px; right:20px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
+    <i class="material-icons" style="font-size:35px">forum</i>
+</a>
+</div>
+</div>
+</body>
 <script>
 function moropt() {
     var no_opts = document.getElementById("opts").value;

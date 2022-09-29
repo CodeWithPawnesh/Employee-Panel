@@ -266,140 +266,160 @@
                                     </div>
                                 </div>
                             </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Keyoutcome Heading</label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Keyoutcome Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="keyoutcome_heading" type="text" class="form-control"
+                                            placeholder="Start Writing Here..."
+                                            value="<?= $course_data['keyoutcome_heading']; ?>" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Keyoutcome Image</label>
+                                    </div>
+                                    <input type="file" name="keyoutcome_img" class="form-control">
+                                    <input type="hidden" name="h_keyoutcome_img"
+                                        value="<?= $course_data['keyoutcome_img']; ?>s">
+                                    <br>
+                                    <div style="padding-left:150px;padding-right:150px">
+                                        <img src="assets/images/course/<?= $course_data['keyoutcome_img']; ?>"
+                                            style="width:200px;height:150px">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input name="keyoutcome_heading" type="text" class="form-control"
-                                    placeholder="Start Writing Here..."
-                                    value="<?= $course_data['keyoutcome_heading']; ?>" required>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Keyoutcome Image</label>
-                            </div>
-                            <input type="file" name="keyoutcome_img" class="form-control">
-                            <input type="hidden" name="h_keyoutcome_img"
-                                value="<?= $course_data['keyoutcome_img']; ?>s">
-                            <br>
-                            <div style="padding-left:150px;padding-right:150px">
-                                <img src="assets/images/course/<?= $course_data['keyoutcome_img']; ?>"
-                                    style="width:200px;height:150px">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Keyoutcome Description</label>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="keyoutcome_desc" row="10"
-                                    class="form-control"><?= $course_data['keyoutcome_desc'] ?></textarea>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Keyoutcome Point</label>
-                            </div>
-                            <div class="form-group">
-                                <?php
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Keyoutcome Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="keyoutcome_desc" row="10"
+                                            class="form-control"><?= $course_data['keyoutcome_desc'] ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Keyoutcome Point</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php
                                         $keyoutcome_points = $course_data['keyoutcome_points'];
                                         $keyoutcome_points = json_decode($keyoutcome_points,true);
                                         for($i=0;$i<count($keyoutcome_points); $i++){
                                         ?>
-                                <div id="Keyoutcome_pointsinputFormRow">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="course_keyoutcome_points[]"
-                                            value="<?= $keyoutcome_points[$i]; ?>" class="form-control m-input"
-                                            placeholder="Enter Point" autocomplete="off" rquired>
-                                        <div class="input-group-append">
-                                            <button id="removeKeyoutcome_PointsRow" type="button"
-                                                class="btn btn-danger">Remove</button>
+                                        <div id="Keyoutcome_pointsinputFormRow">
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="course_keyoutcome_points[]"
+                                                    value="<?= $keyoutcome_points[$i]; ?>" class="form-control m-input"
+                                                    placeholder="Enter Point" autocomplete="off" rquired>
+                                                <div class="input-group-append">
+                                                    <button id="removeKeyoutcome_PointsRow" type="button"
+                                                        class="btn btn-danger">Remove</button>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <?php } ?>
+                                        <div id="KeyoutcomePointsRow"></div>
+                                        <button id="addKeyoutcomePointsRow" type="button" class="btn btn-info">Add
+                                            Row</button>
                                     </div>
                                 </div>
-                                <?php } ?>
-                                <div id="KeyoutcomePointsRow"></div>
-                                <button id="addKeyoutcomePointsRow" type="button" class="btn btn-info">Add Row</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Benifits Heading</label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Benifits Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="benifits_heading" type="text" class="form-control"
+                                            placeholder="Start Writing Here..."
+                                            value="<?= $course_data['benifits_heading']; ?>" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Benifits Image</label>
+                                    </div>
+                                    <input type="file" name="benifits_img" class="form-control">
+                                    <input type="hidden" name="h_benifits_img"
+                                        value="<?= $course_data['benifits_img']; ?>">
+                                    <br>
+                                    <div style="padding-left:150px;padding-right:150px">
+                                        <img src="assets/images/course/<?= $course_data['benifits_img']; ?>"
+                                            style="width:200px;height:150px">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input name="benifits_heading" type="text" class="form-control"
-                                    placeholder="Start Writing Here..." value="<?= $course_data['benifits_heading']; ?>"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Benifits Image</label>
-                            </div>
-                            <input type="file" name="benifits_img" class="form-control">
-                            <input type="hidden" name="h_benifits_img" value="<?= $course_data['benifits_img']; ?>">
-                            <br>
-                            <div style="padding-left:150px;padding-right:150px">
-                                <img src="assets/images/course/<?= $course_data['benifits_img']; ?>"
-                                    style="width:200px;height:150px">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Benifits Description</label>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="benifits_desc" row="10"
-                                    class="form-control"><?= $course_data['benifits_desc'] ?></textarea>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course Benifits Point</label>
-                            </div>
-                            <div class="form-group">
-                                <?php
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Benifits Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="benifits_desc" row="10"
+                                            class="form-control"><?= $course_data['benifits_desc'] ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Course Benifits Point</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php
                                         $benifits_points = $course_data['benifits_points'];
                                         $benifits_points = json_decode($benifits_points,true);
                                         for($i=0;$i<count($benifits_points); $i++){
                                         ?>
-                                <div id="Benifits_pointsinputFormRow">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="course_Benifits_points[]"
-                                            value="<?= $benifits_points[$i]; ?>" class="form-control m-input"
-                                            placeholder="Enter Point" autocomplete="off" rquired>
-                                        <div class="input-group-append">
-                                            <button id="removeBenifits_PointsRow" type="button"
-                                                class="btn btn-danger">Remove</button>
+                                        <div id="Benifits_pointsinputFormRow">
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="course_Benifits_points[]"
+                                                    value="<?= $benifits_points[$i]; ?>" class="form-control m-input"
+                                                    placeholder="Enter Point" autocomplete="off" rquired>
+                                                <div class="input-group-append">
+                                                    <button id="removeBenifits_PointsRow" type="button"
+                                                        class="btn btn-danger">Remove</button>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <?php } ?>
+                                        <div id="BenifitsPointsRow"></div>
+                                        <button id="addBenifitsPointsRow" type="button" class="btn btn-info">Add
+                                            Row</button>
                                     </div>
                                 </div>
-                                <?php } ?>
-                                <div id="BenifitsPointsRow"></div>
-                                <button id="addBenifitsPointsRow" type="button" class="btn btn-info">Add Row</button>
                             </div>
-                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
                     </div>
                 </div>
-                <div class="card-footer ">
-                    <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
-                </div>
+                </form>
             </div>
-            </form>
+        </div>
+        <!-- End Main Content -->
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="copyright pull-right">
+            &copy;
+            <script>
+            document.write(new Date().getFullYear())
+            </script>,Think-Champ
         </div>
     </div>
-    <!-- End Main Content -->
+</footer>
+<a class="text-white shadow" href="?page=student_chat"
+    style="z-index:9999; position:fixed; bottom:30px; right:20px; height:60px; width:60px; border-radius:1000px; background: #e91e63; padding-top:15px; text-align:center">
+    <i class="material-icons" style="font-size:35px">forum</i>
+</a>
 </div>
 </div>
+</body>
 <script>
 CKEDITOR.replace('overview_desc');
 </script>
