@@ -68,4 +68,13 @@ class crud_model extends CI_Model
             return false;
         }
     }
+    function get_join_row($sql){
+        $my_sql = "$sql";
+        $query = $this->db->query($my_sql);
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        }else{
+            return false;
+        }
+    }
 }

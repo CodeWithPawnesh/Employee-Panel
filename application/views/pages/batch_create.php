@@ -10,7 +10,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="admin/batch_create" method="post">
+                        <form action="Batch-Create" method="post">
+                            <?php if(!isset($_POST['course_data'])){ ?>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -26,6 +27,27 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit"  class="btn btn-sm btn-success">Next</button>
+                            </div>
+                            <?php }else{ ?>
+                                <input type="hidden" name="course" value="<?= $_POST['course_data'] ?>">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Select One Trainer</label>
+                                    </div>
+                                    <div class="from-group">
+                                       <select name="trainer" class="form-control" required>
+                                            <option value="0">Select Any One Option</option>
+                                            <?php foreach($trainer_data AS $t_d){ ?>
+                                            <option value="<?= $t_d['emp_id']; ?>">
+                                                <?= $t_d['emp_name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Batch Name</label>
@@ -36,9 +58,11 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
                             <div class="card-footer ">
                                 <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
                             </div>
+                            <?php } ?>
                         </form>
                     </div>
                 </div>

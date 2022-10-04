@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course</label>
+                                        <label>Select One Course</label>
                                     </div>
                                     <div class="form-group">
                                         <select name="course_id" class="form-control">
@@ -63,6 +63,21 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="group_name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Select One Batch</label>
+                                    </div>
+                                    <input type="hidden" name="course_id" value="<?= $_POST['course_id']; ?>">
+                                    <div class="form-group">
+                                        <select name="emp_id" class="form-control">
+                                            <?php foreach($instructor_data as $i_d){ ?>
+                                            <option value="<?= $i_d['emp_id'] ; ?>"><?= $i_d['emp_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

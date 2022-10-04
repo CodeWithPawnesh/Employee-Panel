@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Batch Instructor List</h4>
+                            <h4 class="card-title">Batch Group & Instructor</h4>
                         </div>
                     </div>
                     <?php if($this->session->Flashdata('message')){ ?>
@@ -18,13 +18,12 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <a href="<?= base_url('Add-Instructor?batch_id=');echo $_GET['batch_id']; ?>"
-                            class="btn btn-md btn-success">ADD+</a>
                         <table class="table table-hover">
                             <caption>List of Instructor</caption>
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
+                                    <th class="text-center">Group</th>
                                     <th class="text-center">Intructor Employee</th>
                                     <th class="text-center">E-Mail</th>
                                     <th class="text-center">Action</th>
@@ -34,6 +33,7 @@
                                 <?php if(!empty($batch_inst_data)){ $i=1; foreach($batch_inst_data as $bi_d){ ?>
                                 <tr>
                                     <td class="text-center"><?= $i++ ; ?></td>
+                                    <td class="text-center"><?= $bi_d['group_name'] ; ?></td>
                                     <td class="text-center"><?= $bi_d['emp_name'] ; ?></td>
                                     <td class="text-center"><?= $bi_d['email'] ; ?></td>
                                     <td class="text-center"><a href="" class="btn btn-sm btn-danger">Remove</a></td>
