@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'welcome';
 $route['Admin-Dashboard'] = 'Admin';
+$route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Course-List'] = 'Admin/course_list';
 $route['Course-Create'] = 'Admin/course_create';
 $route['Course-Edit'] = 'Admin/course_edit';

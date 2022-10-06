@@ -32,7 +32,13 @@ class Auth extends CI_Controller {
                 set_cookie('_hnp', base64_encode($data['email'] .'######' . $this->input->post('password')), time()+24*3600*30);
                 $this->session->set_userdata('user_data', $result);
                 $this->session->set_userdata('login_status', 1);
+                print_r($result);
+                if($result->access_level==0){
                 redirect('admin');
+                }
+                if($result->access_level==1 || $result->access_level==2){
+                redirect('Teacher-Dashboard');
+                }
             } else {
                 $data = array(
                     'error_message' => 'Invalid Username or Password'
@@ -41,4 +47,9 @@ class Auth extends CI_Controller {
             }
         }
 	}
+    public function logout(){
+        session_start();
+	    session_destroy();
+	    echo 1;
+    }
 }

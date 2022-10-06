@@ -18,7 +18,7 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-responsive">
                             <caption>List of Instructor</caption>
                             <thead>
                                 <tr>

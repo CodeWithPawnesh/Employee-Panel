@@ -12,7 +12,7 @@
 
                     <div class="card-body">
                         <a href="<?= base_url('Batch-Create') ?>" class="btn btn-md btn-success">Create</a>
-                        <table class="table table-hover">
+                        <table class="table table-hover table-responsive">
                             <caption>List of Batches</caption>
                             <thead>
                                 <tr>

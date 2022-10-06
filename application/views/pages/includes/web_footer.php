@@ -40,7 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 <script>
 function logout() {
-    $.post("scripts/logout.php", "logout", function(data) {
+    $.post("Auth/logout", "logout", function(data) {
         if (data = 1) {
             window.location = "index.php";
         }

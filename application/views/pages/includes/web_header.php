@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+$user_info = $this->session->userdata('user_data');
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -98,6 +100,7 @@
                         </div>
                     </div>
                 </div>
+                <?php if($user_info->access_level== 0 ){ ?>
                 <ul class="nav">
                     <?php
                     $active="";
@@ -226,6 +229,68 @@
                         </a>
                     </li>
                 </ul>
+                <?php } if($user_info->access_level== 1 || $user_info->access_level== 2){ ?>
+                    <ul class="nav">
+                    <?php
+                    $active="";
+                   $current_page =  $_SERVER['REQUEST_URI'] ;
+                   $current_page = explode("/",$current_page);
+                   foreach($current_page as $c_p)
+                   {
+                    if($c_p=="Admin"){
+                        $active = "active";
+                    }
+                   }
+                     ?>
+                    <li class="nav-item <?= $active ?> ">
+                        <a class="nav-link" href="<?= base_url('Admin') ?>">
+                            <i class="material-icons">dashboard</i>
+                            <p> Dashboard </p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Assignment"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Assignment">
+                            <i class="material-icons">assignment</i>
+                            <p>Assignment</p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Quiz"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Quiz">
+                            <i class="material-icons">quiz</i>
+                            <p> Quiz</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#" onclick="logout();">
+                            <i class="material-icons">input</i>
+                            <p> Log Out
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+                <?php } ?>
             </div>
         </div>
         <div class="main-panel">

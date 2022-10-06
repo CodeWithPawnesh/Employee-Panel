@@ -7,7 +7,7 @@ class Assignment extends CI_Controller {
 		parent::__construct();
 		$this->load->model('crud_model','CM');
         $user_info = $this->session->userdata('user_data');
-        if (!$this->session->userdata('login_status')) {
+        if (!$this->session->userdata('login_status') && $user_info->access_level == 1 || $user_info->access_level == 2 || $user_info->access_level == 0 ) {
 			redirect('login');
 		}
     }

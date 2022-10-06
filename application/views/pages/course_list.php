@@ -19,7 +19,7 @@
                     <?php } ?>
                     <div class="card-body">
                         <a href="<?= base_url('Course-Create') ?>" class="btn btn-md btn-success">Create</a>
-                        <table class="table table-hover">
+                        <table class="table table-hover table-responsive">
                             <caption>List of Course</caption>
                             <thead>
                                 <tr>
