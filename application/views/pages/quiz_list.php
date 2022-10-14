@@ -1,3 +1,6 @@
+<?php
+$user_info = $this->session->userdata('user_data');
+?>
 <div class="content">
     <div class="container-fluid">
         <!-- Main content start -->
@@ -22,7 +25,9 @@
                                     <th class="text-center">Questions</th>
                                     <th class="text-center">Course</th>
                                     <th class="text-center">Batch</th>
+                                    <?php if($user_info->access_level!=1){ ?>
                                     <th class="text-center">Group</th>
+                                    <?php } ?>
                                     <th class="text-center">Quiz Start</th>
                                     <th class="text-center">Quiz End</th>
                                     <th class="text-center">Quiz Duration</th>
@@ -39,10 +44,16 @@
                                     <td class="text-center"><a href="Quiz-Questions-List?id=<?= $q_d['quiz_id'] ?>">View
                                             Questions</a></td>
                                     <td class="text-center"><?php echo $q_d['course_name']; ?></td>
-                                    <td class="text-center"><?php echo $q_d['batch_name']; ?> (
-                                        <?= $q_d['batch_number']; ?> )</td>
-                                    <td class="text-center"><?php echo $q_d['group_name']; ?> (
-                                        <?= $q_d['group_number']; ?> )</td>
+                                    <td class="text-center">
+                                        <?php echo $q_d['batch_name']; ?><br>
+                                         (<?= $q_d['batch_number']; ?>)
+                                    </td>
+                                    <?php if($user_info->access_level!=1){ ?>
+                                    <td class="text-center">
+                                        <?php echo $q_d['group_name']; ?><br>
+                                        (<?= $q_d['group_number']; ?>)
+                                    </td>
+                                    <?php } ?>
                                     <td class="text-center"><?php echo date('d M, Y',$q_d['quiz_start_date']); ?></td>
                                     <td class="text-center"><?php echo date('d M, Y',$q_d['quiz_end_date']); ?></td>
                                     <td class="text-center"><?php echo $q_d['quiz_duration']; ?> MIN</td>

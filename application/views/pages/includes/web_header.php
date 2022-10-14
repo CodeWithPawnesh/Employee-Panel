@@ -1,5 +1,6 @@
 <?php
 $user_info = $this->session->userdata('user_data');
+$emp_info = $this->session->userdata('emp_data');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,12 +65,12 @@ $user_info = $this->session->userdata('user_data');
                     <div class="user-info">
                         <a data-toggle="collapse" href="#collapseExample" class="username">
                             <span>
-                                <strong>Super Admin</strong>
+                                <strong><?= $emp_info->designation ?></strong>
                                 <b class="caret"></b>
                                 <!--<b class="caret"></b>-->
                             </span>
                             <span style="padding-top:10px; padding-left:54px; font-size:0.8rem;">
-                                Admin<br />Admin Branch
+                            <?= $emp_info->designation." " ?><?= ucfirst($emp_info->emp_name) ?>
                             </span>
                             <!--<span style="padding-top:5px; font-size:1.1rem;">
 								   Institute Name
@@ -237,13 +238,13 @@ $user_info = $this->session->userdata('user_data');
                    $current_page = explode("/",$current_page);
                    foreach($current_page as $c_p)
                    {
-                    if($c_p=="Admin"){
+                    if($c_p=="Teacher-Dashboard"){
                         $active = "active";
                     }
                    }
                      ?>
                     <li class="nav-item <?= $active ?> ">
-                        <a class="nav-link" href="<?= base_url('Admin') ?>">
+                        <a class="nav-link" href="<?= base_url('Teacher-Dashboard') ?>">
                             <i class="material-icons">dashboard</i>
                             <p> Dashboard </p>
                         </a>

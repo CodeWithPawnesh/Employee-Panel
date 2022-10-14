@@ -18,4 +18,19 @@ class Auth_model extends CI_Model
             return false;
         }
     }
+    public function emp_data($user_id){
+        $where = array(
+            "emp_id"=>$user_id
+        );
+        $this->db->select('*');
+        $this->db->where($where);
+        $this->db->from('tc_employee');
+        $query = $this->db->get(); 
+        if($query->num_rows() == 1) {
+            return $query->row();
+        }else{
+            return false;
+        }
+
+    }
 }

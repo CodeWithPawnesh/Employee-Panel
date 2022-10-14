@@ -32,7 +32,9 @@ class Auth extends CI_Controller {
                 set_cookie('_hnp', base64_encode($data['email'] .'######' . $this->input->post('password')), time()+24*3600*30);
                 $this->session->set_userdata('user_data', $result);
                 $this->session->set_userdata('login_status', 1);
-                print_r($result);
+                $user_id = $result->id;
+                $emp_data = $this->AM->emp_data($user_id);
+                $this->session->set_userdata('emp_data', $emp_data);
                 if($result->access_level==0){
                 redirect('admin');
                 }

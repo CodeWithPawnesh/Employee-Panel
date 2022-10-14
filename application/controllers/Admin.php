@@ -12,7 +12,7 @@ class Admin extends CI_Controller {
             echo "Access Denied";
         }
         if (!$this->session->userdata('login_status')) {
-			redirect('login');
+			redirect('');
 		}
     }
 	public function index()
@@ -442,7 +442,7 @@ class Admin extends CI_Controller {
 			$where = array(
 				"course_id"=>$course_id
 			);
-		    $batch_row=$this->CM->get_row($table_name,$where=Null);
+		    $batch_row=$this->CM->get_row($table_name,$where);
 			$batch_id = $batch_row +1;
 		    $batch_number = $course_abber."-BATCH-".$batch_id;
 		    $batch_name = $_POST['batch_name'];
@@ -587,7 +587,10 @@ class Admin extends CI_Controller {
 				$course_abber = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
 				$course_abber = $course_abber[0]['course_abber'];
 				$table_name = "tc_batch_group";
-				$group_row=$this->CM->get_row($table_name,);
+				$where = array(
+				"batch_id"=>$batch_id
+				);
+				$group_row=$this->CM->get_row($table_name,$where);
 			    $group_id = $group_row +1;
 		        $group_number = $course_abber."-GROUP-".$group_id;
 				$table_name = "tc_batch_group";

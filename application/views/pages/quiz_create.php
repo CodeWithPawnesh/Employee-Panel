@@ -9,7 +9,9 @@
                             <h4 class="card-title">Quiz Create</h4>
                         </div>
                     </div>
-                    <?php if(!isset($_POST['course_id']) && !isset($_POST['course'])){ ?>
+                    <?php $user_info = $this->session->userdata('user_data');
+                     if($user_info->access_level == 0){
+                     if(!isset($_POST['course_id']) && !isset($_POST['course'])){ ?>
                     <div class="card-body">
                         <form method="post">
                             <div class="row">
@@ -36,7 +38,8 @@
                         </form>
                     </div>
                     <?php } ?>
-                    <?php if(isset($_POST['course_id']) ){ ?>
+                    <?php
+                    if(isset($_POST['course_id']) ){ ?>
                     <div class="card-body">
                         <form method="post">
                             <div class="row">
@@ -72,7 +75,6 @@
                                         <label>Select A Group</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="course" value="<?= $_POST['course']; ?>">
                                         <input type="hidden" name="batch" value="<?= $_POST['batch_id']; ?>">
                                         <select name="group_id" class="form-control" required>
                                             <option value="0">Select Any One Option</option>
@@ -98,7 +100,6 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <input type="hidden" name="course" value="<?= $_POST['course']; ?>">
                                         <input type="hidden" name="batch" value="<?= $_POST['batch']; ?>">
                                         <input type="hidden" name="group" value="<?= $_POST['group_id']; ?>">
                                     </div>
@@ -148,6 +149,119 @@
                             </div>
                         </form>
                     </div>
+                    <?php } } if($user_info->access_level == 1){ ?>
+                        <div class="card-body">
+                        <form action="quiz/quiz_create" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Quiz Title</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="quiz_title" class="form-control"
+                                            placeholder="Quiz List" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Quiz Duration in Minutes</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="duration" class="form-control"
+                                            placeholder="Quiz Duration in Minutes" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" name="start_date" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>End Date</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" name="end_date" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <button name="submit" type="submit" class="btn btn-sm btn-success">Submit</button>
+                            </div>
+                        </form>
+                        </div>
+                    <?php }
+                    if($user_info->access_level == 2){ ?>
+                        <div class="card-body">
+                        <form action="quiz/quiz_create" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Choose Any One Group</label>
+                                        <select name="group_batch" class="form-control">
+                                            <option value="" disabled selected>Choose Any One Option</option>
+                                            <?php foreach($group_data as $g_d){ ?>
+                                            <option value="<?= $g_d['group_id'] ?>, <?= $g_d['batch_id'] ?>"><?= $g_d['group_name']."(".$g_d['group_number'].")" ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Quiz Title</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="quiz_title" class="form-control"
+                                            placeholder="Quiz List" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Quiz Duration in Minutes</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="duration" class="form-control"
+                                            placeholder="Quiz Duration in Minutes" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" name="start_date" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>End Date</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" name="end_date" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <button name="submit" type="submit" class="btn btn-sm btn-success">Submit</button>
+                            </div>
+                        </form>
+                        </div>
                     <?php } ?>
                 </div>
             </div>

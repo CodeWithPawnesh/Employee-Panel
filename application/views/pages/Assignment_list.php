@@ -1,3 +1,6 @@
+<?php
+$user_info = $this->session->userdata('user_data');
+?>
 <div class="content">
     <div class="container-fluid">
         <!-- Main content start -->
@@ -21,7 +24,9 @@
                                     <th class="text-center">Assignment</th>
                                     <th class="text-center">Course</th>
                                     <th class="text-center">Batch</th>
+                                    <?php if($user_info->access_level !=1){ ?>
                                     <th class="text-center">Group</th>
+                                     <?php } ?>
                                     <th class="text-center">Assignment Start</th>
                                     <th class="text-center">Assignment Deadline</th>
                                     <th class="text-center">Status</th>
@@ -35,10 +40,15 @@
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?php echo $a_d['assignment']; ?></td>
                                     <td class="text-center"><?php echo $a_d['course_name']; ?></td>
-                                    <td class="text-center"><?php echo $a_d['batch_name']; ?> (
-                                        <?php echo $a_d['batch_number']; ?> )</td>
-                                    <td class="text-center"><?php echo $a_d['group_name']; ?> (
-                                        <?php echo $a_d['group_number']; ?> )</td>
+                                    <td class="text-center">
+                                        <?php echo $a_d['batch_name']; ?>
+                                        <?php echo "("; echo $a_d['batch_number']; echo ")"; ?></td>
+                                    <?php if($user_info->access_level !=1){ ?>
+                                    <td class="text-center">
+                                        <?php if($a_d['group_id']!='0'){ echo $a_d['group_name'];  ?>
+                                        <?php echo "("; echo $a_d['group_number']; echo ")"; }else{ echo "***" ; } ?> 
+                                    </td>
+                                    <?php } ?>
                                     <td class="text-center"><?php echo date('d M, Y',$a_d['start_date']); ?></td>
                                     <td class="text-center"><?php echo date('d M, Y',$a_d['end_date']); ?></td>
                                     <?php if($a_d['status']=='1'){ ?>
