@@ -74,6 +74,7 @@ $route['Quiz-Edit']='Quiz/quiz_edit';
 $route['Quiz-Questions-List']='Quiz/quiz_question_list';
 $route['Quiz-Questions-Create']='Quiz/quiz_question_create';
 $route['Quiz-Questions-Edit']='Quiz/quiz_question_edit';
+$route['Profile']='Panel/profile';
 $route['login']="Auth/login";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

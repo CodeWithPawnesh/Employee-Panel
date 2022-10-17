@@ -86,7 +86,7 @@ $emp_info = $this->session->userdata('emp_data');
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="?page=view-profile">
+                                    <a class="nav-link" href="<?= base_url("Profile") ?>">
                                         <span class="sidebar-mini"> VP </span>
                                         <span class="sidebar-normal"> View Profile </span>
                                     </a>
