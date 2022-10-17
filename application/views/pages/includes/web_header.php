@@ -283,6 +283,23 @@ $emp_info = $this->session->userdata('emp_data');
                             <p> Quiz</p>
                         </a>
                     </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Leave"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Quiz">
+                            <i class="material-icons">note</i>
+                            <p>Leave</p>
+                        </a>
+                    </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#" onclick="logout();">
                             <i class="material-icons">input</i>
