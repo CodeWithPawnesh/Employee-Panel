@@ -1,3 +1,6 @@
+<?php
+$emp_info = $this->session->userdata('emp_data');
+?>
 <div class="content">
     <div class="container-fluid">
         <!-- Main content start -->
@@ -6,87 +9,83 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Batch Create</h4>
+                            <h4 class="card-title">Profile Edit</h4>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="Batch-Create" method="post">
-                            <?php if(!isset($_POST['course_data'])){ ?>
+                        <form action="Panel/profile_edit" method="post">
+                            <input type="hidden" name="emp_id" value="<?= $employee_data['emp_id'] ?>">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course</label>
+                                        <label>Live Link</label>
                                     </div>
                                     <div class="form-group">
-                                        <select name="course_data" class="form-control" required>
-                                            <option value="0">Select Any One Option</option>
-                                            <?php foreach($course_data AS $c_d){ ?>
-                                            <option
-                                                value="<?= $c_d['course_id']; ?>,<?= $c_d['course_abber']; ?>,<?= $c_d['course_name']; ?>">
-                                                <?= $c_d['course_name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer ">
-                                <button type="submit" class="btn btn-sm btn-success">Next</button>
-                            </div>
-                            <?php }else{ ?>
-                            <input type="hidden" name="course" value="<?= $_POST['course_data'] ?>">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Select One Trainer</label>
-                                    </div>
-                                    <div class="from-group">
-                                        <select name="trainer" class="form-control" required>
-                                            <option value="0">Select Any One Option</option>
-                                            <?php foreach($trainer_data AS $t_d){ ?>
-                                            <option value="<?= $t_d['emp_id']; ?>">
-                                                <?= $t_d['emp_name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Class Timing</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="time" name="class_ts" class="form-control" required>
+                                        <input type="text" name="live_link" class="form-control"value="<?= $employee_data['live_link'] ?>" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Batch Start Date</label>
+                                        <label>Name</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="date" name="start_date" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Batch End Date</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="date" name="end_date" class="form-control" required>
+                                        <input type="text" name="name" value="<?= $employee_data['emp_name'] ?>" class="form-control">
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Education</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="education" value="<?= $employee_data['education'] ?>" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>
+                                            Address
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="address" value="<?= $employee_data['address'] ?>" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" value="<?= $employee_data['email'] ?>" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="number" value="<?= $employee_data['phone'] ?>" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="card-footer ">
-                        <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
-                    </div>
-                    <?php } ?>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <footer class="footer">
     <div class="container">

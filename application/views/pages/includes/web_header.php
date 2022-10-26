@@ -92,7 +92,7 @@ $emp_info = $this->session->userdata('emp_data');
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="?page=edit-profile">
+                                    <a class="nav-link" href="<?= base_url("Profile-Edit") ?>">
                                         <span class="sidebar-mini"> EP </span>
                                         <span class="sidebar-normal"> Edit Profile </span>
                                     </a>
@@ -211,6 +211,40 @@ $emp_info = $this->session->userdata('emp_data');
                     $current_page = explode("/",$current_page);
                     foreach($current_page as $c_p)
                     {
+                     if($c_p=="Student-Leave"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Student-Leave">
+                            <i class="material-icons">note</i>
+                            <p>Student Leave</p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Employee-Leave"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Employee-Leave">
+                            <i class="material-icons">note</i>
+                            <p>Employee Leave</p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
                      if($c_p=="Testimonial-List"){
                          $active = "active";
                      }
@@ -247,6 +281,23 @@ $emp_info = $this->session->userdata('emp_data');
                         <a class="nav-link" href="<?= base_url('Teacher-Dashboard') ?>">
                             <i class="material-icons">dashboard</i>
                             <p> Dashboard </p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Classes"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Classes">
+                            <i class="material-icons">class</i>
+                            <p>Classes</p>
                         </a>
                     </li>
                     <?php
@@ -295,7 +346,7 @@ $emp_info = $this->session->userdata('emp_data');
                     }
                      ?>
                     <li class="nav-item <?= $active; ?>">
-                        <a class="nav-link" href="Quiz">
+                        <a class="nav-link" href="Leave">
                             <i class="material-icons">note</i>
                             <p>Leave</p>
                         </a>

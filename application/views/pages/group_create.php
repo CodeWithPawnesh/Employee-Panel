@@ -50,6 +50,7 @@
                                     <input type="hidden" name="course_id" value="<?= $_POST['course_id']; ?>">
                                     <div class="form-group">
                                         <select name="batch_id" class="form-control">
+                                        <option value="" disabled selected>Choose any one option</option>
                                             <?php foreach($batch_data as $b_d){ ?>
                                             <option value="<?= $b_d['batch_id'] ; ?>"><?= $b_d['batch_name']; ?>
                                                 (<?= $b_d['batch_number']; ?>)</option>
@@ -59,21 +60,22 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Group Name</label>
+                                        <label>Live Coding Class Timing</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="group_name" required>
+                                        <input type="time" class="form-control" name="class_ts" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Select One Batch</label>
+                                        <label>Select One Instructor</label>
                                     </div>
                                     <input type="hidden" name="course_id" value="<?= $_POST['course_id']; ?>">
                                     <div class="form-group">
                                         <select name="emp_id" class="form-control">
+                                            <option value="" disabled selected>Choose any one option</option>
                                             <?php foreach($instructor_data as $i_d){ ?>
                                             <option value="<?= $i_d['emp_id'] ; ?>"><?= $i_d['emp_name']; ?></option>
                                             <?php } ?>

@@ -13,8 +13,51 @@ class Panel extends CI_Controller {
 		}
     }
     public function profile(){
+        $emp_info = $this->session->userdata('emp_data');
+        $emp_id = $emp_info->emp_id;
+        $table_name = "tc_employee";
+        $where=array(
+            "emp_id"=>$emp_id
+        );
+        $data['employee_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select=Null,$join=Null);
+        $data['employee_data'] = $data['employee_data'][0];
         $data['page']="profile";
         $this->load->admin_temp('profile',$data);
+    }
+    public function profile_edit(){
+        $emp_info = $this->session->userdata('emp_data');
+        $emp_id = $emp_info->emp_id;
+        $table_name = "tc_employee";
+        $where=array(
+            "emp_id"=>$emp_id
+        );
+        $data['employee_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select=Null,$join=Null);
+        $data['employee_data'] = $data['employee_data'][0];
+        if(isset($_POST['submit'])){
+        $live_link = $_POST['live_link'];
+        
+        $name = $_POST['name'];
+        $education = $_POST['education'];
+        $address = $_POST['address'];
+        $email = $_POST['email'];
+        $number = $_POST['number'];
+        $emp_id = $_POST['emp_id'];
+        $data = array(
+            "live_link"=>$live_link,
+            "emp_name"=>$name,
+            "email"=>$email,
+            "phone"=>$number,
+            "education"=>$education,
+            "address"=>$address
+        );
+        $where = array(
+            "emp_id"=>$emp_id
+        );
+        $table_name="tc_employee";
+        $redirect="Profile";
+        $this->CM->update($data,$table_name,$where,$redirect);
+        }
+        $this->load->admin_temp('profile_edit',$data);
     }
     public function leave_list(){
         $user_info = $this->session->userdata('user_data');

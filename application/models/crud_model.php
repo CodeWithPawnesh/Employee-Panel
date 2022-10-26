@@ -1,11 +1,15 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 class crud_model extends CI_Model
 {
-    function save($data,$table_name,$redirect){
+    function save($data,$table_name,$redirect=Null){
         $query = $this->db->insert($table_name, $data);
         if($query)
         {
+            if($redirect!=Null){
             redirect($redirect);
+            }else{
+                return true;
+            }
         }
     }
     function update($data,$table_name,$where,$redirect=NULL){

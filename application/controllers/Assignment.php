@@ -52,9 +52,15 @@ class Assignment extends CI_Controller {
 		$sql = "SELECT a.*, c.course_name, b.batch_name, b.batch_number, g.group_name, g.group_number FROM tc_assignment AS a, tc_batch AS b,
 		tc_batch_group AS g, tc_course AS c WHERE a.batch_id = b.batch_id AND b.course_id = c.course_id AND a.group_id = g.group_id ORDER BY a.assignment_id DESC ";
 		$group_data = $this->CM->get_join($sql);
+		if(empty($group_data)){
+			$group_data =array();
+		}
 		$sql = "SELECT a.*, c.course_name, b.batch_name, b.batch_number FROM tc_assignment AS a, tc_batch AS b, tc_course
-		 AS c WHERE a.batch_id = b.batch_id AND a.course_id = c.course_id AND a.group_id = '0' ORDER BY a.assignment_id DESC";
+		 AS c WHERE a.batch_id = b.batch_id AND b.course_id = c.course_id AND a.group_id = '0' ORDER BY a.assignment_id DESC";
 		$batch_data = $this->CM->get_join($sql);
+		if(empty($batch_data)){
+			$batch_data =array();
+		}
 		$assignment_data = array_merge($group_data,$batch_data);
 		$data['assignment_data'] = $assignment_data;
 		}
