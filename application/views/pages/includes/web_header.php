@@ -137,6 +137,44 @@ $emp_info = $this->session->userdata('emp_data');
                             <p> Course </p>
                         </a>
                     </li>
+                    <!-- studentlist -->
+                    <?php
+                    $active = "";
+                   $current_page =  $_SERVER['REQUEST_URI'] ;
+                   $current_page = explode("/",$current_page);
+                   foreach($current_page as $c_p)
+                   {
+                    if($c_p=="Student-List"){
+                        $active = "active";
+                    }
+                   }
+                     ?>
+                    <li class="nav-item <?= $active; ?> ">
+                        <a class="nav-link" href="<?= base_url('Student-List') ?>">
+                            <i class="material-icons">list</i>
+                            <p> Students List</p>
+                        </a>
+                    </li>
+                    <!-- studentlist -->
+                     <!-- employeelist -->
+                     <?php
+                    $active = "";
+                   $current_page =  $_SERVER['REQUEST_URI'] ;
+                   $current_page = explode("/",$current_page);
+                   foreach($current_page as $c_p)
+                   {
+                    if($c_p=="Employee-List"){
+                        $active = "active";
+                    }
+                   }
+                     ?>
+                    <li class="nav-item <?= $active; ?> ">
+                        <a class="nav-link" href="<?= base_url('Employee-List') ?>">
+                            <i class="material-icons">list</i>
+                            <p> Employee List</p>
+                        </a>
+                    </li>
+                    <!-- employeelist -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -300,6 +338,25 @@ $emp_info = $this->session->userdata('emp_data');
                             <p>Classes</p>
                         </a>
                     </li>
+                    <!-- Batch List  -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Teacher-Batch"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Teacher-Batch">
+                            <i class="material-icons">list</i>
+                            <p>Batch List</p>
+                        </a>
+                    </li>
+                    <!-- Batch List  -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;

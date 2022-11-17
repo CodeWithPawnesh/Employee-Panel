@@ -1,4 +1,7 @@
-<div class="content">
+<?php
+$user_info = $this->session->userdata('user_data');
+$access_level = $user_info->access_level;
+?><div class="content">
     <div class="container-fluid">
         <!-- Main content start -->
         <div class="row">
@@ -11,7 +14,6 @@
                     </div>
 
                     <div class="card-body">
-                        <a href="<?= base_url('Batch-Create') ?>" class="btn btn-md btn-success">Create</a>
                         <table class="table table-hover table-responsive">
                             <caption>List of Batches</caption>
                             <thead>
@@ -26,7 +28,6 @@
                                     <th class="text-center">Course</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,44 +49,23 @@
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
                                     <td class="text-center">
-                                        <a href="<?= base_url('Batch-Edit?id=');echo $b_d['batch_id']; ?>"
-                                            class="btn btn-sm btn-success">Edit</a>
-                                        <br>
-                                        <?php if($b_d['status']=='1'){ ?>
-                                        <a href="<?= base_url('Batch-List?id='); echo $b_d['batch_id']; ?>&status=0"
-                                            class="btn btn-sm btn-danger">Un-Publish</a>
-                                        <?php } ?>
-                                        <?php if($b_d['status']=='0'){ ?>
-                                        <a href="<?= base_url('Batch-List?id='); echo $b_d['batch_id']; ?>&status=1"
-                                            class="btn btn-sm btn-success">Publish</a>
-                                        <?php } ?>
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="material-icons">list</i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <?php if($access_level == 1){ ?>
+                                                <a class="dropdown-item" href="<?= base_url("Student-List?batch_id=").$b_d['batch_id'] ?>">Student List</a>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php } ?>
-
-
                             </tbody>
-
                         </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li
-                                    class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
-                                    <a class="page-link"
-                                        href="<?= base_url('Batch-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
-                                        tabindex="-1">Previous</a>
-                                </li>
-                                <?php for($i=1; $i<=$total_pages;$i++){ ?>
-
-                                <li class="page-item"><a class="page-link"
-                                        href="<?= base_url('Batch-List?page='); echo $i ?>"><?= $i; ?></a></li>
-                                <?php } ?>
-                                <li class="page-item <?php if($total_pages <= 1){?> disabled <?php } ?>">
-                                    <a class="page-link"
-                                        href="<?= base_url('Batch-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>

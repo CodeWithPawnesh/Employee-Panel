@@ -1,3 +1,7 @@
+<?php
+$user_info = $this->session->userdata('user_data');
+$access_level = $user_info->access_level;
+?>
 <div class="content">
     <div class="container-fluid">
         <!-- Main content start -->
@@ -6,7 +10,7 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Course List</h4>
+                            <h4 class="card-title">Student List</h4>
                         </div>
                     </div>
                     <?php if($this->session->Flashdata('message')){ ?>
@@ -18,64 +22,50 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <a href="<?= base_url('Course-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <?php if($access_level == 0){ ?>
+                        <a href="<?= base_url('Add-Student') ?>" class="btn btn-md btn-success">Add Student</a>
+                        <?php } ?>
                         <table class="table table-hover table-responsive">
-                            <caption>List of Course</caption>
+                            <caption>List of Students</caption>
                             <thead>
                                 <tr>
-
                                     <th class="text-center">#</th>
-                                    <th class="text-center">Course Name</th>
-                                    <th class="text-center">Course Title</th>
-                                    <th class="text-center">Course Abber</th>
-                                    <th class="text-center">Course Level</th>
-                                    <th class="text-center">No. of Seats</th>
-                                    <th class="text-center">No. of Lessons</th>
-                                    <th class="text-center">Language</th>
-                                    <th class="text-center">Status</th>
+                                    <th Class="text-center">Student Name</th>
+                                    <th Class="text-center">E-Mail</th>
+                                    <th Class="text-center">Ph. NO</th>
+                                    <th Class="text-center">Course Name</th>
+                                    <th Class="text-center">Batch Name</th>
+                                    <th Class="text-center">Group Name</th>
+                                    <th Class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i=1; foreach($course_data as $c_d){ ?>
+                                <?php if(!empty($student_data)){ 
+                                   $i=1; foreach($student_data as $s_d){
+                                    ?>
                                 <tr>
                                     <td class="text-center"><?= $i++ ; ?></td>
-                                    <td class="text-center"><?= $c_d['course_name']; ?></td>
-                                    <td class="text-center"><?= $c_d['course_title']; ?></td>
-                                    <td class="text-center"><?= $c_d['course_abber']; ?></td>
-                                    <?php if($c_d['course_level']=='1'){ ?>
-                                    <td class="text-center">Beginner</td>
-                                    <?php } ?>
-                                    <?php if($c_d['course_level']=='2'){ ?>
-                                    <td class="text-center">Intermediate</td>
-                                    <?php } ?>
-                                    <?php if($c_d['course_level']=='3'){ ?>
-                                    <td class="text-center">Advance</td>
-                                    <?php } ?>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"><?= $c_d['no_of_lessons']; ?></td>
-                                    <td class="text-center"><?= $c_d['language']; ?></td>
-                                    <?php if($c_d['status']=='1'){ ?>
+                                    <td class="text-center"><?= $s_d['student_name'] ?></td>
+                                    <td class="text-center"><?= $s_d['email'] ?></td>
+                                    <td class="text-center"><?= $s_d['phone'] ?></td>
+                                    <td class="text-center"><?= $s_d['course_name'] ?></td>
+                                    <td class="text-center"><?= $s_d['batch_name'] ?></td>
+                                    <td class="text-center"><?= $s_d['group_name'] ?></td>
+                                    <?php if($s_d['status']==1){ ?>
                                     <td class="text-center text-success">Active</td>
                                     <?php } ?>
-                                    <?php if($c_d['status']=='0'){ ?>
+                                    <?php if($s_d['status']==0){ ?>
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
-                                    <td>
-                                        <a href="<?= base_url('Course-Edit?id='); echo $c_d['course_id']; ?>"
-                                            class="btn btn-sm btn-success">Edit</a>
-                                        <br>
-                                        <?php if($c_d['status']=='1'){ ?>
-                                        <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=0"
-                                            class="btn btn-sm btn-danger">Un-Publish</a>
-                                        <?php } ?>
-                                        <?php if($c_d['status']=='0'){ ?>
-                                        <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=1"
-                                            class="btn btn-sm btn-success">Publish</a>
-                                        <?php } ?>
-                                    </td>
+                                   <td class="text-center">
+                                    <a href="<?= base_url("Class-History?student_id=").$s_d['student_id'] ?>" class="btn btn-sm btn-success">
+                                Class History
+                                    </a>
+                                   </td>
+
                                 </tr>
-                                <?php } ?>
+                                <?php } } ?>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">

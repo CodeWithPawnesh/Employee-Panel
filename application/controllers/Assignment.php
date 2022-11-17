@@ -217,4 +217,28 @@ class Assignment extends CI_Controller {
 		}
 		$this->load->admin_temp('Assignment_edit',$data);
 	}
+	public function check_assignment(){
+		if(isset($_GET['id'])){
+		$assignment_id = $_GET['id'];
+		$sql = "SELECT ac.*, s.student_name FROM tc_as_submit as ac, tc_student as s WHERE ac.assignment_id = $assignment_id AND ac.student_id = s.student_id ";
+		$data['assignment_check_data'] = $this->CM->get_join($sql);
+		}
+		if(isset($_POST['submit'])){
+			$id = $_POST['id'];
+			$ass_id = $_POST['ass_id'];
+			$marks = $_POST['marks'];
+			$time = date("h:i a");
+			$checked_at = strtotime($time);
+			$data = array(
+				"marks"=>$marks,
+				"checked_at"=>$checked_at,
+				"status"=>2
+			);
+			$where = array("id"=>$id);
+			$redirect = "Check-Assignment?id=".$ass_id;
+			$table_name = "tc_as_submit";
+			$this->CM->update($data,$table_name,$where,$redirect);
+		}
+		$this->load->admin_temp('check_assignment',$data);
+	}
 }

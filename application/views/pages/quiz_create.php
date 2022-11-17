@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="quiz_title" class="form-control"
-                                            placeholder="Quiz List" required>
+                                            placeholder="Quiz Title" required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -155,7 +155,15 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-
+                                        <label>Choose Any One Batch</label>
+                                    </div>
+                                    <div class="form-group">
+                                    <select name="batch" class="form-control">
+                                            <option value="" disabled selected>Select Any One Option</option>
+                                            <?php foreach($batch_data AS $b_d){ ?>
+                                            <option value="<?= $b_d['batch_id'] ?>"><?= $b_d['batch_name']; echo "(".$b_d['batch_number'].")"; ?></option>
+                                            <?php } ?>
+                                    </select>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +174,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="quiz_title" class="form-control"
-                                            placeholder="Quiz List" required>
+                                            placeholder="Quiz Title" required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -226,7 +234,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="quiz_title" class="form-control"
-                                            placeholder="Quiz List" required>
+                                            placeholder="Quiz Title" required>
                                     </div>
                                 </div>
                                 <div class="col">

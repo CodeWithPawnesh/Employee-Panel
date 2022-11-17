@@ -28,80 +28,20 @@ class Classes extends CI_Controller {
 		$offset = ($page_no-1) * $limit; 
 		if($emp_info->role == 1){
 			$sql = "SELECT c.class_id,c.class_name,c.type,c.class_ts,c.status,c.class_date,b.batch_name,b.batch_number FROM tc_classes AS c,
-			tc_batch AS b WHERE c.teacher_id = $emp_id AND c.batch_id = b.batch_id AND c.group_id = '0' ORDER BY class_id DESC ";
+			tc_batch AS b WHERE c.teacher_id = $emp_id AND c.batch_id = b.batch_id AND c.group_id = '0' ";
 		    $data['classes_data']= $this->CM->get_join($sql);
 			$row = $this->CM->get_join_row($sql);
 		    $data['total_pages'] = ceil($row/$limit);
 		}
 		if($emp_info->role == 2){
 			$sql = "SELECT c.class_id,c.class_name,c.type,c.class_ts,c.status,c.class_date,b.batch_name,b.batch_number,g.group_name,g.group_number,g.group_id FROM tc_classes AS c,
-			tc_batch AS b, tc_batch_group AS g WHERE c.teacher_id = $emp_id AND c.batch_id = b.batch_id AND c.group_id = g.group_id ORDER BY class_id DESC";
+			tc_batch AS b, tc_batch_group AS g WHERE c.teacher_id = $emp_id AND c.batch_id = b.batch_id AND c.group_id = g.group_id ";
 		    $data['classes_data']= $this->CM->get_join($sql);
 			$row = $this->CM->get_join_row($sql);
 		    $data['total_pages'] = ceil($row/$limit);
 		}
 		$this->load->admin_temp("classes",$data);
     }
-	public function class_create(){
-		$user_info = $this->session->userdata('user_data');
-		$access_level = $user_info->access_level;
-		$emp_info = $this->session->userdata('emp_data');
-		$emp_id = $emp_info->emp_id;
-		if($access_level == 1){
-		$table_name = "tc_batch";
-			$select = "batch_id,batch_name,batch_number";
-			$where = array(
-				"emp_id"=> $emp_id
-			);
-			$data['batch_data']= $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
-		}
-		if($access_level == 2){
-			$table_name = "tc_batch_group";
-				$select = "group_id,group_name,group_number";
-				$where = array(
-					"emp_id"=> $emp_id
-				);
-				$data['group_data']= $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
-			}
-		if(isset($_POST['submit'])){
-			$type = $_POST['type'];
-			if(isset($_POST['batch'])){
-			$batch = $_POST['batch'];
-			$batch = explode(",",$batch);
-			$batch_id = $batch[0];
-			$batch_number = $batch[1];
-			if($type == 1){
-			$class_name = "Live-Class-".$batch_number;
-			}
-			if($type == 2){
-				$class_name = "Doubt-Class-".$batch_number;
-			}
-		    }
-			if(isset($_POST['group'])){
-				$group= $_POST['group'];
-				$group = explode(",",$batch);
-				$group_id = $group[0];
-				$group_number = $group[1];
-				$batch_id= $group[2];
-				if($type == 1){
-				$class_name = "Live-Class-".$group_number;
-				}
-				if($type == 2){
-					$class_name = "Doubt-Class-".$group_number;
-				}
-			}else{
-				$group_id = "0";
-			}
-			if(isset($_POST['doubt_class_date'])){
-				$class_date = $_POST['doubt_class_date'];
-			}else{
-				$class_date = "";
-			}
-			$class_time = $_POST['class_time'];
-			$class_time = strtotime($class_time);
-		}
-		$this->load->admin_temp("classes_create",$data);
-	}
 	public function class_edit(){
 		if(isset($_GET['id'])){
 			$id = $_GET['id'];
@@ -135,4 +75,55 @@ class Classes extends CI_Controller {
 		}
 		$this->load->admin_temp("classes_edit",$data);
 	}
+	public function mark_attendance(){
+		if(isset($_GET['id']) && isset($_GET['class_id'])){
+			$live_id = $_GET['id'];
+			$class_id = $_GET['class_id'];
+			$sql = "SELECT s.student_id, s.student_name FROM tc_student as s, tc_classes as c WHERE s.batch_id = c.batch_id AND c.class_id = $class_id";
+			$data['student_data'] = $this->CM->get_join($sql);
+		}
+		if(isset($_POST['submit'])){
+			$live_id =$_POST['live_class_id'];
+			$class_id = $_POST['class_id'];
+			$student_ids = $_POST['Student_id'];
+			$no_of_std = sizeof($student_ids);
+			$std_ids =  implode(",",$student_ids);
+			$data = array(
+				"student_ids"=>$std_ids,
+				"student_n"=>$no_of_std,
+				"status"=>"1"
+			);
+			$table_name ="tc_live_classes";
+			$where = array(
+				"live_id"=>$live_id
+			);
+			$redirect = "Class-History?class_id=".$class_id;
+			$this->CM->update($data,$table_name,$where,$redirect);
+		}
+		$this->load->admin_temp("mark_attendance",$data);
+	}
+	public function class_history(){
+        $emp_info = $this->session->userdata('emp_data');
+        $emp_id = $emp_info->emp_id;
+        if(isset($_GET['class_id'])){
+            $class_id = $_GET['class_id'];
+			if($emp_info->role == 1){
+            $data['class_data']= $this->CM->get_batch_class_data($class_id);
+			}
+			if($emp_info->role == 2){
+				$data['class_data']= $this->CM->get_group_class_data($class_id);
+			}
+
+        }
+		if(isset($_GET['student_id'])){
+			$student_id = $_GET['student_id'];
+			if($emp_info->role == 1){
+			$data['class_data'] = $this->CM->get_student_batch_class_data($student_id);
+			}
+			if($emp_info->role == 0){
+				$data['class_data'] = $this->CM->get_student_group_class_data($student_id);
+				}
+		}
+        $this->load->admin_temp('class_history',$data); 
+    }
 }

@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">batch Edit</h4>
+                            <h4 class="card-title">Batch Edit</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -15,21 +15,12 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course</label>
+                                        <label>No. Of Slots</label>
                                     </div>
                                     <div class="form-group">
-                                        <select name="course_id" class="form-control">
-                                            <option value="0">Select Any One Option</option>
-                                            <option <?php  if($batch_edit_data['course_id']=="1"){?> Selected<?php } ?>
-                                                value="1">course1</option>
-                                            <option <?php  if($batch_edit_data['course_id']=="2"){?> Selected<?php } ?>
-                                                value="2">course2</option>
-                                            <option <?php  if($batch_edit_data['course_id']=="3"){?> Selected<?php } ?>
-                                                value="3">course3</option>
-                                        </select>
+                                        <input type="number" name="slots" class="form-control" value="<?php echo $batch_edit_data['slots']; ?>">
                                     </div>
                                 </div>
-
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Batch Name</label>
@@ -39,7 +30,24 @@
                                             class="form-control" name="batch_name">
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Batch Start Date</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" name="start_date" value="<?= date('Y-m-d',$batch_edit_data['batch_start_date']) ?>" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Batch End Date</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" name="end_date" value="<?= date('Y-m-d',$batch_edit_data['batch_end_date']) ?>" class="form-control" required>
+                                    </div>
+                                </div>
                             </div>
 
 

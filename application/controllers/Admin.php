@@ -52,7 +52,6 @@ class Admin extends CI_Controller {
 			$course_title = $_POST['course_title'];
 			$course_abber = $_POST['course_abber'];
 			$course_level = $_POST['course_level'];
-			$no_of_seats = $_POST['no_of_seats'];
 			$no_of_lessons = $_POST['no_of_lessons'];
 			$language = $_POST['language'];
 			$overview_heading = $_POST['overview_heading'];
@@ -146,7 +145,6 @@ class Admin extends CI_Controller {
 				"course_title"=>$course_title,
 				"course_abber"=>$course_abber,
 				"course_level"=>$course_level,
-				"no_of_seats"=>$no_of_seats,
 				"no_of_lessons"=>$no_of_lessons,
 				"language"=>$language,
 				"overview_heading"=>$overview_heading,
@@ -442,6 +440,7 @@ class Admin extends CI_Controller {
 			$course_id = $course_data[0];
 			$course_abber = $course_data[1];
 			$course_name = $course_data[2];
+			$slots = $_POST['slots'];
 			$table_name = "tc_batch";
 			$where = array(
 				"course_id"=>$course_id
@@ -465,7 +464,8 @@ class Admin extends CI_Controller {
 				"batch_end_date"=>$end_date,
 				"created_at"=>$created_at,
 				"created_by"=>$created_by,
-				"status"=>'1'
+				"status"=>'1',
+				"slots"=>$slots
 			);
 			$this->CM->save($data,$table_name);
 			$sql = "SELECT batch_id FROM tc_batch ORDER BY batch_id DESC LIMIT 1";
@@ -537,16 +537,21 @@ class Admin extends CI_Controller {
 			$data['batch_edit_data']=$data['batch_edit_data'][0];
 		}
 			if(isset($_POST['submit'])){
-				$course_id = $_POST['course_id'];
-			    $batch_name = $_POST['batch_name'];
+				$slots = $_POST['slots'];
+				$batch_name = $_POST['batch_name'];
+				$start_date = $_POST['start_date'];
+				$start_date = strtotime($start_date);
+				$end_date = $_POST['end_date'];
+			    $end_date = strtotime($end_date);
 				$id = $_POST['id'];
 				$updated_at = time(); 
 				$table_name = "tc_batch";
 				$redirect = "Batch-List";
 				$data =array(
-					"course_id" => $course_id,
-				    "batch_name" => $batch_name,
-					"updated_at"=>$updated_at
+					"batch_name"=>$batch_name,
+					"slots"=>$slots,
+					"batch_start_date"=>$start_date,
+					"batch_end_date"=>$end_date,
 				);
 				$where = array(
 					"batch_id"=>$id
@@ -764,7 +769,6 @@ class Admin extends CI_Controller {
 	$data['total_pages'] = ceil($row/$limit);
 	$sql = "SELECT l.*, s.student_name FROM tc_leave AS l, tc_student as s WHERE l.user_id = s.student_id AND l.user = '2' ORDER BY id DESC";
 	$data['leave_data'] = $this->CM->get_join($sql);
-	$this->load->admin_temp('employee_leave',$data);
 	$this->load->admin_temp('student_leave',$data);
   }
   public function employee_leave(){
@@ -797,5 +801,6 @@ class Admin extends CI_Controller {
 	$data['leave_data'] = $this->CM->get_join($sql);
 	$this->load->admin_temp('employee_leave',$data);
 }
+
 
 }

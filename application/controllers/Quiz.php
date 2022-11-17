@@ -84,16 +84,14 @@ class Quiz extends CI_Controller {
 		}
     }
     if($user_info->access_level==1){
-            $table_name = "tc_batch_group";
-			$select = "group_id,batch_id,group_name,group_number";
-			$where = array(
-				"emp_id"=> $emp_id
-			);
-			$data['group_data']= $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
+        $table_name = "tc_batch";
+        $select = "batch_id,batch_name,batch_number";
+        $where = array(
+            "emp_id"=> $emp_id
+        );
+        $data['batch_data']= $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
             if(isset($_POST['submit'])){
-                $course = $_POST['course'];
                 $batch = $_POST['batch'];
-                $group = $_POST['group'];
                 $quiz_title = $_POST['quiz_title'];
                 $quiz_duration = $_POST['duration'];
                 $start_date = $_POST['start_date'];
@@ -103,9 +101,8 @@ class Quiz extends CI_Controller {
                 $created_at = time();
     
                 $data = array(
-                    "quiz_course_id"=>$course,
                     "quiz_batch_id"=>$batch,
-                    "quiz_group_id"=>$group,
+                    "quiz_group_id"=>"0",
                     "quiz_start_date"=>$start_date,
                     "quiz_end_date"=>$end_date,
                     "quiz_duration"=>$quiz_duration,

@@ -6,23 +6,22 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Batch Create</h4>
+                            <h4 class="card-title">Add Student</h4>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="Batch-Create" method="post">
-                            <?php if(!isset($_POST['course_data'])){ ?>
+                        <?php if(!isset($_POST['course_data']) && !isset($_POST['batch_data'])){ ?>
+                        <form action="" method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Course</label>
+                                        <label>Select a Course For Student</label>
                                     </div>
                                     <div class="form-group">
                                         <select name="course_data" class="form-control" required>
                                             <option value="0">Select Any One Option</option>
                                             <?php foreach($course_data AS $c_d){ ?>
-                                            <option
-                                                value="<?= $c_d['course_id']; ?>,<?= $c_d['course_abber']; ?>,<?= $c_d['course_name']; ?>">
+                                            <option value="<?= $c_d['course_id']; ?>">
                                                 <?= $c_d['course_name'] ?></option>
                                             <?php } ?>
                                         </select>
@@ -32,71 +31,88 @@
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-sm btn-success">Next</button>
                             </div>
-                            <?php }else{ ?>
-                            <input type="hidden" name="course" value="<?= $_POST['course_data'] ?>">
+                        </form>
+                        <?php } if(isset($_POST['course_data']) && !isset($_POST['batch_data'])){ ?>
+                        <form action="" method="post">
+                            <input type="hidden" name="course_id" value="<?= $_POST['course_data'] ?>">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Select One Trainer</label>
+                                        <label>Select a Batch for Student</label>
                                     </div>
-                                    <div class="from-group">
-                                        <select name="trainer" class="form-control" required>
+                                    <div class="form-group">
+                                        <select name="batch_data" class="form-control" required>
                                             <option value="0">Select Any One Option</option>
-                                            <?php foreach($trainer_data AS $t_d){ ?>
-                                            <option value="<?= $t_d['emp_id']; ?>">
-                                                <?= $t_d['emp_name'] ?></option>
+                                            <?php foreach($batch_data AS $b_d){ ?>
+                                            <option value="<?= $b_d['batch_id']; ?>">
+                                                <?= $b_d['batch_name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-sm btn-success">Next</button>
+                            </div>
+                        </form>
+                        <?php } if(isset($_POST['batch_data'])){ ?>
+                        <form action="" method="post">
+                            <input type="hidden" name="course_id" value="<?= $_POST['course_id'] ?>">
+                            <input type="hidden" name="batch_id" value="<?= $_POST['batch_data'] ?>">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Select a group for the student</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="group_id" class="form-control" required>
+                                            <option value="0">Select Any One Option</option>
+                                            <?php foreach($group_data AS $g_d){ ?>
+                                            <option value="<?= $g_d['group_id']; ?>">
+                                                <?= $g_d['group_name'] ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Class Timing</label>
+                                        <label>Enter Student Name</label>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="time" name="class_ts" class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Batch Start Date</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="date" name="start_date" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Batch End Date</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="date" name="end_date" class="form-control" required>
+                                    <div class="form-gorup">
+                                        <input type="text" name="student_name" class="form-control"
+                                            placeholder="Student Name" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>No. of Slots</label>
+                                        <label>Enter Student E-mail</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" name="slots" class="form-control" required>
+                                        <input type="email" name="email" class="form-control"
+                                            placeholder="Student E-mail" required>
                                     </div>
-                                </div>      
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Enter Your Ph No</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="phone" class="form-control" placeholder="Phone Number" required>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="card-footer ">
+                                <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
+                            </div>
+                        </form>
+                        <?php } ?>
                     </div>
-                    <div class="card-footer ">
-                        <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
-                    </div>
-                    <?php } ?>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <footer class="footer">
     <div class="container">

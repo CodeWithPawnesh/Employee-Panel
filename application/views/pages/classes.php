@@ -1,5 +1,6 @@
 <?php
 $user_info = $this->session->userdata('user_data');
+$access_level = $user_info->access_level;
 ?>
 <div class="content">
     <div class="container-fluid">
@@ -25,9 +26,9 @@ $user_info = $this->session->userdata('user_data');
                                     <th class="text-center">Batch</th>
                                     <?php if($user_info->access_level !=1){ ?>
                                     <th class="text-center">Group</th>
-                                     <?php } ?>
-                                     <th class="text-center">Timing</th>
-                                     <th class="text-center">Class Date</th>
+                                    <?php } ?>
+                                    <th class="text-center">Timing</th>
+                                    <th class="text-center">Class Date</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
 
@@ -50,10 +51,12 @@ $user_info = $this->session->userdata('user_data');
                                     <?php if($user_info->access_level !=1){ ?>
                                     <td class="text-center">
                                         <?php if($c_d['group_id']!='0'){ echo $c_d['group_name'];  ?>
-                                        <?php echo "("; echo $c_d['group_number']; echo ")"; }else{ echo "***" ; } ?> 
+                                        <?php echo "("; echo $c_d['group_number']; echo ")"; }else{ echo "***" ; } ?>
                                     </td>
                                     <?php } ?>
-                                    <td class="text-center"><?php if(!empty($c_d['class_ts'])){ echo date('h:i A',$c_d['class_ts']); }?></td>
+                                    <td class="text-center">
+                                        <?php if(!empty($c_d['class_ts'])){ echo date('h:i A',$c_d['class_ts']); }?>
+                                    </td>
                                     <td class="text-center"><?php if(!empty($c_d['class_date'])){ echo date('d M, Y',$c_d['class_date']); }
                                     else{ echo "N/A"; }?></td>
                                     <?php if($c_d['status']=='1'){ ?>
@@ -63,8 +66,22 @@ $user_info = $this->session->userdata('user_data');
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
                                     <td class="text-center">
-                                        <a href="<?= base_url('Class-Edit?id=');echo $c_d['class_id']; ?>"
-                                            class="btn btn-sm btn-success">Edit</a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="material-icons">list</i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <?php if($access_level == 1){ ?>
+                                                <a class="dropdown-item"
+                                                    href="<?= base_url("Class-History?class_id=").$c_d['class_id'] ?>">Class History</a>
+                                                <?php } ?>
+                                                <a href="<?= base_url('Class-Edit?id=');echo $c_d['class_id']; ?>"
+                                                class="dropdown-item" >Edit</a>
+                                            </div>
+                                        </div>
+
                                     </td>
                                 </tr>
                                 <?php } }else{?>

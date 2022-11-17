@@ -58,17 +58,33 @@ $user_info = $this->session->userdata('user_data');
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
                                     <td class="text-center">
-                                        <a href="<?= base_url('Assignment-Edit?id=');echo $a_d['assignment_id']; ?>"
-                                            class="btn btn-sm btn-success">Edit</a>
-                                        <br>
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="material-icons">list</i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            
+                                            <a href="<?= base_url('Check-Assignment?id=').$a_d['assignment_id'] ?>" class="dropdown-item">Check Assignment</a>
+
+                                            <a href="<?= base_url('Assignment-Edit?id=');echo $a_d['assignment_id']; ?>"
+                                            class="dropdown-item">Edit</a>
+
                                         <?php if($a_d['status']=='1'){ ?>
+
                                         <a href="<?= base_url('Assignment?id='); echo $a_d['assignment_id']; ?>&status=0"
-                                            class="btn btn-sm btn-danger">Un-Publish</a>
+                                            class="dropdown-item">Un-Publish</a>
+
                                         <?php } ?>
                                         <?php if($a_d['status']=='0'){ ?>
+
                                         <a href="<?= base_url('Assignment?id='); echo $a_d['assignment_id']; ?>&status=1"
-                                            class="btn btn-sm btn-success">Publish</a>
+                                            class="dropdown-item">Publish</a>
+
                                         <?php } ?>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php } }else{?>

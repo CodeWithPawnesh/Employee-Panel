@@ -29,7 +29,7 @@ class Auth extends CI_Controller {
             );
             $result = $this->AM->auth_login($data);
             if ($result !== false) {
-                set_cookie('_hnp', base64_encode($data['email'] .'######' . $this->input->post('password')), time()+24*3600*30);
+                set_cookie('_tc', base64_encode($data['email'] .'######' . $this->input->post('password')), time()+24*3600*30);
                 $this->session->set_userdata('user_data', $result);
                 $this->session->set_userdata('login_status', 1);
                 $user_id = $result->id;

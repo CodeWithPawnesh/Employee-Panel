@@ -108,4 +108,113 @@ class Panel extends CI_Controller {
         }
         $this->load->admin_temp('leave',$data);
     }
+    public function student_list(){
+        if(isset($_GET['page'])){
+            $page_no = $_GET['page']; 
+        }else{
+            $page_no = 1;
+        }
+        $table_name="tc_student";
+        $limit = 10;
+        $offset = ($page_no-1) * $limit; 
+        $row = $this->CM->get_row($table_name);
+        $data['total_pages'] = ceil($row/$limit);
+        if(!isset($_GET['batch_id']) && !isset($_GET['group_id']) ){
+        $sql = "SELECT s.*, c.course_name,b.batch_name,g.group_name FROM tc_student as s, tc_batch as b, tc_batch_group as g,
+         tc_course as c WHERE s.batch_id = b.batch_id AND g.group_id = s.group_id AND c.course_id = s.course_id ORDER BY student_id DESC";
+        }
+        if(isset($_GET['batch_id'])){
+            $batch_id =$_GET["batch_id"];
+            $sql = "SELECT s.*, c.course_name,b.batch_name,g.group_name FROM tc_student as s, tc_batch as b, tc_batch_group as g,
+             tc_course as c WHERE s.batch_id = $batch_id AND s.batch_id = b.batch_id AND c.course_id = s.course_id AND g.group_id = s.group_id  ORDER BY student_id DESC";
+            }
+            if(isset($_GET['group_id'])){
+                $group_id = $_GET['group_id'];
+                $sql = "SELECT s.*, c.course_name,b.batch_name,g.group_name FROM tc_student as s, tc_batch as b, tc_batch_group as g,
+                 tc_course as c WHERE s.batch_id = b.batch_id AND s.group_id= $group_id AND g.group_id = s.group_id AND c.course_id = s.course_id ORDER BY student_id DESC";
+                }
+        $data['student_data'] = $this->CM->get_join($sql);
+
+        $this->load->admin_temp('student_list',$data);
+    }
+    public function add_student(){
+        $data['page']="";
+        $table_name = "tc_course";
+		$select = 'course_id,course_name';
+		$data['course_data'] = $this->CM->get($table_name,$limit=NULL,$offset=NULL,$order_by=NULL,$where=Null,$select); 
+        if(isset($_POST['course_data'])){
+                $course_id = $_POST['course_data'];
+				$table_name = "tc_batch";
+				$select = "batch_id, batch_name";
+				$where = " status = 1 AND course_id =".$course_id;
+				$data['batch_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
+        }
+        if(isset($_POST['batch_data'])){
+            $batch_id = $_POST['batch_data'];
+            $table_name = "tc_batch_group";
+				$select = "group_id, group_name";
+				$where = " status = 1 AND batch_id =".$batch_id;
+				$data['group_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
+        }
+        if(isset($_POST['submit'])){
+            $course_id = $_POST['course_id'];
+            $batch_id = $_POST['batch_id'];
+            $group_id = $_POST['group_id'];
+            $student_name = $_POST['student_name'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $str = date('ymd');
+            $current_date  = date('y-m-d');
+            $date_ts = strtotime($current_date);
+            $pass = $student_name.$str;
+            $pass_o = md5($pass);
+            $login_data = array(
+                "email"=>$email,
+                "password"=>$pass,
+                "password_o"=>$pass_o,
+                "access_level"=>3,
+                "created_ts"=>$date_ts,
+                "status"=>1
+            );
+            $student_data = array(
+                "student_name"=>$student_name,
+                "email"=>$email,
+                "phone"=>$phone,
+                "course_id"=>$course_id,
+                "batch_id"=>$batch_id,
+                "group_id"=>$group_id,  
+                "status"=>1   
+            );
+            $this->CM->add_student($login_data,$student_data);
+        }
+        $this->load->admin_temp('add_student',$data);
+    }
+    public function employee_list(){
+        if(isset($_GET['page'])){
+            $page_no = $_GET['page']; 
+        }else{
+            $page_no = 1;
+        }
+        $table_name="tc_employee";
+        $limit = 10;
+        $offset = ($page_no-1) * $limit; 
+        $row = $this->CM->get_row($table_name);
+        $data['total_pages'] = ceil($row/$limit);
+
+        $this->load->admin_temp('employee_list',$data);
+    }
+    public function add_employee(){
+        $data['page']="";
+        $this->load->admin_temp('add_employee',$data); 
+    }
+    public function class_history(){
+        $emp_info = $this->session->userdata('emp_data');
+        $emp_id = $emp_info->emp_id;
+        if(isset($_GET['class_id'])){
+            $class_id = $_GET['class_id'];
+            $data['class_data']= $this->CM->get_class_data($class_id);
+
+        }
+        $this->load->admin_temp('class_history',$data); 
+    }
 }
