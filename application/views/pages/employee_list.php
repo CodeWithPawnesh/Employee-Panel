@@ -18,17 +18,43 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <a href="<?= base_url('Leave-Create') ?>" class="btn btn-md btn-success">Add Employee</a>
+                        <a href="<?= base_url('Add-Employee') ?>" class="btn btn-md btn-success">Add Employee</a>
                         <table class="table table-hover table-responsive">
                             <caption>List of Employee</caption>
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
+                                    <th class="text-center">Employee Name</th>
+                                    <th class="text-center">E-mail</th>
+                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Password</th>
+                                    <th class="text-center">course_id</th>
+                                    <th class="text-center">Education</th>   
+                                    <th class="text-center">Designation</th>
+                                    <th class="text-center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php if(!empty($emp_data)){  $i=1;
+                                    foreach($emp_data as $e_d){
+                                    ?>
                                 <tr>
+                                    <td class="text-center"><?= $i++ ?></td>
+                                    <td class="text-center"><?= $e_d['emp_name'];  ?></td>
+                                    <td class="text-center"><?= $e_d['email'];  ?></td>
+                                    <td class="text-center"><?= $e_d['phone']; ?></td>
+                                    <td class="text-center"><?= $e_d['password'];  ?></th>
+                                    <td class="text-center"><?= $e_d['course_name'];  ?></td>
+                                    <td class="text-center"><?= $e_d['education']; ?></td>
+                                    <td class="text-center"><?= $e_d['designation']; ?></td>
+                                    <?php if($e_d['status']==1){  ?>
+                                    <td class="text-center text-success">Active</td>
+                                    <?php } ?>
+                                    <?php if($e_d['status']==0){  ?>
+                                    <td class="text-center text-success">Active</td>
+                                    <?php } ?>
                                 </tr>
+                                <?php } } ?>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
@@ -36,17 +62,17 @@
                                 <li
                                     class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
                                     <a class="page-link"
-                                        href="<?= base_url('Course-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
+                                        href="<?= base_url('Employee-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
                                         tabindex="-1">Previous</a>
                                 </li>
                                 <?php for($i=1; $i<=$total_pages;$i++){ ?>
 
                                 <li class="page-item"><a class="page-link"
-                                        href="<?= base_url('Course-List?page='); echo $i ?>"><?= $i; ?></a></li>
+                                        href="<?= base_url('Employee-List?page='); echo $i ?>"><?= $i; ?></a></li>
                                 <?php } ?>
                                 <li class="page-item">
                                     <a class="page-link"
-                                        href="<?= base_url('Course-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
+                                        href="<?= base_url('Employee-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>

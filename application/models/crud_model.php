@@ -147,4 +147,14 @@ class crud_model extends CI_Model
             return false;
         }
     }
+    function insert_teacher($user_login,$employee){
+$this->db->trans_start();
+$this->db->insert('tc_login', $user_login);
+$insert_id = $this->db->insert_id();
+$employee['user_id'] = $insert_id;
+$this->db->insert('tc_employee',$employee);
+if($this->db->trans_complete()){
+    redirect("Employee-List");
+}
+    }
 }

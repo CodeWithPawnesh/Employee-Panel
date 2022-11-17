@@ -200,11 +200,59 @@ class Panel extends CI_Controller {
         $offset = ($page_no-1) * $limit; 
         $row = $this->CM->get_row($table_name);
         $data['total_pages'] = ceil($row/$limit);
-
+        $sql ="SELECT e.*, u.password, c.course_name FROM tc_employee as e, tc_course as c, tc_login as u WHERE c.course_id = e.course_id AND u.id = e.user_id LIMIT $limit OFFSET $offset";
+        $data['emp_data'] = $this->CM->get_join($sql);
         $this->load->admin_temp('employee_list',$data);
     }
     public function add_employee(){
         $data['page']="";
+        $table = "tc_course";
+        $data['course_data'] = $this->CM->get($table);
+        if(isset($_POST['submit'])){
+            $role = $_POST['role'];
+            if($role == 0){
+                $designation = "Admin";
+                $access_level = 0;
+            }
+            if($role == 1){
+                $designation = "Trainer";
+                $access_level = 1;
+            }
+            if($role == 2){
+                $designation = "Instructor";
+                $access_level = 2;
+            }
+            $course_id = $_POST['course'];
+            $emp_name = $_POST['emp_name'];
+            $emp_phone = $_POST['emp_phone'];
+            $email = $_POST['email'];
+            $education = $_POST['education'];
+            $password = $_POST['password'];
+            $pass_o = md5($password);
+            $created_at = date('y-m-d');
+            $created_ts = strtotime($created_at);
+            $status = 1;
+            $user_login = array(
+                "email"=>$email,
+                "access_level"=>$access_level,
+                "password"=>$password,
+                "password_o"=>$pass_o,
+                "created_ts"=>$created_ts,
+                "status"=>1
+            );
+            $employee = array(
+                "emp_name"=>$emp_name,
+                "email"=>$email,
+                "phone"=>$emp_phone,
+                "course_id"=>$course_id,
+                "education"=>$education,
+                "role"=>$role,
+                "designation"=>$designation,
+                "status"=>1,
+                "created_by"=>$created_ts
+            );
+            $this->CM->insert_teacher($user_login,$employee);
+        }
         $this->load->admin_temp('add_employee',$data); 
     }
     public function class_history(){
