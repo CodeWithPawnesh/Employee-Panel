@@ -65,16 +65,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Number Of Seats</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="no_of_seats" type="number" class="form-control"
-                                            placeholder="Start Writing Here..."
-                                            value="<?= $course_data['no_of_seats']; ?>" required>
-                                    </div>
-                                </div>
+                                
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Number of Lessons </label>

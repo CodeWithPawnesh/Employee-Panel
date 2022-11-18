@@ -191,7 +191,6 @@ class Admin extends CI_Controller {
 			$course_title = $_POST['course_title'];
 			$course_abber = $_POST['course_abber'];
 			$course_level = $_POST['course_level'];
-			$no_of_seats = $_POST['no_of_seats'];
 			$no_of_lessons = $_POST['no_of_lessons'];
 			$language = $_POST['language'];
 			$overview_heading = $_POST['overview_heading'];
@@ -295,7 +294,6 @@ class Admin extends CI_Controller {
 				"course_title"=>$course_title,
 				"course_abber"=>$course_abber,
 				"course_level"=>$course_level,
-				"no_of_seats"=>$no_of_seats,
 				"no_of_lessons"=>$no_of_lessons,
 				"language"=>$language,
 				"overview_heading"=>$overview_heading,
