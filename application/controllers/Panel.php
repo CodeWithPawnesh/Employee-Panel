@@ -185,7 +185,11 @@ class Panel extends CI_Controller {
                 "group_id"=>$group_id,  
                 "status"=>1   
             );
-            $this->CM->add_student($login_data,$student_data);
+            $table_name= "tc_course";
+            $select ="course_name";
+            $where =array("course_id"=>$course_id);
+            $course_name = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
+            $this->CM->add_student($login_data,$student_data,$course_name);
         }
         $this->load->admin_temp('add_student',$data);
     }

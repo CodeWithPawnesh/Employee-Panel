@@ -20,14 +20,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($class_data as $c_d){ ?>
+                                <?php $s_time=""; $e_time=""; foreach($class_data as $c_d){ ?>
                                 <tr>
                                     <td class="text-center"><?= $c_d['class_name'] ?></td>
                                     <td class="text-center"><?= $c_d['batch_name'] ?></td>
-                                    <td class="text-center"><?= date("h:i A",$c_d['class_ts']) ?></td>
-                                    <td class="text-center"><a href="Teacher-Dashboard?id=<?= $c_d['class_id'] ?>&cl_l=<?= $cl_link['live_link'] ?>" target="_blank"  class="btn btn-sm btn-success">Join Room</a></th>
+                                    <td class="text-center" id="ti"><?= date("h:i A", ($c_d['class_ts'])) ?></td>
+                                    <td class="text-center"><a id="<?= $c_d['class_id'] ?>" href="Teacher-Dashboard?id=<?= $c_d['class_id'] ?>&cl_l=<?= $cl_link['live_link'] ?>" target="_blank"  class="btn btn-sm btn-success">Join Room</a></th>
                                 </tr>
-                                <?php } ?>
+                                <?php  } ?>
                             </tbody>
                         </table>
                     </div>
@@ -87,14 +87,35 @@
 </div>
 </body>
 <script>
-   function ins_class(id){
-    $.ajax({
-        type:"POST",
-        url:"teacher/teacher_dashboard",
-        data:{id:id},
-        success:function(res){
-
-        }
-    });
-   }
+   function check_class_time(){
+    
+    var today = new Date();
+    var h = zeros(today.getHours() % 12 || 12);
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    var time = h + ':' + m + ':' + s;
+    <?php foreach($class_data as $c_d){
+         $s_time = date("h:i:s", ($c_d['class_ts']) - (15 * 60));
+         $e_time = date("h:i:s", ($c_d['class_ts']) + (15 * 60));
+    ?>
+    console.log('<?= $e_time ?>');
+    console.log(time );
+    if('<?=  $s_time ?>' <= time && '<?= $e_time ?>' >=  time)
+    {
+    document.getElementById("<?= $c_d['class_id'] ?>").style.display="block";
+    }else{
+        document.getElementById("<?= $c_d['class_id'] ?>").style.display="none";
+    }
+   <?php  }  ?>
+    }
+    setInterval(function(){
+        check_class_time();
+    }, 100);
+    function zeros(i) {
+      if (i < 10) {
+        return "0" + i;
+      } else {
+        return i;
+      }
+    }
 </script>
