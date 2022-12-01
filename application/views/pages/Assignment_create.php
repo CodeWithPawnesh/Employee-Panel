@@ -12,7 +12,7 @@
                     <?php
                     $user_info = $this->session->userdata('user_data');
                     if($user_info->access_level==0){
-                    if(!isset($_POST['course_id']) && !isset($_POST['course'])){ ?>
+                    if(!isset($_POST['course_id']) && !isset($_POST['batch_id'])){ ?>
                     <div class="card-body">
                         <form method="post">
                             <div class="row">
@@ -67,14 +67,14 @@
                     <?php } ?>
                     <?php if(isset($_POST['batch_id']) ){ ?>
                     <div class="card-body">
-                        <form method="post">
-                            <div class="row">
+                        <form action="Assignment/assignment_create" method="post">
+                        <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Select A Group</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="batch" value="<?= $_POST['batch_id']; ?>">
+                                        <input type="hidden" name="batch_id" value="<?= $_POST['batch_id']; ?>">
                                         <select name="group_id" class="form-control" required>
                                             <option value="0">Select Any One Option</option>
                                             <?php if(!empty($group_data)){ 
@@ -87,23 +87,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer ">
-                                <button class="btn btn-sm btn-success">Next</button>
-                            </div>
-                        </form>
-                    </div>
-                    <?php } ?>
-                    <?php if(isset($_POST['group_id']) ){ ?>
-                    <div class="card-body">
-                        <form action="Assignment/assignment_create" method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Create Assignment </label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="batch" value="<?= $_POST['batch']; ?>">
-                                        <input type="hidden" name="group" value="<?= $_POST['group_id']; ?>">
+                                        <input type="hidden" name="batch_id" value="<?= $_POST['batch_id']; ?>">
+                                        <input type="hidden" name="group_id" value="<?= $_POST['group_id']; ?>">
                                         <textarea name="assignment" class="form-control" id="" cols="30"
                                             rows="10"></textarea>
                                     </div>

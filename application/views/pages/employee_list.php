@@ -19,6 +19,7 @@
                     <?php } ?>
                     <div class="card-body">
                         <a href="<?= base_url('Add-Employee') ?>" class="btn btn-md btn-success">Add Employee</a>
+                        <?php if(!empty($emp_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Employee</caption>
                             <thead>
@@ -28,14 +29,14 @@
                                     <th class="text-center">E-mail</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Password</th>
-                                    <th class="text-center">course_id</th>
                                     <th class="text-center">Education</th>   
                                     <th class="text-center">Designation</th>
                                     <th class="text-center">Status</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if(!empty($emp_data)){  $i=1;
+                                <?php $i=1;
                                     foreach($emp_data as $e_d){
                                     ?>
                                 <tr>
@@ -44,7 +45,6 @@
                                     <td class="text-center"><?= $e_d['email'];  ?></td>
                                     <td class="text-center"><?= $e_d['phone']; ?></td>
                                     <td class="text-center"><?= $e_d['password'];  ?></th>
-                                    <td class="text-center"><?= $e_d['course_name'];  ?></td>
                                     <td class="text-center"><?= $e_d['education']; ?></td>
                                     <td class="text-center"><?= $e_d['designation']; ?></td>
                                     <?php if($e_d['status']==1){  ?>
@@ -53,8 +53,20 @@
                                     <?php if($e_d['status']==0){  ?>
                                     <td class="text-center text-success">Active</td>
                                     <?php } ?>
+                                    <td class="text-center">
+                                     <div class="dropdown show">
+                                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        
+                                       </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                       <a class="dropdown-item" href="<?= base_url("Employee-Course?id=").$e_d['emp_id'] ?>">View Course</a>
+                                       <a class="dropdown-item" href="<?= base_url("Employee-Edit?id=").$e_d['emp_id'] ?>">Edit</a>
+                                       <a class="dropdown-item" href="#">Delete</a>
+                                    </div>
+                                     </div>
+                                    </td>
                                 </tr>
-                                <?php } } ?>
+                                <?php } }else{ echo "<h1 class='text-center text-warning'>No Data Found</h1>"; } ?>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">

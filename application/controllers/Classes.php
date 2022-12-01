@@ -79,7 +79,7 @@ class Classes extends CI_Controller {
 		if(isset($_GET['id']) && isset($_GET['class_id'])){
 			$live_id = $_GET['id'];
 			$class_id = $_GET['class_id'];
-			$sql = "SELECT s.student_id, s.student_name FROM tc_student as s, tc_classes as c WHERE s.batch_id = c.batch_id AND c.class_id = $class_id";
+			$sql = "SELECT s.student_id, s.student_name FROM tc_student as s, tc_classes as c, tc_enrollment as en WHERE en.student_id = s.student_id AND  en.batch_id = c.batch_id AND c.class_id = $class_id";
 			$data['student_data'] = $this->CM->get_join($sql);
 		}
 		if(isset($_POST['submit'])){

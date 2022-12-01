@@ -15,6 +15,7 @@ $user_info = $this->session->userdata('user_data');
 
                     <div class="card-body">
                         <a href="<?= base_url('Assignment-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <?php if(!empty($assignment_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Assignment</caption>
                             <thead>
@@ -35,7 +36,7 @@ $user_info = $this->session->userdata('user_data');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php  if(!empty($assignment_data)){ $i=1; foreach ($assignment_data as $a_d) { ?>
+                                <?php $i=1; foreach ($assignment_data as $a_d) { ?>
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?php echo $a_d['assignment']; ?></td>

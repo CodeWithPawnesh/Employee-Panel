@@ -19,6 +19,7 @@
                     <?php } ?>
                     <div class="card-body">
                         <a href="<?= base_url('Leave-Create') ?>" class="btn btn-md btn-success">Add Leave</a>
+                        <?php  if(!empty($leave_data)){  ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Leaves</caption>
                             <thead>
@@ -32,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if(!empty($leave_data)){ $i=1; foreach($leave_data as $l_d){ ?>
+                                <?php $i=1; foreach($leave_data as $l_d){ ?>
                                 <tr>
                                     <td class="text-center"><?= $i++ ; ?></td>
                                     <td class="text-center"><?= date('d M, Y',$l_d['leave_start_date']); ?></td>

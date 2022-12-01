@@ -74,8 +74,8 @@ class Assignment extends CI_Controller {
 		$emp_id = $emp_data->emp_id;
 		if($user_info->access_level == 0){
 		if(isset($_POST['submit'])){
-			$batch = $_POST['batch'];
-			$group = $_POST['group'];
+			$batch = $_POST['batch_id'];
+			$group = $_POST['group_id'];
 			$assignment = $_POST['assignment'];
 			$start_date = $_POST['start_date'];
 			$start_date = strtotime($start_date);
@@ -106,7 +106,7 @@ class Assignment extends CI_Controller {
 			);
 			$data['batch_data']= $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
 			if(isset($_POST['submit'])){
-				$batch = $_POST['batch'];
+				$batch = $_POST['batch_id'];
 				$assignment = $_POST['assignment'];
 				$start_date = $_POST['start_date'];
 			    $start_date = strtotime($start_date);
@@ -172,7 +172,6 @@ class Assignment extends CI_Controller {
 		}
 		if(isset($_POST['batch_id']))
 		{
-			$course_id = $_POST['course'];
 			$batch_id = $_POST['batch_id'];
 			
 			$table_name = "tc_batch_group";

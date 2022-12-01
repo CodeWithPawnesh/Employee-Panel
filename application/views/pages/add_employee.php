@@ -32,11 +32,15 @@
                                         <label>Select Any One Course</label>
                                     </div>
                                     <div class="form-group">
-                                        <select name="course" class="form-control">
-                                            <option value="" selected disabled>Choose Any One Option...</option>
-                                            <?php foreach($course_data as $c_d) ?>
-                                            <option value="<?= $c_d['course_id'] ?>"><?= $c_d['course_name'] ?></option>
-                                        </select>
+                                    <select name="course_id[]" data-live-search="true"
+                                                title="Choose Courses From the Following Options..."
+                                                data-selected-text-format="count>3" data-actions-box="true"
+                                                class="form-control my-select" multiple required>
+                                                <?php foreach($course_data as $c_d){ ?>
+                                                <option value="<?= $c_d['course_id'] ?>"><?= $c_d['course_name'] ; ?>
+                                                </option>
+                                                <?php } ?>
+                                            </select>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -111,3 +115,8 @@
 </div>
 </div>
 </body>
+<script>
+$(document).ready(function(){
+    $('.my-select').selectpicker();
+});
+</script>

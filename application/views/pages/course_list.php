@@ -19,6 +19,7 @@
                     <?php } ?>
                     <div class="card-body">
                         <a href="<?= base_url('Course-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <?php if(!empty($course_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Course</caption>
                             <thead>
@@ -72,10 +73,10 @@
                                         <?php if($c_d['status']=='0'){ ?>
                                         <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=1"
                                             class="btn btn-sm btn-success">Publish</a>
-                                        <?php } ?>
+                                        <?php } } ?>
                                     </td>
                                 </tr>
-                                <?php } ?>
+                                <?php } else { echo "<h1 class='text-warning'>No Data Found</h1>"; } ?>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">

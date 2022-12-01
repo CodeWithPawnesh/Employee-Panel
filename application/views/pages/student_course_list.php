@@ -6,55 +6,50 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Testimonial List</h4>
+                            <h4 class="card-title">Student Course List</h4>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        <a href="<?= base_url('Testimonial-Create') ?>" class="btn btn-md btn-success">Create</a>
-                        <?php if(!empty($testimonial_data)){ ?>
+                        <a class="btn btn-md btn-success"href="<?= base_url("Add-Student-Course?id=").$_GET['id'] ?>">Add Course</a>
+                        <?php if(!empty($course_data)){ ?>
                         <table class="table table-hover table-responsive">
-                            <caption>List of Testimonial</caption>
+                            <caption>List of Student Course</caption>
                             <thead>
                                 <tr>
 
                                     <th class="text-center">#</th>
-                                    <th class="text-center">Testimonial</th>
-                                    <th class="text-center">Star rating</th>
-                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Course Name</th>
+                                    <th class="text-center">Batch Name</th>
+                                    <th class="text-center">Group</th>
                                     <th class="text-center">Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i=1; foreach ($testimonial_data as $t_d) { ?>
+                                <?php $i=1; foreach ($course_data as $c_d) { ?>
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
-                                    <td class="text-center"><?php echo $t_d['testimonial_desc']; ?></td>
-                                    <td class="text-center"><?php echo $t_d['star_rating']; ?> Stars</td>
-                                    <?php  if($t_d['status']=='1'){ ?>
-                                    <td class="text-success text-center">Active</td>
-                                    <?php } ?>
-                                    <?php  if($t_d['status']=='0'){ ?>
-                                    <td class="text-danger text-center">In Active</td>
-                                    <?php } ?>
+                                    <td class="text-center"><?= $c_d['course_name'] ?></td>
+                                    <td class="text-center"><?= $c_d['batch_name'] ?></td>
+                                    <td class="text-center"><?= $c_d['group_name'] ?></td>
                                     <td class="text-center">
-                                        <a href="<?= base_url('Testimonial-Edit?id=');echo $t_d['testimonial_id']; ?>"
-                                            class="btn btn-sm btn-success">Edit</a>
-                                        <br>
-                                        <?php if($t_d['status']=='1'){ ?>
-                                        <a href="<?= base_url('Testimonial-List?id='); echo $t_d['testimonial_id']; ?>&status=0"
-                                            class="btn btn-sm btn-danger">Un-Publish</a>
-                                        <?php } ?>
-                                        <?php if($t_d['status']=='0'){ ?>
-                                        <a href="<?= base_url('Testimonial-List?id='); echo $t_d['testimonial_id']; ?>&status=1"
-                                            class="btn btn-sm btn-success">Publish</a>
-                                        <?php } ?>
+                                        <div class="dropdown show">
+                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a href="<?= base_url("Class-History?student_id=").$c_d['student_id'] ?>" class="dropdown-item">Class History</a>
+                                                <a class="dropdown-item" href="#">Delete</a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php } }else{ ?>
-                                    <h1 class='text-center text-warning'>No Data Found</h1>
-                                    <?php } ?>
+                                <h1 class='text-center text-warning'>No Data Found</h1>
+                                <?php } ?>
 
 
                             </tbody>
@@ -65,17 +60,17 @@
                                 <li
                                     class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
                                     <a class="page-link"
-                                        href="<?= base_url('Testimonial-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
+                                        href="<?= base_url('Student-Course-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
                                         tabindex="-1">Previous</a>
                                 </li>
                                 <?php for($i=1; $i<=$total_pages;$i++){ ?>
 
                                 <li class="page-item"><a class="page-link"
-                                        href="<?= base_url('Testimonial-List?page='); echo $i ?>"><?= $i; ?></a></li>
+                                        href="<?= base_url('Student-Course-List?page='); echo $i ?>"><?= $i; ?></a></li>
                                 <?php } ?>
                                 <li class="page-item">
                                     <a class="page-link"
-                                        href="<?= base_url('Testimonial-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
+                                        href="<?= base_url('Student-Course-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>

@@ -15,6 +15,7 @@ $user_info = $this->session->userdata('user_data');
 
                     <div class="card-body">
                         <a href="<?= base_url('Quiz-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <?php  if(!empty($quiz_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Quiz</caption>
                             <thead>
@@ -37,7 +38,7 @@ $user_info = $this->session->userdata('user_data');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php  if(!empty($quiz_data)){ $i=1; foreach ($quiz_data as $q_d) { ?>
+                                <?php  $i=1; foreach ($quiz_data as $q_d) { ?>
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?php echo $q_d['quiz_title']; ?></td>

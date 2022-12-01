@@ -12,6 +12,7 @@
 
                     <div class="card-body">
                         <a href="<?= base_url('Batch-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <?php if(!empty($batch_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Batches</caption>
                             <thead>
@@ -30,7 +31,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i=1; foreach ($batch_data as $b_d) { ?>
+                                <?php  $i=1; foreach ($batch_data as $b_d) { ?>
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?php echo $b_d['batch_name']; ?></td>
@@ -61,7 +62,7 @@
                                         <?php } ?>
                                     </td>
                                 </tr>
-                                <?php } ?>
+                                <?php } }else{ echo "<h1 class='text-center text-warning'>No Data Found</h1>"; } ?>
 
 
                             </tbody>

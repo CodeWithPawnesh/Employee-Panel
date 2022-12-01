@@ -50,8 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'welcome';
+// ADMIN ROUTES
 $route['Admin-Dashboard'] = 'Admin';
-$route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Course-List'] = 'Admin/course_list';
 $route['Course-Create'] = 'Admin/course_create';
 $route['Course-Edit'] = 'Admin/course_edit';
@@ -67,6 +67,18 @@ $route['Group-Create']='Admin/group_create';
 $route['Group-List']='Admin/group_list';
 $route['Group-Edit']='Admin/group_edit';
 $route['Group-Instructor-List']='Admin/group_inst_list';
+$route['Employee-List']='Admin/employee_list';
+$route['Add-Student']='Admin/add_student';
+$route['Add-Employee']='Admin/add_employee';
+$route['Employee-Course']='Admin/employee_course';
+$route['Employee-Edit']='Admin/edit_employee';
+$route['Student-Edit']='Admin/edit_student';
+$route['Student-Course-List']='Admin/student_course_list';
+$route['Add-Student-Course']='Admin/add_student_course';
+$route['Student-Leave']='admin/student_leave';
+$route['Employee-Leave']='admin/employee_leave';
+//END ADMIN ROUTES
+$route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Assignment-Create']='Assignment/assignment_create';
 $route['Assignment-Edit']='Assignment/assignment_edit';
 $route['Check-Assignment']='Assignment/check_assignment';
@@ -81,12 +93,7 @@ $route['Leave']='Panel/leave_list';
 $route['Leave-Create']='Panel/create_leave';
 $route['Class-Create']='Classes/class_create';
 $route['Class-Edit']='Classes/class_edit';
-$route['Student-Leave']='admin/student_leave';
-$route['Employee-Leave']='admin/employee_leave';
 $route['Student-List']='panel/student_list';
-$route['Employee-List']='panel/employee_list';
-$route['Add-Student']='panel/add_student';
-$route['Add-Employee']='panel/add_employee';
 $route['Teacher-Batch']='Teacher/teacher_batch';
 $route['Class-History']='Classes/class_history';
 $route['Mark-Attendance']='Classes/mark_attendance';

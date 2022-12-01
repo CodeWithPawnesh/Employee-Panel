@@ -167,7 +167,8 @@
                                         <?php
                                         $sec_2_desc = $course_data['sec_2_desc'];
                                         $sec_2_desc = json_decode($sec_2_desc,true);
-                                        for($i=0;$i<=count($sec_2_desc); $i++){
+                                        
+                                        for($i=0;$i<sizeof($sec_2_desc['heading']); $i++){
                                         ?>
                                         <div id="inputFormRow">
                                             <div class="input-group mb-3">

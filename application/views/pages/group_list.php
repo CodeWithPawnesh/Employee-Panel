@@ -12,6 +12,7 @@
 
                     <div class="card-body">
                         <a href="<?= base_url('Group-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <?php if(!empty($group_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of users</caption>
                             <thead>
@@ -29,7 +30,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if(!empty($group_data)){ $i=1; foreach ($group_data as $g_d) { ?>
+                                <?php $i=1; foreach ($group_data as $g_d) { ?>
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?= $g_d['group_name']; ?></td>
@@ -58,7 +59,7 @@
                                         <?php } ?>
                                     </td>
                                 </tr>
-                                <?php } } ?>
+                                <?php } }else{ echo "<h1 class='text-center text-warning'>No Data Found</h1>"; } ?>
 
 
                             </tbody>

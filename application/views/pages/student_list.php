@@ -25,6 +25,7 @@ $access_level = $user_info->access_level;
                         <?php if($access_level == 0){ ?>
                         <a href="<?= base_url('Add-Student') ?>" class="btn btn-md btn-success">Add Student</a>
                         <?php } ?>
+                        <?php if(!empty($student_data)){  ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Students</caption>
                             <thead>
@@ -33,15 +34,12 @@ $access_level = $user_info->access_level;
                                     <th Class="text-center">Student Name</th>
                                     <th Class="text-center">E-Mail</th>
                                     <th Class="text-center">Ph. NO</th>
-                                    <th Class="text-center">Course Name</th>
-                                    <th Class="text-center">Batch Name</th>
-                                    <th Class="text-center">Group Name</th>
                                     <th Class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if(!empty($student_data)){ 
+                                <?php
                                    $i=1; foreach($student_data as $s_d){
                                     ?>
                                 <tr>
@@ -49,9 +47,6 @@ $access_level = $user_info->access_level;
                                     <td class="text-center"><?= $s_d['student_name'] ?></td>
                                     <td class="text-center"><?= $s_d['email'] ?></td>
                                     <td class="text-center"><?= $s_d['phone'] ?></td>
-                                    <td class="text-center"><?= $s_d['course_name'] ?></td>
-                                    <td class="text-center"><?= $s_d['batch_name'] ?></td>
-                                    <td class="text-center"><?= $s_d['group_name'] ?></td>
                                     <?php if($s_d['status']==1){ ?>
                                     <td class="text-center text-success">Active</td>
                                     <?php } ?>
@@ -59,13 +54,22 @@ $access_level = $user_info->access_level;
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
                                    <td class="text-center">
-                                    <a href="<?= base_url("Class-History?student_id=").$s_d['student_id'] ?>" class="btn btn-sm btn-success">
-                                Class History
-                                    </a>
+                                    <div class="dropdown show">
+                                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        
+                                       </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                       <a href="<?= base_url("Class-History?student_id=").$s_d['student_id'] ?>" class="dropdown-item">Class History                                </a>
+                                       <a class="dropdown-item"href="<?= base_url("Add-Student-Course?id=").$s_d['student_id'] ?>">Add Course</a>
+                                       <a class="dropdown-item"href="<?= base_url("Student-Course-List?id=").$s_d['student_id'] ?>">View Course</a>
+                                       <a class="dropdown-item" href="<?= base_url("Student-Edit?id=").$s_d['student_id'] ?>">Edit</a>
+                                       <a class="dropdown-item" href="#">Delete</a>
+                                    </div>
+                                     </div>
                                    </td>
 
                                 </tr>
-                                <?php } } ?>
+                                <?php } }else { echo "<h1 class='text-center text-warning'>No Data Found</h1>";  } ?>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">

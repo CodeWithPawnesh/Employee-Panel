@@ -27,8 +27,8 @@ class Teacher extends CI_Controller {
         c.status = 1 AND b.batch_start_date <=$d_tc AND b.batch_end_date >= $d_tc ";
 
         $data['class_data']= $this->CM->get_join($sql);
-        $sql = "SELECT s.student_name, b.batch_name FROM tc_student AS s, tc_leave AS l, tc_batch AS b WHERE l.user_id = s.user_id AND l.leave_start_date = $d_tc
-        AND b.batch_id = s.batch_id AND l.status = 1";
+        $sql = "SELECT s.student_name, b.batch_name FROM tc_student AS s, tc_enrollment AS er, tc_leave AS l, tc_batch AS b WHERE l.user_id = s.user_id AND l.leave_start_date = $d_tc
+        AND b.batch_id = er.batch_id AND l.status = 1 AND er.student_id = s.student_id";
         $data['student_leave']= $this->CM->get_join($sql);
 		$this->load->admin_temp('teacher_dashboard',$data);
     }

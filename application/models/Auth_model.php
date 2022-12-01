@@ -20,7 +20,7 @@ class Auth_model extends CI_Model
     }
     public function emp_data($user_id){
         $where = array(
-            "emp_id"=>$user_id
+            "user_id"=>$user_id
         );
         $this->db->select('*');
         $this->db->where($where);
