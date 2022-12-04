@@ -340,6 +340,7 @@ $emp_info = $this->session->userdata('emp_data');
                     </li>
                     <!-- Batch List  -->
                     <?php
+                    if($user_info->access_level== 1 ){
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
                     $current_page = explode("/",$current_page);
@@ -356,7 +357,29 @@ $emp_info = $this->session->userdata('emp_data');
                             <p>Batch List</p>
                         </a>
                     </li>
+                    <?php } ?>
                     <!-- Batch List  -->
+                     <!-- Group List  -->
+                     <?php
+                    if($user_info->access_level== 2 ){
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Teacher-Group"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Teacher-Group">
+                            <i class="material-icons">list</i>
+                            <p>Group List</p>
+                        </a>
+                    </li>
+                    <?php } ?>
+                    <!-- Group List  -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;

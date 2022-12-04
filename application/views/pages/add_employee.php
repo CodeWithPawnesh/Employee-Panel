@@ -9,7 +9,7 @@
                             <h4 class="card-title">Add Employee</h4>
                         </div>
                     </div>
-                    <form action="Panel/add_employee" method="post">
+                    <form action="Add-Employee" method="post">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">

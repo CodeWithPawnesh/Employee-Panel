@@ -36,7 +36,7 @@
                                 <tr>
                                     <td class="text-center"><?= $i++ ; ?></td>
                                     <td class="text-center"><?= date('d M, Y',$l_d['leave_start_date']); ?></td>
-                                    <td class="text-center"><?= date('d M, Y',$l_d['leave_end_date']); if(empty($l_d['leave_end_date'])){ echo "--"; } ?></td>
+                                    <td class="text-center"><?php if(!empty($l_d['leave_end_date'])){ date('d M, Y',$l_d['leave_end_date']); } if(empty($l_d['leave_end_date'])){ echo "--"; } ?></td>
                                     <td class="text-center"><?= $l_d['reason']; ?></td>
                                     <?php if($l_d['status']=='1'){ ?>
                                     <td class="text-center text-success">Approved</td>

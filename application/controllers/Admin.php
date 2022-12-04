@@ -42,6 +42,10 @@ class Admin extends CI_Controller {
 		$row = $this->CM->get_row($table_name);
 		$data['total_pages'] = ceil($row/$limit);
         $data['course_data']=$this->CM->get($table_name,$limit,$offset,$order_by);
+		if(isset($_GET['delete_id'])){
+			$course_id = $_GET['delete_id'];
+			$this->CM->delete_course($course_id);
+		}
 		$this->load->admin_temp('course_list',$data);
 	}
 	public function course_create(){
@@ -447,7 +451,8 @@ class Admin extends CI_Controller {
 			$course_batch_id = $course_batch_row +1;
 		    $batch_number = $course_abber."-BATCH-".$course_batch_id;
 			$live_class_name = $course_name."-Live-Class-Batch-".$course_batch_id;
-			$doubt_class_name = $course_name."-Doubt-Class-Batch-".$course_batch_id;
+			$doubt_class_name_b = $course_name."-Boys-Doubt-Class-Batch-".$course_batch_id;
+			$doubt_class_name_g = $course_name."-Girls-Doubt-Class-Batch-".$course_batch_id;
 		    $batch_name = $course_name."-BATCH-". date('M')."-". $course_batch_id;
 			$trainer = $_POST['trainer'];
 			$created_at = time();
@@ -479,9 +484,17 @@ class Admin extends CI_Controller {
 				"added_ts"=>$created_at,
 				"status"=>"1"
 			);
-			$doubt_class_data = array(
-				"class_name"=>$doubt_class_name,
+			$doubt_class_data_b = array(
+				"class_name"=>$doubt_class_name_b,
 				"type"=>"2",
+				"batch_id"=> $batch_id,
+				"teacher_id"=>$trainer,
+				"added_ts"=>$created_at,
+				"status"=>"0"
+			);
+			$doubt_class_data_g = array(
+				"class_name"=>$doubt_class_name_g,
+				"type"=>"3",
 				"batch_id"=> $batch_id,
 				"teacher_id"=>$trainer,
 				"added_ts"=>$created_at,
@@ -489,7 +502,8 @@ class Admin extends CI_Controller {
 			);
 			$redirect = "Batch-List";
 			$this->CM->save($live_class_data,$class_table_name);
-			$this->CM->save($doubt_class_data,$class_table_name,$redirect);
+			$this->CM->save($doubt_class_data_b,$class_table_name);
+			$this->CM->save($doubt_class_data_g,$class_table_name,$redirect);
 		}
         $data['page_name']="batch create";
 		$this->load->admin_temp('batch_create',$data);
@@ -519,7 +533,16 @@ class Admin extends CI_Controller {
 		$row = $this->CM->get_row($table_name);
 		$data['total_pages'] = ceil($row/$limit);
 		$sql = "SELECT b.*,e.emp_name, c.course_name FROM tc_batch as b, tc_course as c, tc_employee as e WHERE b.emp_id = e.emp_id AND b.course_id = c.course_id ORDER BY b.batch_id DESC LIMIT $offset,$limit ";
-        $data['batch_data']=$this->CM->get_join($sql); 
+        $data['batch_data']=$this->CM->get_join($sql);
+		if(isset($_GET['delete_id'])){
+			$batch_id = $_GET['delete_id'];
+			$table_name = "tc_batch";
+			$where = array(
+				"batch_id"=>$batch_id
+			);
+			$redirect = "Batch-List";
+			$this->CM->delete($table_name,$where,$redirect);
+		}
 		$this->load->admin_temp('batch_list',$data);
 	 }
 
@@ -645,6 +668,8 @@ class Admin extends CI_Controller {
 			$group_id = $group_id[0]['group_id'];
 			$class_table_name = "tc_classes";
 			$live_class_name = "Live-Coding-"."$course_name"."-Group-".$group_nu;
+			$doubt_class_name_b = "Boys-Doubt-Coding-"."$course_name"."-Group-".$group_nu;
+			$doubt_class_name_g = "GirlsDoubt-Coding-"."$course_name"."-Group-".$group_nu;
 			$doubt_class_name = "Doubt-Coding-"."$course_name"."-Group-".$group_nu;
 			$live_class_data = array(
 				"class_name"=>$live_class_name,
@@ -656,9 +681,18 @@ class Admin extends CI_Controller {
 				"added_ts"=>$created_at,
 				"status"=>"1"
 			);
-			$doubt_class_data = array(
-				"class_name"=>$doubt_class_name,
+			$doubt_class_data_b = array(
+				"class_name"=>$doubt_class_name_b,
 				"type"=>"2",
+				"group_id"=>$group_id,
+				"batch_id"=> $batch_id,
+				"teacher_id"=>$emp_id,
+				"added_ts"=>$created_at,
+				"status"=>"0"
+			);
+			$doubt_class_data_g = array(
+				"class_name"=>$doubt_class_name_g,
+				"type"=>"3",
 				"group_id"=>$group_id,
 				"batch_id"=> $batch_id,
 				"teacher_id"=>$emp_id,
@@ -667,7 +701,8 @@ class Admin extends CI_Controller {
 			);
 			$redirect = "Group-List";
 			$this->CM->save($live_class_data,$class_table_name);
-			$this->CM->save($doubt_class_data,$class_table_name,$redirect);
+			$this->CM->save($doubt_class_data_b,$class_table_name);
+			$this->CM->save($doubt_class_data_g,$class_table_name,$redirect);
 			}
 	$table_name = "tc_course";
 	$select = "course_id, course_name";
@@ -703,6 +738,15 @@ class Admin extends CI_Controller {
 	$sql = "SELECT g.*, c.course_name, b.batch_name, b.batch_number,e.emp_name FROM tc_employee AS e, tc_batch_group AS g, tc_batch AS b, tc_course AS c WHERE 
 	c.course_id = b.course_id AND b.batch_id = g.batch_id AND e.emp_id = g.emp_id ORDER BY g.group_id DESC LIMIT $offset,$limit";
     $data['group_data']=$this->CM->get_join($sql);
+	if(isset($_GET['delete_id'])){
+		$group_id = $_GET['delete_id'];
+		$table_name = "tc_batch_group";
+		$where = array(
+			"group_id"=>$group_id
+		);
+		$redirect = "Group-List";
+		$this->CM->delete($table_name,$where,$redirect);
+	}
 	$this->load->admin_temp('group_list',$data);
   }
 
@@ -819,6 +863,15 @@ public function student_course_list(){
 		$sql = "SELECT en.*,c.course_name, b.batch_name, g.group_name FROM tc_course AS c, tc_batch AS b, tc_batch_group AS g, tc_enrollment AS en
 				WHERE en.student_id = $student_id AND en.course_id = c.course_id AND en.batch_id = b.batch_id AND en.group_id = g.group_id ";
 		$data['course_data'] = $this->CM->get_join($sql);
+		if(isset($_GET['course_delete']) ){
+			$enroll_id = $_GET['course_delete'];
+			$where = array(
+				"en_id"=>$enroll_id
+			);
+			$table_name = "tc_enrollment";
+			$redirect = "Student-Course-List?id=".$_GET['id'];
+			$this->CM->delete($table_name,$where,$redirect);
+		}
 		  $this->load->admin_temp('student_course_list',$data);
 }
 }
@@ -1001,6 +1054,13 @@ public function employee_course(){
 	$this->load->admin_temp('employee_course',$data);
 }
 public function employee_list(){
+	if(isset($_GET['delete_emp'])){
+		$emp_id = $_GET['delete_emp'];
+		$sql = "SELECT user_id FROM tc_employee WHERE employee_id = $emp_id";
+            $user_id = $this->CM->get_join($sql);
+            $user_id = $user_id[0]['user_id'];
+		$this->CM->delete_employee($emp_id,$user_id);
+	}
 	if(isset($_GET['page'])){
 		$page_no = $_GET['page']; 
 	}else{

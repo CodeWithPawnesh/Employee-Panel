@@ -79,6 +79,8 @@ $route['Student-Leave']='admin/student_leave';
 $route['Employee-Leave']='admin/employee_leave';
 //END ADMIN ROUTES
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
+$route['Teacher-Batch']='Teacher/teacher_batch';
+$route['Teacher-Group']='Teacher/teacher_group';
 $route['Assignment-Create']='Assignment/assignment_create';
 $route['Assignment-Edit']='Assignment/assignment_edit';
 $route['Check-Assignment']='Assignment/check_assignment';
@@ -94,7 +96,6 @@ $route['Leave-Create']='Panel/create_leave';
 $route['Class-Create']='Classes/class_create';
 $route['Class-Edit']='Classes/class_edit';
 $route['Student-List']='panel/student_list';
-$route['Teacher-Batch']='Teacher/teacher_batch';
 $route['Class-History']='Classes/class_history';
 $route['Mark-Attendance']='Classes/mark_attendance';
 $route['login']="Auth/login";

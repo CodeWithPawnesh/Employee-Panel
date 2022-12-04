@@ -46,17 +46,24 @@
                                     <td class="text-danger text-center">In Active</td>
                                     <?php } ?>
                                     <td class="text-center">
-                                        <a href="<?= base_url('Group-Edit?id=');echo $g_d['group_id']; ?>"
-                                            class="btn btn-sm btn-success">Edit</a>
-                                        <br>
-                                        <?php if($g_d['status']=='1'){ ?>
+                                <div class="dropdown show">
+                                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                         <a href="<?= base_url('Group-Edit?id=');echo $g_d['group_id']; ?>"
+                                            class="dropdown-item">Edit</a>
+                                        <a href="<?= base_url('Group-List?delete_id=');echo $g_d['group_id']; ?>"
+                                            class="dropdown-item">Delete</a>
+                                            <?php if($g_d['status']=='1'){ ?>
                                         <a href="<?= base_url('Group-List?id='); echo $g_d['group_id']; ?>&status=0"
-                                            class="btn btn-sm btn-danger">Un-Publish</a>
+                                            class="dropdown-item">Un-Publish</a>
                                         <?php } ?>
                                         <?php if($g_d['status']=='0'){ ?>
                                         <a href="<?= base_url('Group-List?id='); echo $g_d['group_id']; ?>&status=1"
-                                            class="btn btn-sm btn-success">Publish</a>
+                                            class="dropdown-item">Publish</a>
                                         <?php } ?>
+                                    </div>
+                                </div>
                                     </td>
                                 </tr>
                                 <?php } }else{ echo "<h1 class='text-center text-warning'>No Data Found</h1>"; } ?>

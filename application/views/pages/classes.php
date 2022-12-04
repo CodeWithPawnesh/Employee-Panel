@@ -73,10 +73,8 @@ $access_level = $user_info->access_level;
                                                 <i class="material-icons">list</i>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <?php if($access_level == 1){ ?>
                                                 <a class="dropdown-item"
                                                     href="<?= base_url("Class-History?class_id=").$c_d['class_id'] ?>">Class History</a>
-                                                <?php } ?>
                                                 <a href="<?= base_url('Class-Edit?id=');echo $c_d['class_id']; ?>"
                                                 class="dropdown-item" >Edit</a>
                                             </div>

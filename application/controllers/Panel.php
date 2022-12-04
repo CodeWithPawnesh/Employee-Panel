@@ -125,24 +125,32 @@ class Panel extends CI_Controller {
         if(isset($_GET['batch_id'])){
             $batch_id =$_GET["batch_id"];
             $sql = "SELECT s.*, c.course_name,b.batch_name,g.group_name FROM tc_student as s, tc_batch as b, tc_batch_group as g,
-             tc_course as c WHERE s.batch_id = $batch_id AND s.batch_id = b.batch_id AND c.course_id = s.course_id AND g.group_id = s.group_id  ORDER BY student_id DESC";
+             tc_course as c, tc_enrollment as en WHERE en.batch_id = $batch_id AND en.batch_id = b.batch_id AND c.course_id = en.course_id AND g.group_id = en.group_id  ORDER BY student_id DESC";
             }
             if(isset($_GET['group_id'])){
                 $group_id = $_GET['group_id'];
                 $sql = "SELECT s.*, c.course_name,b.batch_name,g.group_name FROM tc_student as s, tc_batch as b, tc_batch_group as g,
-                 tc_course as c WHERE s.batch_id = b.batch_id AND s.group_id= $group_id AND g.group_id = s.group_id AND c.course_id = s.course_id ORDER BY student_id DESC";
+                 tc_course as c, tc_enrollment as en WHERE en.batch_id = b.batch_id AND en.group_id= $group_id AND g.group_id = en.group_id AND c.course_id = en.course_id ORDER BY student_id DESC";
                 }
         $data['student_data'] = $this->CM->get_join($sql);
+        if(isset($_GET['delete_student'])){
+            $student_id = $_GET['delete_student'];
+            $sql = "SELECT user_id FROM tc_student WHERE student_id = $student_id";
+            $user_id = $this->CM->get_join($sql);
+            $user_id = $user_id[0]['user_id'];
+            $redirect = "Student-List";
+            $this->CM->delete_all_student($student_id,$user_id,$redirect);
+        }
 
         $this->load->admin_temp('student_list',$data);
     }
     public function class_history(){
         $emp_info = $this->session->userdata('emp_data');
         $emp_id = $emp_info->emp_id;
+        $emp_role = $emp_info->role;
         if(isset($_GET['class_id'])){
             $class_id = $_GET['class_id'];
-            $data['class_data']= $this->CM->get_class_data($class_id);
-
+            $data['class_data']= $this->CM->get_class_data($class_id,$emp_role);
         }
         $this->load->admin_temp('class_history',$data); 
     }

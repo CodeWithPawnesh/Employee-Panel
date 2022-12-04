@@ -42,7 +42,7 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a href="<?= base_url("Class-History?student_id=").$c_d['student_id'] ?>" class="dropdown-item">Class History</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
+                                                <a class="dropdown-item" href="<?= base_url("Student-Course-List?id=").$c_d['student_id']."&course_delete=".$c_d['en_id'] ?>">Delete</a>
                                             </div>
                                         </div>
                                     </td>

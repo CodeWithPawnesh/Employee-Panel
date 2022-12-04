@@ -49,9 +49,9 @@
                                             <option value="0" selected disable>Select Any One Option</option>
                                             <?php if(!empty($batch_data)){
                                                 foreach($batch_data as $b_d){
-                                            } ?>
+                                             ?>
                                             <option value="<?= $b_d['batch_id'] ?>"><?= $b_d['batch_name'] ?></option>
-                                            <?php } ?>
+                                            <?php } } ?>
                                         </select>
                                     </div>
                                 </div>

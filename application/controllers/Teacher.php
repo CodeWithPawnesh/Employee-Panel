@@ -43,4 +43,15 @@ class Teacher extends CI_Controller {
         $data['batch_data']=$this->CM->get_join($sql); 
         $this->load->admin_temp('teacher_batch',$data);
     }
+    public function teacher_group(){
+        $emp_info = $this->session->userdata('emp_data');
+        $emp_id = $emp_info->emp_id;
+        $data['page'] = "page";
+        $date = date('y-m-d');
+        $d_tc = strtotime($date);
+        $emp_info = $this->session->userdata('emp_data');
+		$sql = "SELECT g.*,e.emp_name, c.course_name,b.batch_name FROM tc_batch_group as g, tc_course as c, tc_employee as e, tc_batch as b WHERE g.emp_id = $emp_id AND g.emp_id = e.emp_id AND b.course_id = c.course_id AND g.batch_id = b.batch_id ORDER BY g.group_id DESC  ";
+        $data['group_data']=$this->CM->get_join($sql); 
+        $this->load->admin_temp('teacher_group',$data);
+    }
 }

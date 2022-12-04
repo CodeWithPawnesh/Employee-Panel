@@ -62,19 +62,27 @@
                                     <?php if($c_d['status']=='0'){ ?>
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
-                                    <td>
+                                    <td> 
+                                        <div class="dropdown show">
+                                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        
+                                       </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a href="<?= base_url('Course-Edit?id='); echo $c_d['course_id']; ?>"
-                                            class="btn btn-sm btn-success">Edit</a>
-                                        <br>
+                                        class="dropdown-item">Edit</a>
                                         <?php if($c_d['status']=='1'){ ?>
                                         <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=0"
-                                            class="btn btn-sm btn-danger">Un-Publish</a>
+                                        class="dropdown-item">Un-Publish</a>
                                         <?php } ?>
                                         <?php if($c_d['status']=='0'){ ?>
                                         <a href="<?= base_url('Course-List?id='); echo $c_d['course_id']; ?>&status=1"
-                                            class="btn btn-sm btn-success">Publish</a>
-                                        <?php } } ?>
+                                        class="dropdown-item">Publish</a>
+                                        <?php } ?>
+                                       <a class="dropdown-item" href="<?= base_url('Course-List?delete_id='); echo $c_d['course_id']; ?>">Delete</a>
+                                    </div>
+                                     </div>
                                     </td>
+                                    <?php } ?>
                                 </tr>
                                 <?php } else { echo "<h1 class='text-warning'>No Data Found</h1>"; } ?>
                             </tbody>

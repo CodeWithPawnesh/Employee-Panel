@@ -1,3 +1,8 @@
+<?php
+$emp_info = $this->session->userdata('emp_data');
+$emp_id = $emp_info->emp_id;
+$emp_role = $emp_info->role;
+?>
 <div class="content">
     <div class="container-fluid">
         <!-- Main content start -->
@@ -20,7 +25,12 @@
                                     <?php if(!isset($_GET['student_id'])){ ?>
                                     <th class="text-center">Joining Time</th>
                                     <?php } ?>
+                                    <?php if($emp_role ==1){ ?>
                                     <th class="text-center">Batch Name</th>
+                                    <?php } ?>
+                                    <?php if($emp_role ==2){ ?>
+                                    <th class="text-center">Group Name</th>
+                                    <?php } ?>
                                     <th class="text-center">No of Students</th>
                                     <th class="text-center">Status</th>
                                 </tr>
@@ -37,7 +47,12 @@
                                 <?php if(!isset($_GET['student_id'])){ ?>
                                 <td class="text-center"><?= $c_d['class_started_at'] ?></th>
                                 <?php } ?>
+                                <?php if($emp_role == 1) { ?>
                                 <td class="text-center"><?= $c_d['batch_name'] ?></th>
+                                <?php } ?>
+                                <?php if($emp_role == 2) { ?>
+                                <td class="text-center"><?= $c_d['group_name'] ?></th>
+                                <?php } ?>
                                 <?php if($c_d['status']==0){ ?>
                                 <td class="text-center"><a href="<?= base_url('Mark-Attendance?id=').$c_d['live_id']."&class_id=".$c_d['class_id'] ?>" class="btn btn-sm btn-success">Mark Attendance</a></td>
                                 <?php } ?>

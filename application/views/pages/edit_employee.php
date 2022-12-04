@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="panel/edit_employee" method="post">
+                        <form action="Employee-Edit" method="post">
                             <input type="hidden" name="u_id" value="<?= $employee_data['id'] ?>">
                             <div class="row">
                                 <div class="col">

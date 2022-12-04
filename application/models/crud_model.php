@@ -87,6 +87,43 @@ class crud_model extends CI_Model
             return false;
         }
     }
+    function delete($table_name,$where,$redirect){
+        $this->db->where($where);
+        $query = $this->db->delete($table_name);
+        if($query){
+            redirect($redirect);
+        }
+    }
+    function delete_course($course_id){
+        $this->db->trans_start();
+        $this->db->where("course_id",$course_id);
+        $this->db->delete("tc_course");
+        $this->db->where("course_id",$course_id);
+        $this->db->delete("tc_batch");
+        $this->db->where("course_id",$course_id);
+        $this->db->delete("tc_enrollment");
+        if($this->db->trans_complete()){
+            redirect("Course-List");
+        }
+    }
+    function delete_all_student($student_id,$user_id,$redirect){
+        $this->db->trans_start();
+        $this->db->where("student_id",$student_id);
+        $this->db->delete("tc_student");
+        $this->db->where("student_id",$student_id);
+        $this->db->delete("tc_enrollment");
+        $this->db->where("id",$user_id);
+        $this->db->delete("tc_login");
+        if($this->db->trans_complete()){
+            redirect($redirect);
+        }
+    }
+    function delete_student(){
+
+    }
+    function delete_employee(){
+
+    }
     function add_student($login_data,$student_data,$course_name,$enroll_data){
         $this->load->library('email');
         $this->db->trans_start();

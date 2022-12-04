@@ -11,6 +11,7 @@
                     </div>
 
                     <div class="card-body">
+                        <?php if(!empty($assignment_check_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Submited Assignment</caption>
                             <thead>
@@ -56,6 +57,7 @@
                                 <?php } ?>
                             </tbody>
                         </table>
+                        <?php }else{ echo "<h2 class='text-center text-warning'>No Data Found</h2>"; } ?>
                     </div>
                 </div>
             </div>

@@ -61,7 +61,7 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                        <a class="dropdown-item" href="<?= base_url("Employee-Course?id=").$e_d['emp_id'] ?>">View Course</a>
                                        <a class="dropdown-item" href="<?= base_url("Employee-Edit?id=").$e_d['emp_id'] ?>">Edit</a>
-                                       <a class="dropdown-item" href="#">Delete</a>
+                                       <a class="dropdown-item" href="<?= base_url("Employee-List?delete_emp=").$e_d['emp_id'] ?>">Delete</a>
                                     </div>
                                      </div>
                                     </td>

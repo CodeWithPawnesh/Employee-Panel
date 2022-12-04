@@ -59,11 +59,12 @@ $access_level = $user_info->access_level;
                                         
                                        </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                       <a href="<?= base_url("Class-History?student_id=").$s_d['student_id'] ?>" class="dropdown-item">Class History                                </a>
-                                       <a class="dropdown-item"href="<?= base_url("Add-Student-Course?id=").$s_d['student_id'] ?>">Add Course</a>
+                                       <a href="<?= base_url("Class-History?student_id=").$s_d['student_id'] ?>" class="dropdown-item">Class History</a>
+                                       <?php if($access_level ==0 ) { ?>
                                        <a class="dropdown-item"href="<?= base_url("Student-Course-List?id=").$s_d['student_id'] ?>">View Course</a>
                                        <a class="dropdown-item" href="<?= base_url("Student-Edit?id=").$s_d['student_id'] ?>">Edit</a>
-                                       <a class="dropdown-item" href="#">Delete</a>
+                                       <a class="dropdown-item" href="<?= base_url("Student-List?delete_student=").$s_d['student_id'] ?>">Delete</a>
+                                       <?php }  ?>
                                     </div>
                                      </div>
                                    </td>
