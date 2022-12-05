@@ -1134,6 +1134,99 @@ public function add_student(){
 	}
 	$this->load->admin_temp('add_student',$data);
 }
-
+public function internship_list(){
+	if(isset($_GET['in_id']) && isset($_GET['status']) && isset($_GET['stu_id']) ){
+		$id = $_GET['in_id'];
+		$s_id = $_GET['stu_id'];
+		$status =$_GET['status'];
+		$table_name = "tc_internship";
+		$data = array(
+			"status"=>$status
+		);
+		$where = array(
+			"internship_id"=>$id
+		);
+		$redirect = "Internship-List?id=".$s_id;
+		$this->CM->update($data,$table_name,$where,$redirect);
+	}
+	if(isset($_GET['id'])){
+		$student_id = $_GET['id'];
+		$sql = "SELECT * FROM tc_internship WHERE student_id = $student_id ";
+		$data['internship_data'] = $this->CM->get_join($sql);
+	}
+	if(isset($_GET['delete_id'])){
+		$id = $_GET['delete_id'];
+		$where = array(
+			"internship_id"=>$id
+		);
+		$table_name = "tc_internship";
+		$redirect = "Internship-List?id=".$id;
+		$this->CM->delete($table_name,$where,$redirect);
+	}
+	$this->load->admin_temp('internship_list',$data);
+}
+public function create_internship(){
+	$data['page'] = "page";
+	$emp_info = $this->session->userdata('emp_data');
+	$emp_id = $emp_info->emp_id;
+	if(isset($_POST['submit'])){
+		$type = $_POST['type'];
+		$stipend = $_POST['stipend'];
+		$internship_desc = $_POST['internship_desc'];
+		$start_date = $_POST['start_date'];
+		$end_date = $_POST['end_date'];
+		$student_id = $_POST['student_id'];
+		$status = 1;
+		$created_by = $emp_id;
+		$data = array(
+			"student_id"=>$student_id,
+			"start_date"=>$start_date,
+			"end_date"=>$end_date,
+			"paid_or_unpaid"=>$type,
+			"stipend"=>$stipend,
+			"description"=>$internship_desc,
+			"status"=>$status,
+			"created_by"=>$created_by
+		);
+		$redirect = "Internship-List?id=".$student_id;
+		$table_name = "tc_internship";
+		$this->CM->save($data,$table_name,$redirect);
+	}
+	$this->load->admin_temp('create_internship',$data);
+}
+public function edit_internship(){
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		$table_name = "tc_internship";
+		$where = array(
+			"internship_id"=>$id
+		);
+		$data['internship_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select=Null,$join=Null);
+		$data['internship_data'] = $data['internship_data'][0];
+	}
+	if(isset($_POST['submit'])){
+		$stu_id = $_POST['stu_id'];
+		$type = $_POST['type'];
+		$stipend = $_POST['stipend'];
+		$internship_desc = $_POST['internship_desc'];
+		$start_date = $_POST['start_date'];
+		$end_date = $_POST['end_date'];
+		$internship_id = $_POST['internship_id'];
+		$date = date('y-m-d');
+		$where = array("internship_id"=>$internship_id);
+		$data = array(
+			"start_date"=>$start_date,
+			"end_date"=>$end_date,
+			"paid_or_unpaid"=>$type,
+			"stipend"=>$stipend,
+			"description"=>$internship_desc,
+			"updated_at"=>$date
+		);
+		$redirect = "Internship-List?id=".$stu_id;
+		$table_name = "tc_internship";
+		$this->CM->update($data,$table_name,$where,$redirect);
+	}
+	$this->load->admin_temp('edit_internship',$data);
+}
 
 }

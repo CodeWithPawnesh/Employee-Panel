@@ -77,6 +77,9 @@ $route['Student-Course-List']='Admin/student_course_list';
 $route['Add-Student-Course']='Admin/add_student_course';
 $route['Student-Leave']='admin/student_leave';
 $route['Employee-Leave']='admin/employee_leave';
+$route['Internship-Create']='admin/create_internship';
+$route['Internship-List']='admin/internship_list';
+$route['Internship-Edit']='admin/edit_internship';
 //END ADMIN ROUTES
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Teacher-Batch']='Teacher/teacher_batch';

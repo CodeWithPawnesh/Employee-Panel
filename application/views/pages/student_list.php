@@ -64,6 +64,7 @@ $access_level = $user_info->access_level;
                                        <a class="dropdown-item"href="<?= base_url("Student-Course-List?id=").$s_d['student_id'] ?>">View Course</a>
                                        <a class="dropdown-item" href="<?= base_url("Student-Edit?id=").$s_d['student_id'] ?>">Edit</a>
                                        <a class="dropdown-item" href="<?= base_url("Student-List?delete_student=").$s_d['student_id'] ?>">Delete</a>
+                                       <a class="dropdown-item" href="<?= base_url("Internship-List?id=").$s_d['student_id'] ?>">Internship</a>
                                        <?php }  ?>
                                     </div>
                                      </div>
