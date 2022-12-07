@@ -55,6 +55,8 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a href="<?= base_url('Batch-Edit?id=');echo $b_d['batch_id']; ?>"
                                             class="dropdown-item">Edit</a>
+                                            <a href="<?= base_url('Job-Updates-List?id=');echo $b_d['batch_id']; ?>"
+                                            class="dropdown-item">Job Updates</a>
                                         <a href="<?= base_url('Batch-List?delete_id=');echo $b_d['batch_id']; ?>"
                                             class="dropdown-item">Delete</a>
                                         <?php if($b_d['status']=='1'){ ?>

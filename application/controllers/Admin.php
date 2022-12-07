@@ -1228,5 +1228,86 @@ public function edit_internship(){
 	}
 	$this->load->admin_temp('edit_internship',$data);
 }
+public function job_list(){
+	if(isset($_GET['job_id']) && isset($_GET['status']) && isset($_GET['batch_id']) ){
+		$job_id = $_GET['job_id'];
+		$batch_id = $_GET['batch_id'];
+		$status =$_GET['status'];
+		$table_name = "tc_job_updates";
+		$data = array(
+			"status"=>$status
+		);
+		$where = array(
+			"job_id"=>$job_id
+		);
+		$redirect = "Job-Updates-List?id=".$batch_id;
+		$this->CM->update($data,$table_name,$where,$redirect);
+	}
+	if(isset($_GET['delete_id']) && isset($_GET['batch_id'])){
+		$id = $_GET['delete_id'];
+		$b_id = $_GET['batch_id'];
+		$where = array(
+			"job_id"=>$id
+		);
+		$table_name = "tc_job_updates";
+		$redirect = "Job-Updates-List?id=".$b_id;
+		$this->CM->delete($table_name,$where,$redirect);
+	}
 
+	if(isset($_GET['id'])){
+	$batch_id = $_GET['id'];
+	$sql = "SELECT J.*, b.batch_name FROM tc_job_updates AS j, tc_batch AS b WHERE j.batch_id = $batch_id AND b.batch_id = j.batch_id";
+	$data['job_data'] = $this->CM->get_join($sql);
+	$this->load->admin_temp('job_list',$data);
+	}
+}
+public function job_create(){
+	$data['page']="page";
+	$emp_info = $this->session->userdata('emp_data');
+	$emp_id = $emp_info->emp_id;
+	if(isset($_POST['submit'])){
+		$title = $_POST['title'];
+		$job_desc = $_POST['job_desc'];
+		$batch_id = $_POST['batch_id'];
+		$data = array(
+			"job_title"=>$title,
+			"job_description"=>$job_desc,
+			"batch_id"=>$batch_id,
+			"created_by"=>$emp_id,
+			"status"=>1
+		);
+		$table_name = "tc_job_updates";
+		$redirect = "Job-Updates-List?id=".$batch_id;
+		$this->CM->save($data,$table_name,$redirect);
+	}
+	$this->load->admin_temp('job_create',$data);
+}
+public function job_edit(){
+	if(isset($_GET['id'])){
+		$job_id = $_GET['id'];
+		$table_name = "tc_job_updates";
+		$where = array(
+			"job_id"=>$job_id
+		);
+		$data['job_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select=Null,$join=Null);
+		$data['job_data'] = $data['job_data'][0];
+	}
+	if(isset($_POST['submit'])){
+		$title = $_POST['title'];
+		$job_desc = $_POST['job_desc'];
+		$batch_id = $_POST['batch_id'];
+		$job_id = $_POST['job_id'];
+		$data = array(
+			"job_title"=>$title,
+			"job_description"=>$job_desc,
+		);
+		$table_name = "tc_job_updates";
+		$redirect = "Job-Updates-List?id=".$batch_id;
+		$where = array(
+			"job_id"=>$job_id
+		);
+		$this->CM->update($data,$table_name,$where,$redirect);
+	}
+	$this->load->admin_temp('job_edit',$data);
+}
 }

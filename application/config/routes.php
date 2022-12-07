@@ -80,6 +80,9 @@ $route['Employee-Leave']='admin/employee_leave';
 $route['Internship-Create']='admin/create_internship';
 $route['Internship-List']='admin/internship_list';
 $route['Internship-Edit']='admin/edit_internship';
+$route['Job-Updates-List']='admin/job_list';
+$route['Job-Updates-Create']='admin/job_create';
+$route['Job-Updates-Edit']='admin/job_edit';
 //END ADMIN ROUTES
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Teacher-Batch']='Teacher/teacher_batch';
