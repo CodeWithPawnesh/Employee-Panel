@@ -83,6 +83,15 @@ $route['Internship-Edit']='admin/edit_internship';
 $route['Job-Updates-List']='admin/job_list';
 $route['Job-Updates-Create']='admin/job_create';
 $route['Job-Updates-Edit']='admin/job_edit';
+$route['Workshop-List']="Workshop";
+$route['Workshop-Create']="Workshop/create";
+$route['Workshop-Edit']="Workshop/edit";
+$route['Blog-List']="Blog";
+$route['Blog-Create']="Blog/create";
+$route['Blog-Edit']="Blog/edit";
+$route['News-List']="News";
+$route['News-Create']="News/create";
+$route['News-Edit']="News/edit";
 //END ADMIN ROUTES
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Teacher-Batch']='Teacher/teacher_batch';

@@ -277,6 +277,64 @@ $emp_info = $this->session->userdata('emp_data');
                             <p>Employee Leave</p>
                         </a>
                     </li>
+                    <!-- Workshop -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Workshop-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                     <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Workshop-List">
+                            <i class="material-icons">list</i>
+                            <p>Workshop List</p>
+                        </a>
+                    </li>
+                    <!-- Workshop End -->
+                    <!-- Blog-->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Blog-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                      
+                      <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Blog-List">
+                            <i class="material-icons">list</i>
+                            <p>Blog List</p>
+                        </a>
+                    </li>
+                    <!-- Blog End -->
+                    <!-- News -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="News-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                      <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="News-List">
+                            <i class="material-icons">list</i>
+                            <p>News List</p>
+                        </a>
+                    </li>
+                    <!-- News End -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
