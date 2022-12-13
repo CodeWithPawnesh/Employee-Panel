@@ -335,6 +335,25 @@ $emp_info = $this->session->userdata('emp_data');
                         </a>
                     </li>
                     <!-- News End -->
+                     <!-- Ads -->
+                     <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Ads-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                      <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Ads-List">
+                            <i class="material-icons">list</i>
+                            <p>Pop Up Ads List</p>
+                        </a>
+                    </li>
+                    <!-- Adss -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;

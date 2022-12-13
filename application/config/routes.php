@@ -92,6 +92,9 @@ $route['Blog-Edit']="Blog/edit";
 $route['News-List']="News";
 $route['News-Create']="News/create";
 $route['News-Edit']="News/edit";
+$route['Ads-List']="Ads";
+$route['Ads-Create']="Ads/create";
+$route['Ads-Edit']="Ads/edit";
 //END ADMIN ROUTES
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Teacher-Batch']='Teacher/teacher_batch';
