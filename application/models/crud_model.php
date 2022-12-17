@@ -11,6 +11,7 @@ class crud_model extends CI_Model
         $query = $this->db->insert($table_name, $data);
         if($query)
         {
+            $this->session->set_flashdata('isuccMess', 'Record Insert Succesfully');
             if($redirect!=Null){
             redirect($redirect);
             }else{
@@ -22,6 +23,7 @@ class crud_model extends CI_Model
         $this->db->where($where);
         $query = $this->db->update($table_name, $data);
         if($query && $redirect!=NULL){
+            $this->session->set_flashdata('usuccMess', 'Record Updated Succesfully');
             redirect($redirect);
         }
     }
@@ -29,6 +31,7 @@ class crud_model extends CI_Model
         $this->db->where_in("$where_in_column",$where);
         $query = $this->db->update($table_name, $data);
         if($query && $redirect!=NULL){
+            $this->session->set_flashdata('succMess', 'Record Updated Succesfully');
             redirect($redirect);
         }
     }
@@ -91,6 +94,7 @@ class crud_model extends CI_Model
         $this->db->where($where);
         $query = $this->db->delete($table_name);
         if($query){
+            $this->session->set_flashdata('dsuccMess', 'Record Deleted Succesfully');
             redirect($redirect);
         }
     }
@@ -103,6 +107,7 @@ class crud_model extends CI_Model
         $this->db->where("course_id",$course_id);
         $this->db->delete("tc_enrollment");
         if($this->db->trans_complete()){
+            $this->session->set_flashdata('dsuccMess', 'Record Deleted Succesfully');
             redirect("Course-List");
         }
     }
@@ -115,6 +120,7 @@ class crud_model extends CI_Model
         $this->db->where("id",$user_id);
         $this->db->delete("tc_login");
         if($this->db->trans_complete()){
+            $this->session->set_flashdata('dsuccMess', 'Record Deleted Succesfully');
             redirect($redirect);
         }
     }
@@ -136,6 +142,7 @@ class crud_model extends CI_Model
         $this->db->insert('tc_enrollment',$enroll_data);
         if($this->db->trans_complete()){
          $this->send_mail_student_enrolment($student_data,$login_data,$course_name);
+         $this->session->set_flashdata('isuccMess', 'Record Insert Succesfully');
          redirect("Student-List");
           }
     }
@@ -222,6 +229,7 @@ $insert_id = $this->db->insert_id();
 $employee['user_id'] = $insert_id;
 $this->db->insert('tc_employee',$employee);
 if($this->db->trans_complete()){
+    $this->session->set_flashdata('isuccMess', 'Record Inserted Succesfully');
     redirect("Employee-List");
 }
     }
@@ -232,6 +240,7 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
     $this->db->where($where);
     $this->db->update('tc_employee',$emp_data);
     if($this->db->trans_complete()){
+        $this->session->set_flashdata('usuccMess', 'Record Updated Succesfully');
         redirect("Employee-List");
     }
 }
@@ -242,6 +251,7 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
         $this->db->where($where);
         $this->db->update('tc_student',$std_data);
         if($this->db->trans_complete()){
+            $this->session->set_flashdata('usuccMess', 'Record Updated Succesfully');
             redirect("Student-List");
         }
     }

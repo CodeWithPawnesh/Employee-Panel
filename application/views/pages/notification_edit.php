@@ -6,50 +6,38 @@
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Blog Edit</h4>
+                            <h4 class="card-title">Notification Create</h4>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="Blog/edit" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="blog_id" value="<?= $_GET['id'] ?>">
+                        <form action="Notification/edit" method="post">
+                            <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Blog Name</label>
+                                        <label>Notification Name</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="name" value=" <?= $edit_data['blog_name'] ?>" class="form-control" required>
+                                        <input type="text" name="name" value= "<?= $edit_data['notification_name'] ?> " class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Blog Title</label>
+                                        <label>Notification Title</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="title" value="<?= $edit_data['blog_title'] ?>" class="form-control" required>
+                                        <input type="text" name="title" value="<?= $edit_data['notification_title'] ?>" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Blog Description</label>
+                                        <label>Notification Description</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea name="description" class="form-control"><?= $edit_data['blog_description'] ?></textarea>
+                                        <textarea name="description" class="form-control"> <?= $edit_data['description'] ?></textarea>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Blog Image</label>
-                                    </div>
-                                        <input type="file" name="file" class="form-control">
-                                        <input type="hidden" name="h_file" value="<?= $edit_data['image'] ?>">
-                                        <br>
-                                        <div style="padding-left:150px;padding-right:150px">
-                                        <img src="assets/images/blog/<?= $edit_data['image'] ?>"
-                                            style="width:200px;height:150px">
-                                        </div>
                                 </div>
                             </div>
                             <div class="card-footer ">

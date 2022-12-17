@@ -317,6 +317,7 @@ $emp_info = $this->session->userdata('emp_data');
                     </li>
                     <!-- Blog End -->
                     <!-- News -->
+                    
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -353,7 +354,26 @@ $emp_info = $this->session->userdata('emp_data');
                             <p>Pop Up Ads List</p>
                         </a>
                     </li>
-                    <!-- Adss -->
+                    <!-- End Adss -->
+                    <!-- Notifications -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Notification-List"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                      <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Notification-List">
+                            <i class="material-icons">list</i>
+                            <p>Notifications List</p>
+                        </a>
+                    </li>
+                    <!-- End Notifications -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;

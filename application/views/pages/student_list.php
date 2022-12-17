@@ -7,20 +7,39 @@ $access_level = $user_info->access_level;
         <!-- Main content start -->
         <div class="row">
             <div class="col-md-12">
+            <?php $usuccMess =  $this->session->flashdata('usuccMess'); 
+            if(!empty($usuccMess)){ ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><?= $usuccMess; ?></strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+           <?php } ?>
+           <?php $isuccMess =  $this->session->flashdata('isuccMess'); 
+            if(!empty($isuccMess)){ ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><?= $isuccMess; ?></strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+           <?php } ?>
+           <?php $dsuccMess =  $this->session->flashdata('dsuccMess'); 
+            if(!empty($dsuccMess)){ ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><?= $dsuccMess; ?></strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+           <?php } ?>
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
                             <h4 class="card-title">Student List</h4>
                         </div>
                     </div>
-                    <?php if($this->session->Flashdata('message')){ ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <?= $this->$session->Flashdata('message'); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php } ?>
                     <div class="card-body">
                         <?php if($access_level == 0){ ?>
                         <a href="<?= base_url('Add-Student') ?>" class="btn btn-md btn-success">Add Student</a>

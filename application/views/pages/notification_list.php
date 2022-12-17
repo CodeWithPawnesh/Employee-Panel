@@ -36,15 +36,15 @@ $user_info = $this->session->userdata('user_data');
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Blog List</h4>
+                            <h4 class="card-title">Notification List</h4>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        <a href="<?= base_url('Blog-Create') ?>" class="btn btn-md btn-success">Create</a>
-                        <?php if(!empty($blog_data)){ ?>
+                        <a href="<?= base_url('Notification-Create') ?>" class="btn btn-md btn-success">Create</a>
+                        <?php if(!empty($notification_data)){ ?>
                         <table class="table table-hover table-responsive">
-                            <caption>List of Blog</caption>
+                            <caption>List of News</caption>
                             <thead>
                                 <tr>
 
@@ -52,6 +52,7 @@ $user_info = $this->session->userdata('user_data');
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Title</th>
                                     <th class="text-center">Description</th>
+                                    <th class="text-center">Type</th>
                                     <th class="text-center">Statu</th>
                                     <th class="text-center">Action</th>
                                   
@@ -59,12 +60,30 @@ $user_info = $this->session->userdata('user_data');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i=1; foreach ($blog_data as $s_d) { ?>
+                                <?php $i=1; foreach ($notification_data as $s_d) { ?>
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
-                                    <td class="text-center"><?= $s_d['blog_name'] ?></td>
-                                    <td class="text-center"><?= $s_d['blog_title'] ?></td>
-                                    <td class="text-center"><?= $s_d['blog_description'] ?></td>
+                                    <td class="text-center"><?= $s_d['notification_name'] ?></td>
+                                    <td class="text-center"><?= $s_d['notification_title'] ?></td>
+                                    <td class="text-center"><?= $s_d['description'] ?></td>
+                                    <?php if($s_d['type']=='0'){ ?>
+                                    <td class="text-center text-success">All</td>
+                                    <?php } ?>
+                                    <?php if($s_d['type']=='1'){ ?>
+                                    <td class="text-center text-danger">All Teacher</td>
+                                    <?php } ?>
+                                    <?php if($s_d['type']=='2'){ ?>
+                                    <td class="text-center text-danger">All Student</td>
+                                    <?php } ?>
+                                    <?php if($s_d['type']=='4'){ ?>
+                                    <td class="text-center text-danger">Batch</td>
+                                    <?php } ?>
+                                    <?php if($s_d['type']=='5'){ ?>
+                                    <td class="text-center text-danger">Group</td>
+                                    <?php } ?>
+                                    <?php if($s_d['type']=='6'){ ?>
+                                    <td class="text-center text-danger">Teacher</td>
+                                    <?php } ?>
                                     <?php if($s_d['status']=='1'){ ?>
                                     <td class="text-center text-success">Active</td>
                                     <?php } ?>
@@ -79,22 +98,22 @@ $user_info = $this->session->userdata('user_data');
                                                 <i class="material-icons">list</i>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="<?= base_url('Blog-Edit?id=');echo $s_d['blog_id']; ?>"
+                                            <a href="<?= base_url('Notification-Edit?id=');echo $s_d['notification_id']; ?>"
                                             class="dropdown-item">Edit</a>
 
                                         <?php if($s_d['status']=='1'){ ?>
 
-                                        <a href="<?= base_url('Blog?id='); echo $s_d['blog_id']; ?>&status=0"
+                                        <a href="<?= base_url('Notification-List?id='); echo $s_d['notification_id']; ?>&status=0"
                                             class="dropdown-item">Un-Publish</a>
 
                                         <?php } ?>
                                         <?php if($s_d['status']=='0'){ ?>
 
-                                        <a href="<?= base_url('Blog?id='); echo $s_d['blog_id']; ?>&status=1"
+                                        <a href="<?= base_url('Notification-List?id='); echo $s_d['notification_id']; ?>&status=1"
                                             class="dropdown-item">Publish</a>
 
                                         <?php } ?>
-                                        <a href="<?= base_url('Blog?delete_id=');echo $s_d['blog_id']; ?>"
+                                        <a href="<?= base_url('Notification-List?delete_id=');echo $s_d['notification_id']; ?>"
                                             class="dropdown-item">Delete</a>
                                             </div>
                                         </div>
@@ -106,23 +125,23 @@ $user_info = $this->session->userdata('user_data');
                             </tbody>
 
                         </table>
-                        <?php  if(!empty($blog_data)){ ?>
+                        <?php  if(!empty($notification_data)){ ?>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 <li
                                     class="page-item <?php if(!isset($_GET['page']) || $_GET['page']==1){ ?>disabled <?php } ?>">
                                     <a class="page-link"
-                                        href="<?= base_url('Blog-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
+                                        href="<?= base_url('Notification-List?page='); if(isset($_GET['page'])){ echo $_GET['page']-1 ; } ?>"
                                         tabindex="-1">Previous</a>
                                 </li>
-                                <?php for($i=1; $i<=$total_pages;$i++){ ?>
+                                <?php if($total_pages >5){ $page_Count= 5;}else{ $page_Count = $total_pages ;} for($i=1; $i<=$page_Count;$i++){ ?>
 
                                 <li class="page-item"><a class="page-link"
-                                        href="<?= base_url('Blog-List?page='); echo $i ?>"><?= $i; ?></a></li>
+                                        href="<?= base_url('Notification-List?page='); echo $i ?>"><?= $i; ?></a></li>
                                 <?php } ?>
                                 <li class="page-item <?php if($total_pages <= 1){?> disabled <?php } ?>">
                                     <a class="page-link"
-                                        href="<?= base_url('Blog-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
+                                        href="<?= base_url('Notification-List?page=');if(isset($_GET['page'])){ echo $_GET['page']+1 ; }else echo "1"; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>
