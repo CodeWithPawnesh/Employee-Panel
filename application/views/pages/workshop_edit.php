@@ -76,7 +76,7 @@
                                     <div class="form-group">
                                         <label>End Date</label>
                                     </div>
-                                    <?php $e_date_time = explode(",",$edit_data['start_date_time']);?>
+                                    <?php $e_date_time = explode(",",$edit_data['end_date_time']);?>
                                     <div class="form-group">
                                         <input type="date" name="e_date" class="form-control" value="<?= $e_date_time[0]?>" required>
                                     </div>
