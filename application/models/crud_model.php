@@ -146,6 +146,31 @@ class crud_model extends CI_Model
          redirect("Student-List");
           }
     }
+    function insert_question($data,$mm_data,$quiz){
+        $this->db->trans_start();
+        $this->db->insert('tc_quiz_question', $data);
+        $insert_id = $this->db->insert_id();
+        $mm_data['question_id']= $insert_id;
+        $this->db->insert('tc_q_q_map', $mm_data);
+        if($this->db->trans_complete()){
+            redirect("Quiz-Questions-List?id=".$quiz);
+        }
+    }
+    function insert_quiz_question_f_bank($q_ids,$quiz_id,$emp_id){
+        $this->db->trans_start();
+        if($this->db->trans_complete()){
+            foreach($q_ids as $q){
+                $data = array(
+                    "quiz_id"=>$quiz_id,
+                    "question_id"=>$q,
+                    "add_by"=>$emp_id,
+                    "status"=>1
+                );
+            $this->db->insert('tc_q_q_map',$data);
+            }
+            redirect("Quiz-Questions-List?id=".$quiz_id);
+        }
+    }
     function get_student($student_id){
         $sql = "SELECT student_name,email FROM tc_student WHERE student_id = $student_id";
         $my_sql = "$sql";

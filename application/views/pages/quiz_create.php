@@ -11,10 +11,21 @@
                     </div>
                     <?php $user_info = $this->session->userdata('user_data');
                      if($user_info->access_level == 0){
-                     if(!isset($_POST['course_id']) && !isset($_POST['course'])){ ?>
+                     if(!isset($_POST['course_id'])){ ?>
                     <div class="card-body">
                         <form method="post">
                             <div class="row">
+                            <div class="col">
+                                    <div class="form-group">
+                                        <label>Select A Quiz Type</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="type" class="form-control" required>
+                                          <option value="0">Batches</option>
+                                          <option value="1">Groups</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Select A Course</label>
@@ -31,6 +42,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="card-footer ">
                                 <button class="btn btn-sm btn-success">Next</button>
@@ -39,7 +51,7 @@
                     </div>
                     <?php } ?>
                     <?php
-                    if(isset($_POST['course_id']) ){ ?>
+                    if(!isset($_POST['batch_id']) && isset($_POST['course_id'])){ ?>
                     <div class="card-body">
                         <form method="post">
                             <div class="row">
@@ -48,7 +60,8 @@
                                         <label>Select A Batch</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="course" value="<?= $_POST['course_id']; ?>">
+                                        <input type="hidden" name="type" value="<?= $_POST['type'] ?>">
+                                        <input type="hidden" name="course_id" value="<?= $_POST['course_id']; ?>">
                                         <select name="batch_id" class="form-control" required>
                                             <option value="0">Select Any One Option</option>
                                             <?php if(!empty($batch_data)){ 
@@ -66,7 +79,9 @@
                         </form>
                     </div>
                     <?php } ?>
-                    <?php if(isset($_POST['batch_id']) ){ ?>
+                    <?php if(isset($_POST['batch_id']) && isset($_POST['type']) && !isset($_POST['group_id']) ){ 
+                        if($_POST['type']==1){
+                        ?>
                     <div class="card-body">
                         <form method="post">
                             <div class="row">
@@ -75,7 +90,9 @@
                                         <label>Select A Group</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="batch" value="<?= $_POST['batch_id']; ?>">
+                                        <input type="hidden" name="type" value="<?= $_POST['type'] ?>">
+                                        <input type="hidden" name="course_id" value="<?= $_POST['course_id']; ?>">
+                                        <input type="hidden" name="batch_id" value="<?= $_POST['batch_id']; ?>">
                                         <select name="group_id" class="form-control" required>
                                             <option value="0">Select Any One Option</option>
                                             <?php if(!empty($group_data)){ 
@@ -93,15 +110,21 @@
                             </div>
                         </form>
                     </div>
-                    <?php } ?>
-                    <?php if(isset($_POST['group_id']) ){ ?>
+                    <?php } }?>
+                    <?php 
+                    if(isset($_POST['type'])){
+                    if(isset($_POST['group_id']) || $_POST['type']==0 && isset($_POST['batch_id']) ){ ?>
                     <div class="card-body">
                         <form action="quiz/quiz_create" method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <input type="hidden" name="batch" value="<?= $_POST['batch']; ?>">
+                                        <input type="hidden" name="type" value="<?= $_POST['type'] ?>">
+                                        <input type="hidden" name="course_id" value="<?= $_POST['course_id']; ?>">
+                                        <input type="hidden" name="batch_id" value="<?= $_POST['batch_id']; ?>">
+                                        <?php if($_POST['type']==1) { ?>
                                         <input type="hidden" name="group" value="<?= $_POST['group_id']; ?>">
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +172,7 @@
                             </div>
                         </form>
                     </div>
-                    <?php } } if($user_info->access_level == 1){ ?>
+                    <?php } } } if($user_info->access_level == 1){ ?>
                         <div class="card-body">
                         <form action="quiz/quiz_create" method="post">
                             <div class="row">

@@ -24,7 +24,7 @@ class Quiz extends CI_Controller {
 		}
 		$order_by = "quiz_id";
 		$table_name="tc_quiz";
-		$limit = 1;
+		$limit = 10;
 		$offset = ($page_no-1) * $limit;
         if($user_info->access_level == 0){
 		$row = $this->CM->get_row($table_name);
@@ -56,9 +56,13 @@ class Quiz extends CI_Controller {
 		$emp_id = $emp_data->emp_id;
         if($user_info->access_level == 0){
 		if(isset($_POST['submit'])){
-			$course = $_POST['course'];
-			$batch = $_POST['batch'];
+			$course = $_POST['course_id'];
+			$batch = $_POST['batch_id'];
+            if($_POST['type']==1){
 			$group = $_POST['group'];
+            }else{
+                $group = 0;
+            }
 			$quiz_title = $_POST['quiz_title'];
             $quiz_duration = $_POST['duration'];
 			$start_date = $_POST['start_date'];
@@ -68,7 +72,6 @@ class Quiz extends CI_Controller {
 			$created_at = time();
 
 			$data = array(
-				"quiz_course_id"=>$course,
 				"quiz_batch_id"=>$batch,
 				"quiz_group_id"=>$group,
 				"quiz_start_date"=>$start_date,
@@ -162,7 +165,7 @@ class Quiz extends CI_Controller {
 		}
 		if(isset($_POST['batch_id']))
 		{
-			$course_id = $_POST['course'];
+			$course_id = $_POST['course_id'];
 			$batch_id = $_POST['batch_id'];
 			
 			$table_name = "tc_batch_group";
@@ -204,24 +207,28 @@ class Quiz extends CI_Controller {
         $this->load->admin_temp('quiz_edit',$data);
     }
     public function quiz_question_list(){
-        if(isset($_GET['page'])){
-			$page_no = $_GET['page']; 
-		}else{
-			$page_no = 1;
+        if(isset($_GET['id'])){
+            $quiz_id = $_GET['id'];
+        $sql = "SELECT qu.*, qz.quiz_title,qm.qq_id FROM tc_quiz_question AS qu, tc_q_q_map as qm, tc_quiz AS qz WHERE qm.question_id = qu.question_id AND qm.quiz_id = $quiz_id AND qz.quiz_id = $quiz_id ";
+        $data["quiz_question"] = $this->CM->get_join($sql);
+        }
+        if(isset($_GET['delete_id']) && $_GET['quiz_id']){
+			$qq_id = $_GET['delete_id'];
+            $quiz_id = $_GET['quiz_id'];
+			$table_name = "tc_q_q_map";
+			$where = array(
+				"qq_id"=>$qq_id
+			);
+			$redirect = "Quiz-Questions-List?id=".$quiz_id;
+			$this->CM->delete($table_name,$where,$redirect);
 		}
-		$order_by = "question_id";
-		$table_name="tc_quiz_question";
-		$limit = 1;
-		$offset = ($page_no-1) * $limit; 
-        $where = "quiz_id = ".$_GET['id'];
-		$row = $this->CM->get_row($table_name,$where);
-		$data['total_pages'] = ceil($row/$limit);
-        $table_name = "tc_quiz_question";
-        $where = "quiz_id = ".$_GET['id'];
-        $data["quiz_question"] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select=Null,$join=Null);
         $this->load->admin_temp('quiz_question_list',$data);
     }
     public function quiz_question_create(){
+        $user_info = $this->session->userdata('user_data');
+		$emp_data = $this->session->userdata('emp_data');
+		$user_id = $user_info->id;
+		$emp_id = $emp_data->emp_id;
         if(isset($_POST['submit'])){
             $question_text = $_POST['question_text'];
             $no_of_options = $_POST['no_of_options'];
@@ -231,7 +238,7 @@ class Quiz extends CI_Controller {
             $option_4 = $_POST['option_4'];
             $correct_option = $_POST['correct_option'];
             $marks = $_POST['marks'];
-            $quiz = $_POST['quiz_id'];
+            $quiz_id = $_POST['quiz_id'];
 
             $data = array(
                 "question_text"=>$question_text,
@@ -242,22 +249,32 @@ class Quiz extends CI_Controller {
                 "option_4"=>$option_4,
                 "correct_options"=>$correct_option,
                 "marks"=>$marks,
-                "quiz_id"=>$quiz
+                "status"=>1
             );
-            $table_name = "tc_quiz_question";
-            $redirect = "Quiz-Questions-List?id=".$quiz;
-            $this->CM->save($data,$table_name,$redirect);
+            $mm_data = array(
+                "quiz_id"=>$quiz_id,
+                "add_by"=>$emp_id,
+                "status"=>1
+            );
+            $this->CM->insert_question($data,$mm_data,$quiz_id);
         }
         $data["page"]="Quiz-Question-Create";
         $this->load->admin_temp('quiz_question_create',$data);
     }
     public function quiz_question_edit(){
         if(isset($_POST['submit'])){
+            if(isset($_POST['quiz_id'])){
+            $quiz_id = $_POST['quiz_id'];
+            }
             $question_text = $_POST['question_text'];
             $option_1 = $_POST['option_1'];
             $option_2 = $_POST['option_2'];
+            if($_POST['option_3']){
             $option_3 = $_POST['option_3'];
+            }
+            if($_POST['option_4']){
             $option_4 = $_POST['option_4'];
+            }
             $correct_option = $_POST['correct_option'];
             $marks = $_POST['marks'];
             $q_id = $_POST['q_id'];
@@ -273,7 +290,11 @@ class Quiz extends CI_Controller {
             );
             $table_name = "tc_quiz_question";
             $where = "question_id = ".$q_id;
-            $redirect = "Quiz-Questions-List?id=".$quiz;
+            if(isset($_POST['quiz_id'])){
+            $redirect = "Quiz-Questions-List?id=".$quiz_id;
+            }else{
+                $redirect = "Quiz-Question-Bank";
+            }
             $this->CM->update($data,$table_name,$where,$redirect);
         }
         if(isset($_GET['id'])){
@@ -285,5 +306,28 @@ class Quiz extends CI_Controller {
             $data['question_data']= $question_data;
         }
         $this->load->admin_temp('quiz_question_edit',$data);
+    }
+    public function quiz_question_bank(){
+        $user_info = $this->session->userdata('user_data');
+		$emp_data = $this->session->userdata('emp_data');
+		$user_id = $user_info->id;
+		$emp_id = $emp_data->emp_id;
+        $sql = "SELECT * FROM tc_quiz_question ORDER BY question_id DESC";
+        $data['bank_question'] = $this->CM->get_join($sql);
+        if(isset($_POST['submit'])){
+            $q_ids = $_POST['q_id'];
+            $quiz_id = $_POST['quiz_id'];
+            $this->CM->insert_quiz_question_f_bank($q_ids,$quiz_id,$emp_id);
+        }
+        if(isset($_GET['delete_id'])){
+			$q_id = $_GET['delete_id'];
+			$table_name = "tc_quiz_question";
+			$where = array(
+				"question_id"=>$q_id
+			);
+			$redirect = "Quiz-Question-Bank";
+			$this->CM->delete($table_name,$where,$redirect);
+		}
+        $this->load->admin_temp('quiz_question_bank',$data);
     }
 }

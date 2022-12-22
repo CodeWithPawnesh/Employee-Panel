@@ -99,6 +99,7 @@ $route['Notification-List']="Notification";
 $route['Notification-Create']="Notification/create";
 $route['Notification-Edit']="Notification/edit";
 //END ADMIN ROUTES
+$route['Quiz-Question-Bank'] = "Quiz/quiz_question_bank";
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Teacher-Batch']='Teacher/teacher_batch';
 $route['Teacher-Group']='Teacher/teacher_group';

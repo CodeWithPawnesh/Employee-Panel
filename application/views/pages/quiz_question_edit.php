@@ -21,6 +21,9 @@
                                             placeholder="Question Text" value="<?= $question_data['question_text'] ?>"
                                             required>
                                         <input type="hidden" name="q_id" value="<?= $question_data['question_id'] ?>">
+                                        <?php if(isset($_GET['quiz_id'])){ ?>
+                                        <input type="hidden" name="quiz_id" value="<?= $_GET['quiz_id'] ?>">
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>

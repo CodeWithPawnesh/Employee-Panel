@@ -29,28 +29,26 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-           <?php } ?>
+           <?php } if(!isset($_GET['section']) && !isset($_GET['id'])) { ?>
+           
                 <div class="card">
                     <div class="card-header card-header-text card-header-info">
                         <div class="card-text">
-                            <h4 class="card-title">Quiz Question List</h4>
+                            <h4 class="card-title">Quiz Question Bank</h4>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        <a href="<?= base_url('Quiz-Questions-Create?id=').$_GET['id'] ?>"
+                        <a href="<?= base_url('Bank-Questions-Create')?>"
                             class="btn btn-md btn-success">Create</a>
-                            <a href="<?= base_url('Quiz-Question-Bank?section=add&id=').$_GET['id'] ?>"
-                            class="btn btn-md btn-success">Add From QB</a>
                         <table class="table table-hover table-responsive">
-                            <?php if(!empty($quiz_question)){  ?>
+                            <?php if(!empty($bank_question)){  ?>
                             <caption>List of Questions</caption>
                             <thead>
                                 <tr>
 
                                     <th class="text-center">#</th>
                                     <th class="text-center">Question</th>
-                                    <th class="text-center">Quiz</th>
                                     <th class="text-center">Option 1</th>
                                     <th class="text-center">Option 2</th>
                                     <th class="text-center">Option 3</th>
@@ -58,14 +56,14 @@
                                     <th class="text-center">Correct Option</th>
                                     <th class="text-center">Marks</th>
                                     <th class="text-center">Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php  $i=1; foreach ($quiz_question as $q_d) { ?>
+                                <?php  $i=1; foreach ($bank_question as $q_d) { ?>
                                 <tr>
                                     <td class="text-center"><?= $i++; ?></td>
                                     <td class="text-center"><?php echo $q_d['question_text']; ?></td>
-                                    <td class="text-center"><?php echo $q_d['quiz_title']; ?></td>
                                     <td class="text-center"><?php echo $q_d['option_1']; ?></td>
                                     <td class="text-center"><?php echo $q_d['option_2']; ?></td>
                                     <td class="text-center">
@@ -82,9 +80,9 @@
                                         
                                        </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                       <a href="<?= base_url('Quiz-Questions-Edit?id=');echo $q_d['question_id']; ?>&quiz_id=<?= $_GET['id'] ?>"
+                                        <a href="<?= base_url('Quiz-Questions-Edit?id=');echo $q_d['question_id'] ?>"
                                             class="dropdown-item">Edit</a>
-                                       <a class="dropdown-item" href="<?= base_url("Quiz-Questions-List?delete_id=").$q_d['qq_id'] ?>&quiz_id=<?= $_GET['id'] ?>">Delete</a>
+                                       <a class="dropdown-item" href="<?= base_url("Quiz-Question-Bank?delete_id=").$q_d['question_id'] ?>">Delete</a>
                                     </div>
                                      </div>
                                    </td>
@@ -97,6 +95,59 @@
                         </table>
                     </div>
                 </div>
+                <?php } if(isset($_GET['section']) && $_GET['id']) { ?> 
+                    <div class="card">
+                    <div class="card-header card-header-text card-header-info">
+                        <div class="card-text">
+                            <h4 class="card-title">Add Quiz Question From Bank</h4>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form action="Quiz-Question-Bank" method="post">
+                            <input type="hidden" name="quiz_id" value='<?= $_GET['id'] ?>'>
+                        <table class="table table-hover table-responsive">
+                            <?php if(!empty($bank_question)){  ?>
+                            <thead>
+                                <tr>
+
+                                    <th class="text-center">Check</th>
+                                    <th class="text-center">Question</th>
+                                    <th class="text-center">Option 1</th>
+                                    <th class="text-center">Option 2</th>
+                                    <th class="text-center">Option 3</th>
+                                    <th class="text-center">Option 4</th>
+                                    <th class="text-center">Correct Option</th>
+                                    <th class="text-center">Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php  $i=1; foreach ($bank_question as $q_d) { ?>
+                                <tr>
+                                    <td class="text-center"><input type="checkbox" name="q_id[]" value='<?= $q_d['question_id'] ?>'></td>
+                                    <td class="text-center"><?php echo $q_d['question_text']; ?></td>
+                                    <td class="text-center"><?php echo $q_d['option_1']; ?></td>
+                                    <td class="text-center"><?php echo $q_d['option_2']; ?></td>
+                                    <td class="text-center">
+                                        <?php if(empty($q_d['option_3'])){ echo "Nill"; }else{  echo $q_d['option_3']; }?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php if(empty($q_d['option_4'])){ echo "Nill"; }else{  echo $q_d['option_4']; }?>
+                                    </td>
+                                    <td class="text-center"><?php echo $q_d['correct_options']; ?></td>
+                                    <td class="text-center"><?php echo $q_d['marks']; ?></td>
+                                </tr>
+                                <?php } }else{?>
+                                <h1 class="text-center text-warning">No Data Found</h1>
+                                <?php } ?>
+                            </tbody>
+
+                        </table>
+                        <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
