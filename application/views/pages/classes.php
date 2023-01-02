@@ -43,7 +43,10 @@ $access_level = $user_info->access_level;
                                     <td class="text-center">Live Class</td>
                                     <?php } ?>
                                     <?php if($c_d['type']=='2'){ ?>
-                                    <td class="text-center">Doubt Class</td>
+                                    <td class="text-center">Boy's Doubt Class</td>
+                                    <?php } ?>
+                                    <?php if($c_d['type']=='3'){ ?>
+                                    <td class="text-center">Girl's Doubt Class</td>
                                     <?php } ?>
                                     <td class="text-center">
                                         <?php echo $c_d['batch_name']; ?>
@@ -55,7 +58,7 @@ $access_level = $user_info->access_level;
                                     </td>
                                     <?php } ?>
                                     <td class="text-center">
-                                        <?php if(!empty($c_d['class_ts'])){ echo date('h:i A',$c_d['class_ts']); }?>
+                                        <?php if(!empty($c_d['class_ts'])){ echo date('h:i A',$c_d['class_ts']); }else{echo "N/A"; } ?>
                                     </td>
                                     <td class="text-center"><?php if(!empty($c_d['class_date'])){ echo date('d M, Y',$c_d['class_date']); }
                                     else{ echo "N/A"; }?></td>

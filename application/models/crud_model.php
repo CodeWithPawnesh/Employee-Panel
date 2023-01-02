@@ -285,7 +285,8 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
         if($query)
         {
             $this->send_mail_exi_student_enrolment($course_data,$student_data);
-            redirect("Student-List");
+            $this->session->set_flashdata('usuccMess', 'Course Added Succesfully');
+            redirect("Student-Course-List?id=".$data['student_id']);
             }else{
                 return true;
             }

@@ -57,6 +57,7 @@ class Admin extends CI_Controller {
 			$course_abber = $_POST['course_abber'];
 			$course_level = $_POST['course_level'];
 			$no_of_lessons = $_POST['no_of_lessons'];
+			$price = $_POST['price'];
 			$language = $_POST['language'];
 			$overview_heading = $_POST['overview_heading'];
 			$overview_desc = $_POST['overview_desc'];
@@ -171,6 +172,7 @@ class Admin extends CI_Controller {
 				"keyoutcome_points"=>$keyoutcome_points,
 				"benifits_points"=>$benifits_points,
 				"created_at"=>$created_at,
+				"price"=>$price,
 				"status"=>"1"
 			);
 			$this->CM->save($data,$table_name,$redirect);
@@ -196,6 +198,7 @@ class Admin extends CI_Controller {
 			$course_abber = $_POST['course_abber'];
 			$course_level = $_POST['course_level'];
 			$no_of_lessons = $_POST['no_of_lessons'];
+			$price = $_POST['price'];
 			$language = $_POST['language'];
 			$overview_heading = $_POST['overview_heading'];
 			$overview_desc = $_POST['overview_desc'];
@@ -320,6 +323,7 @@ class Admin extends CI_Controller {
 				"keyoutcome_points"=>$keyoutcome_points,
 				"benifits_points"=>$benifits_points,
 				"created_at"=>$created_at,
+				"price"=>$price,
 				"status"=>"1"
 			);
 			$table_name = "tc_course";
@@ -626,10 +630,8 @@ class Admin extends CI_Controller {
 				$select = "batch_id, batch_name, batch_number";
 				$where = " status = 1 AND course_id =".$course_id;
 				$data['batch_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
-				$table_name = "tc_employee";
-				$select = "emp_id,emp_name";
-				$where = " role = 2 AND status = 1 ";
-				$data['instructor_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
+				$sql = "SELECT emp_id,emp_name FROM tc_employee WHERE course_id Like '%$course_id%' AND role = 2 AND status = 1 ";
+			    $data['instructor_data'] = $this->CM->get_join($sql);
 			}
 			if(isset($_POST['submit'])){
 				$class_ts = $_POST['class_ts'];
@@ -1053,10 +1055,35 @@ public function employee_course(){
 	}
 	$this->load->admin_temp('employee_course',$data);
 }
+public function add_employee_course(){
+	$data['page'] = "page";
+	if(isset($_GET['id'])){
+		$employee_id = $_GET['id'];
+		$sql = "SELECT c.course_name, c.course_id FROM tc_course AS c, tc_employee AS e  WHERE c.course_id  NOT IN (e.course_id)
+		AND e.emp_id = $employee_id";
+		$data['course_data'] = $this->CM->get_join($sql);
+	}
+	if(isset($_POST['submit'])){
+		$course_id = $_POST['course_id'];
+		$employee_id = $_POST['emp_id'];
+		$sql = "SELECT course_id FROM tc_employee  WHERE emp_id = $employee_id";
+		$course_ids = $this->CM->get_join($sql);
+		$course_ids = $course_ids[0]['course_id'];
+		$newCourseIds = $course_ids.",".$course_id;
+		echo $newCourseIds;
+		$data = array("course_id"=>$newCourseIds);
+		$table_name="tc_employee";
+		$where = array("emp_id"=>$employee_id);
+		$redirect = "Employee-Course?id=".$employee_id;
+		$this->CM->update($data,$table_name,$where,$redirect);
+	}
+
+	$this->load->admin_temp('add_employee_course',$data);
+}
 public function employee_list(){
 	if(isset($_GET['delete_emp'])){
 		$emp_id = $_GET['delete_emp'];
-		$sql = "SELECT user_id FROM tc_employee WHERE employee_id = $emp_id";
+		$sql = "SELECT user_id FROM tc_employee WHERE emp_id = $emp_id";
             $user_id = $this->CM->get_join($sql);
             $user_id = $user_id[0]['user_id'];
 		$this->CM->delete_employee($emp_id,$user_id);

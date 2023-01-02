@@ -59,10 +59,10 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Number Of Seats</label>
+                                        <label>Price</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="no_of_seats" type="number" class="form-control"
+                                        <input name="price" type="number" class="form-control"
                                             placeholder="Start Writing Here..." required>
                                     </div>
                                 </div>

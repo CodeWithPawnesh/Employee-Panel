@@ -14,6 +14,7 @@ $access_level = $user_info->access_level;
                     </div>
 
                     <div class="card-body">
+                        <?php if(!empty($batch_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Batches</caption>
                             <thead>
@@ -66,6 +67,7 @@ $access_level = $user_info->access_level;
                                 <?php } ?>
                             </tbody>
                         </table>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

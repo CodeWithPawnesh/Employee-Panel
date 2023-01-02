@@ -71,6 +71,7 @@ $route['Employee-List']='Admin/employee_list';
 $route['Add-Student']='Admin/add_student';
 $route['Add-Employee']='Admin/add_employee';
 $route['Employee-Course']='Admin/employee_course';
+$route['Add-Employee-Course']='Admin/add_employee_course';
 $route['Employee-Edit']='Admin/edit_employee';
 $route['Student-Edit']='Admin/edit_student';
 $route['Student-Course-List']='Admin/student_course_list';

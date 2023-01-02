@@ -65,7 +65,16 @@
                                 </div>
                             </div>
                             <div class="row">
-                                
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="price" type="number" class="form-control"
+                                            placeholder="Start Writing Here..."
+                                            value="<?= $course_data['price']; ?>">
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Number of Lessons </label>

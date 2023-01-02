@@ -531,6 +531,25 @@ $emp_info = $this->session->userdata('emp_data');
                             <p> Quiz</p>
                         </a>
                     </li>
+                    <!-- start q q bank -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Quiz-Question-Bank"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Quiz-Question-Bank">
+                            <i class="material-icons">quiz</i>
+                            <p> Quiz Question Bank</p>
+                        </a>
+                    </li>
+                    <!-- end q q bank -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;

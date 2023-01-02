@@ -78,8 +78,10 @@ $user_info = $this->session->userdata('user_data');
                                     </td>
                                     <?php if($user_info->access_level!=1){ ?>
                                     <td class="text-center">
-                                        <?php echo $q_d['group_name']; ?><br>
+                                        <?php  if(!empty($q_d['group_name'])){
+                                        echo $q_d['group_name']; ?><br>
                                         (<?= $q_d['group_number']; ?>)
+                                      <?php }else { echo "--"; }  ?>
                                     </td>
                                     <?php } ?>
                                     <td class="text-center"><?php echo date('d M, Y',$q_d['quiz_start_date']); ?></td>

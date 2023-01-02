@@ -18,7 +18,7 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <a href="<?= base_url('Leave-Create') ?>" class="btn btn-md btn-success">Add Courses</a>
+                        <a href="<?= base_url('Add-Employee-Course?id='.$_GET['id']) ?>" class="btn btn-md btn-success">Add Courses</a>
                         <?php if(!empty($course_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Courses</caption>

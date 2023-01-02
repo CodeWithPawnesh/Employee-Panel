@@ -31,7 +31,32 @@ class Quiz extends CI_Controller {
 		$data['total_pages'] = ceil($row/$limit);
         $sql = "SELECT q.*, c.course_name, b.batch_name, b.batch_number, g.group_name, g.group_number FROM tc_quiz as q, tc_batch as b,
          tc_course AS c, tc_batch_group as g WHERE b.course_id = c.course_id AND q.quiz_batch_id = b.batch_id AND g.group_id = q.quiz_group_id";
-        $data['quiz_data'] = $this->CM->get_join($sql);
+        $group_quiz = $this->CM->get_join($sql);
+        $sql = "SELECT q.*, c.course_name, b.batch_name, b.batch_number FROM tc_quiz as q, tc_batch as b,
+             tc_course AS c WHERE b.course_id = c.course_id AND q.quiz_batch_id = b.batch_id AND q.quiz_group_id= '0'";
+        $batch_quiz = $this->CM->get_join($sql);
+        $quiz_data = "";
+		if(!empty($batch_quiz) && !empty($group_quiz)){
+		$quiz_data = array_merge($batch_quiz,$group_quiz);
+		}
+		if(empty($batch_quiz) && !empty($group_quiz)){
+			$quiz_data = $group_quiz;
+		}
+		if(!empty($batch_quiz) && empty($group_quiz)){
+			$quiz_data = $batch_quiz;
+		}
+		if(!empty($quiz_data)){
+		function date_compare($element1, $element2) {
+			$datetime1 = $element1['quiz_start_date'];
+			$datetime2 = $element2['quiz_start_date'];
+			   return $datetime1 - $datetime2;
+			   } 
+	  
+			// Sort the array 
+		   usort($quiz_data, 'date_compare');
+			}
+
+		   $data['quiz_data'] = $quiz_data;
         }
         if($user_info->access_level == 1){
             $sql = "SELECT q.*, c.course_name, b.batch_name, b.batch_number FROM tc_quiz as q, tc_batch as b,
