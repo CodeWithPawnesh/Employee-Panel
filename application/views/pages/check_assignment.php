@@ -34,7 +34,7 @@
                                     <td class="text-center"><?= $a_d['student_name'] ?></td>
                                     <td class="text-center"><?= date('d M, Y H:i A',$a_d['submited_at']) ?></td>
                                     <td class="text-center">
-                                        <a href="https://erp-panel.think-champ.com/assets/assignment_data/<?=$a_d['file']?>"
+                                        <a href="https://think-champ.com/assets/assignment_data/<?=$a_d['file']?>"
                                             download>
                                             File
                                         </a>
