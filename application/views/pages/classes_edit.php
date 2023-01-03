@@ -21,16 +21,16 @@ $user_info = $this->session->userdata('user_data');
                                     <label>Class Timing</label>
                                 </div>
                                 <div class="form-group">
-                                    <input type="time" name="class_ts" class="form-control" value="<?= date("H:i", $class_data['class_ts']) ?>">
+                                    <input type="time" name="class_ts" class="form-control"  value="<?php if(!empty($class_data['class_ts'])){ echo date("H:i", $class_data['class_ts']); } ?>">
                                 </div>
                             </div>
-                            <?php if($class_data['type']=='2'){ ?>
+                            <?php if($class_data['type']=='2' || $class_data['type']=='3'){ ?>
                             <div class="col">
                                 <div class="form-group">
                                     <label>Class Date</label>
                                 </div>
                                 <div class="form-group">
-                                    <input type="date" name="class_date" class="form-control" <?php if(!empty($class_data['class_date'])){ ?>value="<?= date("y-m-d",$class_data['class_date'])?>"<?php } ?>>
+                                    <input type="date" name="class_date" class="form-control" value="<?php if(!empty($class_data['class_ts'])){ echo  date("Y-m-d",$class_data['class_date']);}?>">
                                 </div>
                             </div>
                             <?php } ?>
