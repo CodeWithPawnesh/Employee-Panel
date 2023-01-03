@@ -74,6 +74,7 @@ class Assignment extends CI_Controller {
 		$emp_id = $emp_data->emp_id;
 		if($user_info->access_level == 0){
 		if(isset($_POST['submit'])){
+			$marks = $_POST['marks'];
 			$batch = $_POST['batch_id'];
 			$group = $_POST['group_id'];
 			$assignment = $_POST['assignment'];
@@ -85,6 +86,7 @@ class Assignment extends CI_Controller {
 
 			$data = array(
 				"batch_id"=>$batch,
+				"marks"=>$marks,
 				"group_id"=>$group,
 				"start_date"=>$start_date,
 				"end_date"=>$end_date,
@@ -106,6 +108,7 @@ class Assignment extends CI_Controller {
 			);
 			$data['batch_data']= $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
 			if(isset($_POST['submit'])){
+				$marks = $_POST['marks'];
 				$batch = $_POST['batch_id'];
 				$assignment = $_POST['assignment'];
 				$start_date = $_POST['start_date'];
@@ -115,6 +118,7 @@ class Assignment extends CI_Controller {
 				$created_at = time();
 				$data = array(
 					"batch_id"=>$batch,
+					"marks"=>$marks,
 					"start_date"=>$start_date,
 					"end_date"=>$end_date,
 					"assignment"=>$assignment,
@@ -136,6 +140,7 @@ class Assignment extends CI_Controller {
 			);
 			$data['group_data']= $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
 			if(isset($_POST['submit'])){
+				$marks = $_POST['marks'];
 				$group_batch = $_POST['group_batch'];
 				$group_batch = explode(",",$group_batch);
 				$group = $group_batch[0];
@@ -149,6 +154,7 @@ class Assignment extends CI_Controller {
 				$data = array(
 					"group_id"=>$group,
 					"batch_id"=>$batch,
+					"marks"=>$marks,
 					"start_date"=>$start_date,
 					"end_date"=>$end_date,
 					"assignment"=>$assignment,

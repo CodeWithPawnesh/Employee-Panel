@@ -86,6 +86,14 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Marks </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="marks" class="form-control" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col">

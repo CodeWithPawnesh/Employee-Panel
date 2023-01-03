@@ -14,6 +14,16 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
+                                        <label>Marks </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="marks" class="form-control" value="<?= $assignment_data['marks'] ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
                                         <label>Edit Assignment </label>
                                     </div>
                                     <div class="form-group">
