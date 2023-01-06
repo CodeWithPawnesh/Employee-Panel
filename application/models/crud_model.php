@@ -200,7 +200,8 @@ class crud_model extends CI_Model
             "class_date"=>$cl_date,
             "class_started_at"=>$cl_started_at,
             "class_starting_ts"=>$cl_start_ts,
-            "teacher_id"=>$emp_id
+            "teacher_id"=>$emp_id,
+            "status"=>1
         );
         $query = $this->db->insert("tc_live_classes",$data);
         if($query){
@@ -240,6 +241,16 @@ class crud_model extends CI_Model
     function get_student_group_class_data($student_id){
         $sql="SELECT ch.*, c.class_name,c.class_ts, g.group_name FROM tc_live_classes AS ch,
         tc_classes AS c, tc_batch_group AS g WHERE ch.student_ids LIKE '%$student_id%' AND ch.class_id = c.class_id AND c.group_id = g.group_id";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }else{
+            return false;
+        }
+    }
+    function get_today_class_data($class_id){
+        $currDate = date("y-m-d");
+        $sql="SELECT COUNT(live_id) AS cc FROM tc_live_classes WHERE class_id = $class_id AND class_date = '$currDate' ";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();

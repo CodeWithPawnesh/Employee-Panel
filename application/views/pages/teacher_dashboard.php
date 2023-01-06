@@ -93,13 +93,20 @@
     var h = zeros(today.getHours() % 12 || 12);
     var m = today.getMinutes();
     var s = today.getSeconds();
+    if( m < 10){
+        m = "0"+m;
+    }
+    if( s < 10){
+        s = "0"+s;
+    }
     var time = h + ':' + m + ':' + s;
     <?php foreach($class_data as $c_d){
          $s_time = date("h:i:s", ($c_d['class_ts']) - (15 * 60));
          $e_time = date("h:i:s", ($c_d['class_ts']) + (15 * 60));
     ?>
+    console.log('<?= $s_time ?>');
     console.log('<?= $e_time ?>');
-    console.log(time );
+    console.log(time);
     if('<?=  $s_time ?>' <= time && '<?= $e_time ?>' >=  time)
     {
     document.getElementById("<?= $c_d['class_id'] ?>").style.display="block";

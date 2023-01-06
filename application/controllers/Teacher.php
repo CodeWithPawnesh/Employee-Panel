@@ -15,7 +15,13 @@ class Teacher extends CI_Controller {
         if(isset($_GET['id']) && isset($_GET['cl_l'])){
             $class_id=$_GET['id'];
             $class_link = $_GET['cl_l'];
+            $count = $this->CM->get_today_class_data($class_id);
+            $count = $count[0]['cc'];
+            if($count == 0){
             $this->CM->insert_class_history($class_id,$class_link,$emp_id);
+            }else{
+                redirect($class_link);
+            }
         }
         $date = date('y-m-d',strtotime("1 day"));
         $d_tc = strtotime($date);
