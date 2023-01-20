@@ -31,7 +31,8 @@ $emp_role = $emp_info->role;
                                     <?php if($emp_role ==2){ ?>
                                     <th class="text-center">Group Name</th>
                                     <?php } ?>
-                                    <th class="text-center">No of Students</th>
+                                    <th class="text-center">No of Present Students</th>
+                                    <th class="text-center">View Present Student</th>
                                     <th class="text-center">Status</th>
                                 </tr>
                             </thead>
@@ -57,7 +58,10 @@ $emp_role = $emp_info->role;
                                 <td class="text-center"><a href="<?= base_url('Mark-Attendance?id=').$c_d['live_id']."&class_id=".$c_d['class_id'] ?>" class="btn btn-sm btn-success">Mark Attendance</a></td>
                                 <?php } ?>
                                 <?php if($c_d['status']==1){ ?>
-                                <td class="text-center"><?= $c_d['student_n'] ?></td>
+                                <td class="text-center"><?php $std_n= explode(",",$c_d['student_ids']); echo sizeof($std_n); ?></td>
+                                <?php } ?>
+                                <?php if($c_d['status']==1){ ?>
+                                <td class="text-center"><a href="<?= base_url("Present-Student-List?id=".$c_d['live_id'])."&ids=".$c_d['student_ids'] ?>">View</a></td>
                                 <?php } ?>
                                 <?php if($c_d['status']==0){ ?>
                                 <td class="text-center text-danger">Attendance Pending</td>

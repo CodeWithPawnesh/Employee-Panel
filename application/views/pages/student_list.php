@@ -54,7 +54,9 @@ $access_level = $user_info->access_level;
                                     <th Class="text-center">E-Mail</th>
                                     <th Class="text-center">Ph. NO</th>
                                     <th Class="text-center">Status</th>
+                                    <?php if($access_level ==0 ) { ?>
                                     <th class="text-center">Action</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,22 +74,22 @@ $access_level = $user_info->access_level;
                                     <?php if($s_d['status']==0){ ?>
                                     <td class="text-center text-danger">In-Active</td>
                                     <?php } ?>
+                                    <?php if($access_level ==0 ) { ?>
                                    <td class="text-center">
                                     <div class="dropdown show">
                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         
                                        </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                       <a href="<?= base_url("Class-History?student_id=").$s_d['student_id'] ?>" class="dropdown-item">Class History</a>
-                                       <?php if($access_level ==0 ) { ?>
                                        <a class="dropdown-item"href="<?= base_url("Student-Course-List?id=").$s_d['student_id'] ?>">View Course</a>
                                        <a class="dropdown-item" href="<?= base_url("Student-Edit?id=").$s_d['student_id'] ?>">Edit</a>
                                        <a class="dropdown-item" href="<?= base_url("Student-List?delete_student=").$s_d['student_id'] ?>">Delete</a>
                                        <a class="dropdown-item" href="<?= base_url("Internship-List?id=").$s_d['student_id'] ?>">Internship</a>
-                                       <?php }  ?>
+                                     
                                     </div>
                                      </div>
                                    </td>
+                                   <?php }  ?>
 
                                 </tr>
                                 <?php } }else { echo "<h1 class='text-center text-warning'>No Data Found</h1>";  } ?>

@@ -862,8 +862,11 @@ public function student_course_list(){
 	$offset = ($page_no-1) * $limit; 
 	$row = $this->CM->get_row($table_name,$where);
 	$data['total_pages'] = ceil($row/$limit);
-		$sql = "SELECT en.*,c.course_name, b.batch_name, g.group_name FROM tc_course AS c, tc_batch AS b, tc_batch_group AS g, tc_enrollment AS en
-				WHERE en.student_id = $student_id AND en.course_id = c.course_id AND en.batch_id = b.batch_id AND en.group_id = g.group_id ";
+		$sql = "SELECT en.*,c.course_name,b.batch_name,g.group_name FROM tc_enrollment AS en 
+		        LEFT JOIN tc_course AS c ON en.course_id = c.course_id 
+				LEFT JOIN tc_batch AS b ON en.batch_id = b.batch_id
+				LEFT JOIN tc_batch_group AS g ON en.group_id = g.group_id WHERE en.student_id = $student_id ";
+				
 		$data['course_data'] = $this->CM->get_join($sql);
 		if(isset($_GET['course_delete']) ){
 			$enroll_id = $_GET['course_delete'];

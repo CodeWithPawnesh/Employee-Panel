@@ -126,4 +126,31 @@ class Classes extends CI_Controller {
 		}
         $this->load->admin_temp('class_history',$data); 
     }
+	public function requested_class_video(){
+		$data["page"]="";
+		if(isset($_GET['batch_id'])){
+			$bach_id = $_GET['batch_id'];
+			$sql = "SELECT v.class_video_id,l.class_no,l.class_date,v.requested_at,v.requested_by,v.status,c.class_name FROM tc_live_classes AS l, tc_class_video AS
+			 v, tc_classes AS c WHERE v.batch_id = $bach_id AND l.live_id = v.live_id AND l.class_id = c.class_id  ";
+			 $data['requested_data'] = $this->CM->get_join($sql);
+		}
+        $this->load->admin_temp('requested_class_video',$data);
+    }
+	public function give_class_video(){
+		if(isset($_POST['submit'])){
+		$currDate = date('y-m-d');
+		$batch_id = $_POST['batch_id'];
+		$you_tube_url = $_POST['you_tube_url'];
+		$class_video_id = $_POST['class_video_id'];
+		$where = array("class_video_id"=>$class_video_id);
+		$data = array(
+			"given_at"=>$currDate,
+			"video_link"=>$you_tube_url,
+			"status"=>1
+		);
+		$table_name = "tc_class_video";
+		$redirect = "Class-Video-Requests?batch_id=".$batch_id;
+		$this->CM->update($data,$table_name,$where,$redirect);
+		}
+	}
 }

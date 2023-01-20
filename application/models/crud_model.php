@@ -191,12 +191,14 @@ class crud_model extends CI_Model
             return false;
         }
     }
-    function insert_class_history($class_id,$class_link,$emp_id){
+    function insert_class_history($class_id,$class_link,$emp_id,$total_class){
         $cl_date = date('y-m-d');
         $cl_started_at = date('h:i A');
         $cl_start_ts = strtotime($cl_started_at);
+        $class_no = $total_class + 1;
         $data = array(
             "class_id"=>$class_id,
+            "class_no"=>$class_no,
             "class_date"=>$cl_date,
             "class_started_at"=>$cl_started_at,
             "class_starting_ts"=>$cl_start_ts,

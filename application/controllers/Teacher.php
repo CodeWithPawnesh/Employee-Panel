@@ -15,10 +15,12 @@ class Teacher extends CI_Controller {
         if(isset($_GET['id']) && isset($_GET['cl_l'])){
             $class_id=$_GET['id'];
             $class_link = $_GET['cl_l'];
+            $sql = "SELECT class_id FROM tc_live_classes WHERE class_id = $class_id";
+            $total_class = $this->CM->get_join_row($sql);
             $count = $this->CM->get_today_class_data($class_id);
             $count = $count[0]['cc'];
             if($count == 0){
-            $this->CM->insert_class_history($class_id,$class_link,$emp_id);
+            $this->CM->insert_class_history($class_id,$class_link,$emp_id,$total_class);
             }else{
                 redirect($class_link);
             }

@@ -124,13 +124,14 @@ class Panel extends CI_Controller {
         }
         if(isset($_GET['batch_id'])){
             $batch_id =$_GET["batch_id"];
-            $sql = "SELECT s.*, c.course_name,b.batch_name,g.group_name FROM tc_student as s, tc_batch as b, tc_batch_group as g,
-             tc_course as c, tc_enrollment as en WHERE en.batch_id = $batch_id AND en.batch_id = b.batch_id AND c.course_id = en.course_id AND g.group_id = en.group_id  ORDER BY student_id DESC";
+            $sql = "SELECT s.* FROM tc_student as s, tc_batch AS b, tc_enrollment AS en WHERE b.batch_id = $batch_id AND 
+            en.batch_id = b.batch_id AND en.student_id = s.student_id ORDER BY  s.student_id DESC";
             }
             if(isset($_GET['group_id'])){
                 $group_id = $_GET['group_id'];
-                $sql = "SELECT s.*, c.course_name,b.batch_name,g.group_name FROM tc_student as s, tc_batch as b, tc_batch_group as g,
-                 tc_course as c, tc_enrollment as en WHERE en.batch_id = b.batch_id AND en.group_id= $group_id AND g.group_id = en.group_id AND c.course_id = en.course_id ORDER BY student_id DESC";
+                 $sql = "SELECT s.* FROM tc_student as s, tc_batch_group AS g, tc_batch AS b, tc_enrollment AS en
+                  WHERE g.group_id = $group_id AND en.group_id = g.group_id AND en.batch_id = b.batch_id 
+                  AND en.student_id = s.student_id ORDER BY  s.student_id DESC";
                 }
         $data['student_data'] = $this->CM->get_join($sql);
         if(isset($_GET['delete_student'])){
@@ -153,5 +154,15 @@ class Panel extends CI_Controller {
             $data['class_data']= $this->CM->get_class_data($class_id,$emp_role);
         }
         $this->load->admin_temp('class_history',$data); 
+    }
+    public function present_student_list(){
+        $data['page'] = "";
+        if(isset($_GET['id'])){
+            $live_id= $_GET['id'];
+            $ids = $_GET['ids'];
+        $sql = "SELECT s.student_name, s.email,s.phone FROM tc_student AS s, tc_live_classes AS c WHERE s.student_id IN($ids)";
+        $data['present_std_data'] = $this->CM->get_join($sql);
+        }
+        $this->load->admin_temp('present_student_list',$data);
     }
 }
