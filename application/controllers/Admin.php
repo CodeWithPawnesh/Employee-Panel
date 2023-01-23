@@ -1269,9 +1269,25 @@ public function job_create(){
 		$title = $_POST['title'];
 		$job_desc = $_POST['job_desc'];
 		$batch_id = $_POST['batch_id'];
+		if($_FILES['image']['size']>0)
+			{
+				$config['upload_path'] = './assets/images/job/';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['encrypt_name'] = true;
+				$config['max_size'] = 5000;
+				$this->load->library('upload',$config);
+				if($this->upload->do_upload('image'))
+				{
+				$uploaddata=$this->upload->data();
+				$image =  $uploaddata['file_name'];
+				}
+		    }else{
+				$image = $_POST['h_image'];
+			}
 		$data = array(
 			"job_title"=>$title,
 			"job_description"=>$job_desc,
+			"image"=>$image,
 			"batch_id"=>$batch_id,
 			"created_by"=>$emp_id,
 			"status"=>1
@@ -1297,9 +1313,25 @@ public function job_edit(){
 		$job_desc = $_POST['job_desc'];
 		$batch_id = $_POST['batch_id'];
 		$job_id = $_POST['job_id'];
+		if($_FILES['image']['size']>0)
+			{
+				$config['upload_path'] = './assets/images/job/';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['encrypt_name'] = true;
+				$config['max_size'] = 5000;
+				$this->load->library('upload',$config);
+				if($this->upload->do_upload('image'))
+				{
+				$uploaddata=$this->upload->data();
+				$image =  $uploaddata['file_name'];
+				}
+		    }else{
+				$image = $_POST['h_image'];
+			}
 		$data = array(
 			"job_title"=>$title,
 			"job_description"=>$job_desc,
+			"image"=>$image
 		);
 		$table_name = "tc_job_updates";
 		$redirect = "Job-Updates-List?id=".$batch_id;

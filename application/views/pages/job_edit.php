@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="admin/job_edit" method="post">
+                        <form action="admin/job_edit" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="job_id" value="<?= $_GET['id'] ?>">
                             <input type="hidden" name="batch_id" value="<?= $job_data['batch_id'] ?>">
                             <div class="row">
@@ -29,6 +29,15 @@
                                     <div class="form-group">
                                         <textarea name="job_desc" class="form-control"><?= $job_data['job_description'] ?></textarea>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Job Update Image</label>
+                                    </div>
+                                    <input type="file" name="image" class="form-control" required>
+                                    <input type="hidden" name="h_image" value=<?= $job_data['image'] ?>>
                                 </div>
                             </div>
                             <div class="card-footer ">
