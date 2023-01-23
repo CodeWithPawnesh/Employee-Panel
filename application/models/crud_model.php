@@ -359,4 +359,14 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
         <?php
             return ob_get_clean();
     }
+    function get_order_data(){
+        $sql = "SELECT o.*, c.course_name, s.student_name, b.batch_name FROM tc_order AS o, tc_course AS c, tc_student AS s, tc_batch AS b 
+        WHERE o.course_id = c.course_id AND o.batch_id = b.batch_id AND o.student_id = s.student_id";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }else{
+            return false;
+        }
+    }
 }

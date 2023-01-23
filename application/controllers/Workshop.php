@@ -150,6 +150,22 @@ class Workshop extends CI_Controller {
         $this->load->admin_temp('workshop_edit',$data);
     }
     public function response(){
-        
+        $data['page'] = "";
+        if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        $table_name = "tc_workshop_enroll";
+        $where = array("w_enroll_id"=>$id);
+        $data['response_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select=Null,$join=Null);
+        }
+        if(isset($_GET['std_id']) && isset($_GET['mark'])){
+            $std_id = $_GET['std_id'];
+            $mark = $_GET['mark'];
+            $data=array("status"=>$mark);
+            $table_name= "tc_workshop_enroll";
+            $where = array("w_enroll_id"=>$std_id);
+            $redirect = "Workshop-Enrollment?id=".$std_id;
+            $this->CM->update($data,$table_name,$where,$redirect);
+        }
+        $this->load->admin_temp('workshop_response',$data);
     }
 }

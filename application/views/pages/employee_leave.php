@@ -18,7 +18,7 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <a href="<?= base_url('Leave-Create') ?>" class="btn btn-md btn-success">Add Leave</a>
+                        <!-- <a href="<?= base_url('Leave-Create') ?>" class="btn btn-md btn-success">Add Leave</a> -->
                         <?php if(!empty($leave_data)){ ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Leaves</caption>

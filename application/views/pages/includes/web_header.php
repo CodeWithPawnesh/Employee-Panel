@@ -120,6 +120,25 @@ $emp_info = $this->session->userdata('emp_data');
                             <p> Dashboard </p>
                         </a>
                     </li>
+                    <!-- order -->
+                    <?php
+                    $active = "";
+                   $current_page =  $_SERVER['REQUEST_URI'] ;
+                   $current_page = explode("/",$current_page);
+                   foreach($current_page as $c_p)
+                   {
+                    if($c_p=="Order"){
+                        $active = "active";
+                    }
+                   }
+                     ?>
+                    <li class="nav-item <?= $active; ?> ">
+                        <a class="nav-link" href="<?= base_url('Order') ?>">
+                            <i class="material-icons">note</i>
+                            <p> Order</p>
+                        </a>
+                    </li>
+                    <!-- order -->
                     <?php
                     $active = "";
                    $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -400,6 +419,41 @@ $emp_info = $this->session->userdata('emp_data');
                     $current_page = explode("/",$current_page);
                     foreach($current_page as $c_p)
                     {
+                     if($c_p=="Leads"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Leads">
+                            <i class="material-icons">list</i>
+                            <p>Leads</p>
+                        </a>
+                    </li>
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Community"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Community">
+                            <i class="material-icons">list</i>
+                            <p>Community</p>
+                        </a>
+                    </li>
+                    
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
                      if($c_p=="Testimonial-List"){
                          $active = "active";
                      }
@@ -455,8 +509,28 @@ $emp_info = $this->session->userdata('emp_data');
                             <p>Classes</p>
                         </a>
                     </li>
-                    <!-- Batch List  -->
+                    <!-- Leave List  -->
                     <?php
+                     if($user_info->access_level== 1){
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Student-Leave"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Student-Leave">
+                            <i class="material-icons">note</i>
+                            <p>Student Leave</p>
+                        </a>
+                    </li>
+                    <!-- Leave List  -->
+                    <?php
+                     }
                     if($user_info->access_level== 1 ){
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;

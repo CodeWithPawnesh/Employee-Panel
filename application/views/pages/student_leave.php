@@ -18,7 +18,6 @@
                     </div>
                     <?php } ?>
                     <div class="card-body">
-                        <a href="<?= base_url('Leave-Create') ?>" class="btn btn-md btn-success">Add Leave</a>
                         <?php  if(!empty($leave_data)){  ?>
                         <table class="table table-hover table-responsive">
                             <caption>List of Leaves</caption>
@@ -49,9 +48,9 @@
                                     <td class="text-center text-warning">Under Review</td>
                                     <td class="text-center">
                                         <?php if($l_d['status']==0){ ?>
-                                            <a class="text-success" href="<?= base_url()."Employee-Leave?id=".$l_d['id']."&status=1" ?>">Approve</a>
+                                            <a class="text-success" href="<?= base_url()."Student-Leave?id=".$l_d['id']."&status=1" ?>">Approve</a>
                                             <br>
-                                            <a class="text-danger" href="<?= base_url()."Employee-Leave?id=".$l_d['id']."&status=2" ?>">Dis-Approve</a>
+                                            <a class="text-danger" href="<?= base_url()."Student-Leave?id=".$l_d['id']."&status=2" ?>">Dis-Approve</a>
                                         <?php }else{
                                             echo "N/A";
                                         } ?>

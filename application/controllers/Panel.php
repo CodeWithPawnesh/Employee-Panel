@@ -165,4 +165,54 @@ class Panel extends CI_Controller {
         }
         $this->load->admin_temp('present_student_list',$data);
     }
+    public function student_leave(){
+        $emp_info = $this->session->userdata('emp_data');
+        $emp_id = $emp_info->emp_id;
+        $emp_role = $emp_info->role;
+        if(isset($_GET['id']) && isset($_GET['status']) ){
+            $id = $_GET['id'];
+            $status =$_GET['status'];
+            $table_name = "tc_leave";
+            $data = array(
+                "status"=>$status
+            );
+            $where = array(
+                "id"=>$id
+            );
+            $this->CM->update($data,$table_name,$where);
+        }
+        if($emp_role !=0){	
+        $sql = "SELECT l.*, s.student_name 
+                FROM tc_leave AS l, 
+                     tc_enrollment AS en,
+                     tc_batch AS b,
+                     tc_student AS s
+                WHERE 
+                l.user = '1' AND
+                l.user_id = s.student_id AND
+                l.user_id = en.student_id AND
+                en.batch_id = b.batch_id AND
+                b.emp_id = $emp_id
+                ORDER BY id DESC";
+        }else{
+            $sql = "SELECT l.*, s.student_name 
+            FROM tc_leave AS l, 
+                 tc_student AS s
+            WHERE 
+            l.user = '1' AND
+            l.user_id = s.student_id
+            ORDER BY id DESC";
+        }
+        $data['leave_data'] = $this->CM->get_join($sql);
+        $row= $this->CM->get_join_row($sql);
+        if(isset($_GET['page'])){
+            $page_no = $_GET['page']; 
+        }else{
+            $page_no = 1;
+        }
+        $limit = 10;
+        $offset = ($page_no-1) * $limit; 
+        $data['total_pages'] = ceil($row/$limit);
+        $this->load->admin_temp('student_leave',$data);
+      }
 }

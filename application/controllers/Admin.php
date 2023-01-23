@@ -785,36 +785,6 @@ class Admin extends CI_Controller {
 	$data['page_name']="Group Create";
 	$this->load->admin_temp('group_create',$data);
   }
-  public function student_leave(){
-	if(isset($_GET['id']) && isset($_GET['status']) ){
-		$id = $_GET['id'];
-		$status =$_GET['status'];
-		$table_name = "tc_leave";
-		$data = array(
-			"status"=>$status
-		);
-		$where = array(
-			"id"=>$id
-		);
-		$this->CM->update($data,$table_name,$where);
-	}	
-	if(isset($_GET['page'])){
-		$page_no = $_GET['page']; 
-	}else{
-		$page_no = 1;
-	}
-	$table_name="tc_leave";
-	$limit = 10;
-	$offset = ($page_no-1) * $limit; 
-	$where = array(
-		"user"=>"2"
-	);
-	$row = $this->CM->get_row($table_name,$where);
-	$data['total_pages'] = ceil($row/$limit);
-	$sql = "SELECT l.*, s.student_name FROM tc_leave AS l, tc_student as s WHERE l.user_id = s.student_id AND l.user = '2' ORDER BY id DESC";
-	$data['leave_data'] = $this->CM->get_join($sql);
-	$this->load->admin_temp('student_leave',$data);
-  }
   public function employee_leave(){
 	if(isset($_GET['id']) && isset($_GET['status']) ){
 		$id = $_GET['id'];
@@ -1339,5 +1309,55 @@ public function job_edit(){
 		$this->CM->update($data,$table_name,$where,$redirect);
 	}
 	$this->load->admin_temp('job_edit',$data);
+}
+public function leads(){
+	$data['page']="";
+	if(isset($_GET['page'])){
+		$page_no = $_GET['page']; 
+	}else{
+		$page_no = 1;
+	}
+	$table_name="tc_leads";
+	$limit = 10;
+	$offset = ($page_no-1) * $limit; 
+	$row = $this->CM->get_row($table_name);
+	$data['total_pages'] = ceil($row/$limit);
+	$table_name = "tc_leads";
+	$order_by = "lead_id";
+	$data['leads_data'] = $this->CM-> get($table_name,$limit,$offset,$order_by,$where=Null,$select=Null,$join=Null);
+	$this->load->admin_temp('leads',$data);
+}
+public function community(){
+	$data['page']="";
+	if(isset($_GET['page'])){
+		$page_no = $_GET['page']; 
+	}else{
+		$page_no = 1;
+	}
+	$table_name="tc_community";
+	$limit = 10;
+	$offset = ($page_no-1) * $limit; 
+	$row = $this->CM->get_row($table_name);
+	$data['total_pages'] = ceil($row/$limit);
+	$table_name = "tc_community";
+	$order_by = "id";
+	$data['community_data'] = $this->CM-> get($table_name,$limit,$offset,$order_by,$where=Null,$select=Null,$join=Null);
+	$this->load->admin_temp('community',$data);
+}
+public function order(){
+	$data['page']="page";
+	$data['page']="";
+	if(isset($_GET['page'])){
+		$page_no = $_GET['page']; 
+	}else{
+		$page_no = 1;
+	}
+	$table_name="tc_order";
+	$limit = 10;
+	$offset = ($page_no-1) * $limit; 
+	$row = $this->CM->get_row($table_name);
+	$data['total_pages'] = ceil($row/$limit);
+	$data['order_data'] = $this->CM->get_order_data();
+	$this->load->admin_temp('order',$data);
 }
 }
