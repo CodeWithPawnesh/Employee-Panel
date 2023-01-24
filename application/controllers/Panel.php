@@ -157,11 +157,36 @@ class Panel extends CI_Controller {
     }
     public function present_student_list(){
         $data['page'] = "";
+        $emp_info = $this->session->userdata('emp_data');
+        $emp_id = $emp_info->emp_id;
+        $emp_role = $emp_info->role;
         if(isset($_GET['id'])){
             $live_id= $_GET['id'];
             $ids = $_GET['ids'];
-        $sql = "SELECT s.student_name, s.email,s.phone FROM tc_student AS s, tc_live_classes AS c WHERE s.student_id IN($ids)";
+            if($emp_role==1){
+        $sql = "SELECT s.student_name, s.email,s.phone FROM tc_student AS s, tc_live_classes AS c WHERE s.student_id IN($ids) AND live_id = $live_id";
+            }
+            if($emp_role == 2){
+        $sql = "SELECT s.student_name, s.email,s.phone,pm.status,pm.marks_obtained,pm.id AS pr_m_id FROM tc_student AS s, tc_live_classes AS c,tc_programming_class_marks as pm 
+                WHERE s.student_id IN($ids) AND c.live_id = $live_id
+                AND pm.live_class_id = c.live_id
+                ";
+            }
         $data['present_std_data'] = $this->CM->get_join($sql);
+        }
+        if(isset($_POST['submit'])){
+            $live_id = $_POST['live_id'];
+            $ids = $_POST['ids'];
+            $pr_m_id = $_POST['pr_m_id'];
+            $marks = $_POST['marks'];
+            $redirect = "Present-Student-List?id=".$live_id."&ids=".$ids;
+            $table_name = "tc_programming_class_marks";
+            $data = array(
+                "marks_obtained"=>$marks,
+                "status"=>1
+            );
+            $where = array("id"=>$pr_m_id);
+            $this->CM->update($data,$table_name,$where,$redirect);
         }
         $this->load->admin_temp('present_student_list',$data);
     }

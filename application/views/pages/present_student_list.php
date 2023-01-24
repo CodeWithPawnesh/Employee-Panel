@@ -50,6 +50,11 @@ $access_level = $user_info->access_level;
                                     <th Class="text-center">Student Name</th>
                                     <th Class="text-center">E-Mail</th>
                                     <th Class="text-center">Ph. NO</th>
+                                    <?php if($access_level ==2){ ?>
+                                        <th class="text-center">Marks Obtained</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Action</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,6 +66,26 @@ $access_level = $user_info->access_level;
                                     <td class="text-center"><?= $s_d['student_name'] ?></td>
                                     <td class="text-center"><?= $s_d['email'] ?></td>
                                     <td class="text-center"><?= $s_d['phone'] ?></td>
+                                    <?php if($access_level ==2){ ?>
+                                        <td class="text-center"><?= $s_d['marks_obtained'] ?></td>
+                                        <?php if($s_d['status']==0){ ?>
+                                        <td class="text-center text-danger">Marks Not Given</td>
+                                        <?php } ?>
+                                        <?php if($s_d['status']==1){ ?>
+                                        <td class="text-center text-success">Marks Given</td>
+                                        <?php } ?>
+                                        <td class="text-center">
+                                        <?php if($s_d['status']==0){ ?>
+                                            <form action="Present-Student-List" method="post">
+                                                <input type="hidden" name="live_id" value=<?= $_GET['id'] ?>>
+                                                <input type="hidden" name="ids" value=<?= $_GET['ids'] ?>>
+                                                <input type="hidden" name="pr_m_id" value=<?= $s_d['pr_m_id'] ?>>
+                                            <input type="number" name="marks" placeholder="Marks"><br>
+                                            <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
+                                            </form>
+                                        <?php } ?>
+                                        </td>
+                                    <?php } ?>
                                 </tr>
                                 <?php } }else { echo "<h1 class='text-center text-warning'>No Data Found</h1>";  } ?>
                             </tbody>
