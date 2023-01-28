@@ -245,6 +245,25 @@ $emp_info = $this->session->userdata('emp_data');
                             <p>Assignment</p>
                         </a>
                     </li>
+                    <!--  -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Certificate"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>" >
+                        <a class="nav-link" href="Certificate">
+                            <i class="material-icons">list</i>
+                            <p>Certificate List</p>
+                        </a>
+                    </li>
+                    <!--  -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;

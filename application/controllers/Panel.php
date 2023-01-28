@@ -120,19 +120,33 @@ class Panel extends CI_Controller {
         $row = $this->CM->get_row($table_name);
         $data['total_pages'] = ceil($row/$limit);
         if(!isset($_GET['batch_id']) && !isset($_GET['group_id']) ){
-        $sql = "SELECT student_name, email, phone, student_id, status FROM tc_student WHERE  student_id  ORDER BY student_id DESC";
+        $sql = "SELECT s.student_name, s.email, s.phone, s.student_id, s.status,b.batch_name,g.group_name,c.course_name 
+        FROM tc_student AS s 
+        LEFT JOIN tc_enrollment AS e ON s.student_id = e.student_id 
+        LEFT JOIN tc_batch AS b ON e.batch_id = b.batch_id
+        LEFT JOIN tc_batch_group AS g ON e.group_id = g.group_id
+        LEFT JOIN tc_course AS c ON e.course_id = c.course_id ORDER BY s.student_id DESC";
+         $row = $this->CM->get_join_row($sql);
+         $data['total_pages'] = ceil($row/$limit);
+         $sql = "SELECT s.student_name, s.email, s.phone, s.student_id, s.status,b.batch_name,b.batch_id,g.group_name,c.course_name,c.course_id,ce.certificate_id
+        FROM tc_student AS s 
+        LEFT JOIN tc_enrollment AS e ON s.student_id = e.student_id 
+        LEFT JOIN tc_batch AS b ON e.batch_id = b.batch_id
+        LEFT JOIN tc_batch_group AS g ON e.group_id = g.group_id
+        LEFT JOIN tc_certificate AS ce ON e.student_id = ce.student_id AND e.batch_id = ce.batch_id
+        LEFT JOIN tc_course AS c ON e.course_id = c.course_id ORDER BY s.student_id DESC LIMIT $offset,$limit ";
         }
         if(isset($_GET['batch_id'])){
             $batch_id =$_GET["batch_id"];
             $sql = "SELECT s.* FROM tc_student as s, tc_batch AS b, tc_enrollment AS en WHERE b.batch_id = $batch_id AND 
             en.batch_id = b.batch_id AND en.student_id = s.student_id ORDER BY  s.student_id DESC";
             }
-            if(isset($_GET['group_id'])){
+        if(isset($_GET['group_id'])){
                 $group_id = $_GET['group_id'];
                  $sql = "SELECT s.* FROM tc_student as s, tc_batch_group AS g, tc_batch AS b, tc_enrollment AS en
                   WHERE g.group_id = $group_id AND en.group_id = g.group_id AND en.batch_id = b.batch_id 
                   AND en.student_id = s.student_id ORDER BY  s.student_id DESC";
-                }
+            }
         $data['student_data'] = $this->CM->get_join($sql);
         if(isset($_GET['delete_student'])){
             $student_id = $_GET['delete_student'];
@@ -142,6 +156,27 @@ class Panel extends CI_Controller {
             $redirect = "Student-List";
             $this->CM->delete_all_student($student_id,$user_id,$redirect);
         }
+        if(isset($_GET['mode'])){
+        if($_GET['mode']=="certificate_generate"){
+            
+            $table_name = "tc_certificate";
+            $id = $_GET['id'];
+            
+            $course_id = $_GET['course_id'];
+            $batch_id = $_GET['batch_id'];
+            $certificate_number = "TC-".date('Y')."-".$id."-".$batch_id;
+            $data = array(
+                "certificate_number"=>$certificate_number,
+                "cer_temp_id"=>1,
+                "student_id"=>$id,
+                "course_id"=>$course_id,
+                "batch_id"=>$batch_id,
+                "status"=>1
+            );
+            $redirect = "Student-List";
+            $this->CM->save($data,$table_name,$redirect);
+        }
+    }
 
         $this->load->admin_temp('student_list',$data);
     }

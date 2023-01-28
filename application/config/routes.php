@@ -102,6 +102,8 @@ $route['Notification-Edit']="Notification/edit";
 $route['Leads']="Admin/leads";
 $route['Community']="Admin/community";
 $route['Order']="Admin/order";
+$route['Certificate']="Certificate";
+$route['Certificate-Edit']="Certificate/edit";
 //END ADMIN ROUTES
 $route['Quiz-Question-Bank'] = "Quiz/quiz_question_bank";
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';

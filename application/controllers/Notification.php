@@ -78,7 +78,7 @@ class Notification extends CI_Controller {
             if($type == 5){
                 $group_id = $_POST['group_id'];
             }
-            if($type == 4){
+            if($type == 6){
                 $teacher_id =$_POST['teacher_id'];
             }
             $data = array(
