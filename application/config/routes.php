@@ -105,6 +105,13 @@ $route['Order']="Admin/order";
 $route['Certificate']="Certificate";
 $route['Certificate-Edit']="Certificate/edit";
 //END ADMIN ROUTES
+$route['Programing-Quiz'] = "Programing_module";
+$route['Programing-Quiz-Create'] = "Programing_module/create";
+$route['Programing-Quiz-Edit'] = "Programing_module/programing_quiz_edit";
+$route['Challenge-List'] = "Programing_module/challenge_list";
+$route['Challenge-Create'] = "Programing_module/challenge_create";
+$route['Challenge-Edit'] = "Programing_module/challenge_edit";
+$route['Challenge-Bank'] = "Programing_module/challenge_bank";
 $route['Quiz-Question-Bank'] = "Quiz/quiz_question_bank";
 $route['Teacher-Dashboard']= 'Teacher/teacher_dashboard';
 $route['Teacher-Batch']='Teacher/teacher_batch';

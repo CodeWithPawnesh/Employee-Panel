@@ -1,8 +1,10 @@
 <?php
 $user_info = $this->session->userdata('user_data');
 $emp_info = $this->session->userdata('emp_data');
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -15,11 +17,12 @@ $emp_info = $this->session->userdata('emp_data');
     <link rel="stylesheet" href="assets/assets/css/material-dashboard.min.css?v=2.0.1">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="assets/assets/assets-for-demo/demo.css" rel="stylesheet" />
-    <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+    <script src="<?= base_url("assets/ckeditor/ckeditor.js") ?>"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- iframe removal -->
     <script type="text/javascript">
@@ -50,7 +53,7 @@ $emp_info = $this->session->userdata('emp_data');
                     <i class="material-icons" style="padding-bottom: 4px;">donut_small</i>
                 </a>
                 <a href="#" class="simple-text logo-normal">
-                   Think-Champ
+                    Think-Champ
                 </a>
             </div>
 
@@ -70,7 +73,7 @@ $emp_info = $this->session->userdata('emp_data');
                                 <!--<b class="caret"></b>-->
                             </span>
                             <span style="padding-top:10px; padding-left:54px; font-size:0.8rem;">
-                            <?= $emp_info->designation." " ?><?= ucfirst($emp_info->emp_name) ?>
+                                <?= $emp_info->designation." " ?><?= ucfirst($emp_info->emp_name) ?>
                             </span>
                             <!--<span style="padding-top:5px; font-size:1.1rem;">
 								   Institute Name
@@ -175,8 +178,8 @@ $emp_info = $this->session->userdata('emp_data');
                         </a>
                     </li>
                     <!-- studentlist -->
-                     <!-- employeelist -->
-                     <?php
+                    <!-- employeelist -->
+                    <?php
                     $active = "";
                    $current_page =  $_SERVER['REQUEST_URI'] ;
                    $current_page = explode("/",$current_page);
@@ -205,7 +208,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Batch-List">
                             <i class="material-icons">laptop</i>
                             <p>Batch</p>
@@ -222,7 +225,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Group-List">
                             <i class="material-icons">group</i>
                             <p>Group</p>
@@ -239,7 +242,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Assignment">
                             <i class="material-icons">assignment</i>
                             <p>Assignment</p>
@@ -257,12 +260,31 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Certificate">
                             <i class="material-icons">list</i>
                             <p>Certificate List</p>
                         </a>
                     </li>
+                    <!--  -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Programing-Quiz"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Programing-Quiz">
+                            <i class="material-icons">quiz</i>
+                            <p> Programing Quiz</p>
+                        </a>
+                    </li>
+                    <!-- end quiz -->
                     <!--  -->
                     <?php
                     $active="";
@@ -301,6 +323,25 @@ $emp_info = $this->session->userdata('emp_data');
                         </a>
                     </li>
                     <!-- end q q bank -->
+                    <!-- Programing Challenge bank -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Challenge-Bank"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Challenge-Bank">
+                            <i class="material-icons">quiz</i>
+                            <p>Challenge Bank</p>
+                        </a>
+                    </li>
+                    <!-- end Programing Challenge bank -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -347,7 +388,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                     <li class="nav-item <?= $active; ?>">
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Workshop-List">
                             <i class="material-icons">list</i>
                             <p>Workshop List</p>
@@ -366,8 +407,8 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                      
-                      <li class="nav-item <?= $active; ?>">
+
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Blog-List">
                             <i class="material-icons">list</i>
                             <p>Blog List</p>
@@ -375,7 +416,7 @@ $emp_info = $this->session->userdata('emp_data');
                     </li>
                     <!-- Blog End -->
                     <!-- News -->
-                    
+
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -387,15 +428,15 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                      <li class="nav-item <?= $active; ?>">
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="News-List">
                             <i class="material-icons">list</i>
                             <p>News List</p>
                         </a>
                     </li>
                     <!-- News End -->
-                     <!-- Ads -->
-                     <?php
+                    <!-- Ads -->
+                    <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
                     $current_page = explode("/",$current_page);
@@ -406,7 +447,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                      <li class="nav-item <?= $active; ?>">
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Ads-List">
                             <i class="material-icons">list</i>
                             <p>Pop Up Ads List</p>
@@ -425,7 +466,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                      <li class="nav-item <?= $active; ?>">
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Notification-List">
                             <i class="material-icons">list</i>
                             <p>Notifications List</p>
@@ -466,7 +507,7 @@ $emp_info = $this->session->userdata('emp_data');
                             <p>Community</p>
                         </a>
                     </li>
-                    
+
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -493,7 +534,7 @@ $emp_info = $this->session->userdata('emp_data');
                     </li>
                 </ul>
                 <?php } if($user_info->access_level== 1 || $user_info->access_level== 2){ ?>
-                    <ul class="nav">
+                <ul class="nav">
                     <?php
                     $active="";
                    $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -522,7 +563,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Classes">
                             <i class="material-icons">class</i>
                             <p>Classes</p>
@@ -541,7 +582,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Student-Leave">
                             <i class="material-icons">note</i>
                             <p>Student Leave</p>
@@ -561,7 +602,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Teacher-Batch">
                             <i class="material-icons">list</i>
                             <p>Batch List</p>
@@ -569,8 +610,8 @@ $emp_info = $this->session->userdata('emp_data');
                     </li>
                     <?php } ?>
                     <!-- Batch List  -->
-                     <!-- Group List  -->
-                     <?php
+                    <!-- Group List  -->
+                    <?php
                     if($user_info->access_level== 2 ){
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -582,7 +623,7 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Teacher-Group">
                             <i class="material-icons">list</i>
                             <p>Group List</p>
@@ -601,12 +642,31 @@ $emp_info = $this->session->userdata('emp_data');
                      }
                     }
                      ?>
-                    <li class="nav-item <?= $active; ?>" >
+                    <li class="nav-item <?= $active; ?>">
                         <a class="nav-link" href="Assignment">
                             <i class="material-icons">assignment</i>
                             <p>Assignment</p>
                         </a>
                     </li>
+                    <!--  -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Programing-Quiz"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Programing-Quiz">
+                            <i class="material-icons">quiz</i>
+                            <p> Programing Quiz</p>
+                        </a>
+                    </li>
+                    <!-- end quiz -->
                     <?php
                     $active="";
                     $current_page =  $_SERVER['REQUEST_URI'] ;
@@ -714,7 +774,7 @@ $emp_info = $this->session->userdata('emp_data');
                                     style="line-height: 30px; font-size: 14px; position: relative; display: block;"><strong>02
                                         Aug 2022</strong></span>
                             </li>
-                            
+
                             <!--<li class="nav-item">
 									<a class="nav-link" href="#" onclick="logout();">
 										<i class="material-icons">input</i><strong>Logout</strong>

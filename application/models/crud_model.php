@@ -156,6 +156,16 @@ class crud_model extends CI_Model
             redirect("Quiz-Questions-List?id=".$quiz);
         }
     }
+    function insert_challenge($data,$mm_data,$p_quiz_id,$course_id){
+        $this->db->trans_start();
+        $this->db->insert('tc_challenge_bank', $data);
+        $insert_id = $this->db->insert_id();
+        $mm_data['ch_id']= $insert_id;
+        $this->db->insert('tc_pc_map', $mm_data);
+        if($this->db->trans_complete()){
+            redirect("Challenge-List?id=".$p_quiz_id."&c=".$course_id);
+        } 
+    }
     function insert_quiz_question_f_bank($q_ids,$quiz_id,$emp_id){
         $this->db->trans_start();
         if($this->db->trans_complete()){
@@ -169,6 +179,21 @@ class crud_model extends CI_Model
             $this->db->insert('tc_q_q_map',$data);
             }
             redirect("Quiz-Questions-List?id=".$quiz_id);
+        }
+    }
+    function insert_challenge_f_bank($ch_ids,$p_quiz_id,$emp_id,$c_id){
+        $this->db->trans_start();
+        if($this->db->trans_complete()){
+            foreach($ch_ids as $c){
+                $data = array(
+                    "pq_id"=>$p_quiz_id,
+                    "ch_id"=>$c,
+                    "added_by"=>$emp_id,
+                    "status"=>1
+                );
+            $this->db->insert('tc_pc_map',$data);
+            }
+            redirect("Challenge-List?id=".$p_quiz_id."&c=".$c_id);
         }
     }
     function get_student($student_id){
