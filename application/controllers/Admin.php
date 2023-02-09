@@ -77,6 +77,10 @@ class Admin extends CI_Controller {
 			$sec_2_sub_heading = $_POST['sec_2_sub_heading'];
 			$sec_2_desc = $_POST['sec_2_desc'];
 			$sec_2_desc = json_encode($sec_2_desc);
+			$cericullum_heading = $_POST['cericullum_heading'];
+			$cericullum_desc = $_POST['cericullum_desc'];
+			$project_heading = $_POST['project_heading'];
+			$project_desc = $_POST['project_desc'];
 			$created_at = time() ;
 			if($_FILES['overview_img']['size']>0)
 			{
@@ -143,6 +147,36 @@ class Admin extends CI_Controller {
 				$sec_2_img =  $uploaddata['file_name'];
 				}
 		    }
+			if($_FILES['cericullum_img']['size']>0)
+			{
+				$config['upload_path'] = './assets/images/course/';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['encrypt_name'] = true;
+				$config['max_size'] = 5000;
+				$this->load->library('upload',$config);
+				if($this->upload->do_upload('cericullum_img'))
+				{
+				$uploaddata=$this->upload->data();
+				$cericullum_img =  $uploaddata['file_name'];
+				}
+		    }else{
+				$cericullum_img = "";
+			}
+			if($_FILES['project_img']['size']>0)
+			{
+				$config['upload_path'] = './assets/images/course/';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['encrypt_name'] = true;
+				$config['max_size'] = 5000;
+				$this->load->library('upload',$config);
+				if($this->upload->do_upload('project_img'))
+				{
+				$uploaddata=$this->upload->data();
+				$project_img =  $uploaddata['file_name'];
+				}
+		    }else{
+				$project_img ="";
+			}
 			$table_name = "tc_course";
 			$redirect = "Course-List";
 			$data =array(
@@ -173,6 +207,12 @@ class Admin extends CI_Controller {
 				"benifits_points"=>$benifits_points,
 				"created_at"=>$created_at,
 				"price"=>$price,
+				"cericullum_heading"=>$cericullum_heading,
+				"cericullum_desc"=>"$cericullum_desc",
+				"cericullum_img"=>$cericullum_img,
+				"project_heading"=>$project_heading,
+				"project_desc"=>"$project_desc",
+				"project_img"=>$project_img,
 				"status"=>"1"
 			);
 			$this->CM->save($data,$table_name,$redirect);
@@ -218,6 +258,10 @@ class Admin extends CI_Controller {
 			$sec_2_sub_heading = $_POST['sec_2_sub_heading'];
 			$sec_2_desc = $_POST['sec_2_desc'];
 			$sec_2_desc = json_encode($sec_2_desc);
+			$cericullum_heading = $_POST['cericullum_heading'];
+			$cericullum_desc = $_POST['cericullum_desc'];
+			$project_heading = $_POST['project_heading'];
+			$project_desc = $_POST['project_desc'];
 			$created_at = time() ;
 			if($_FILES['overview_img']['size']>0)
 			{
@@ -294,6 +338,36 @@ class Admin extends CI_Controller {
 		    }else{
 				$sec_2_img = $_POST['h_sec_2_img'];
 			}
+			if($_FILES['cericullum_img']['size']>0)
+			{
+				$config['upload_path'] = './assets/images/course/';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['encrypt_name'] = true;
+				$config['max_size'] = 5000;
+				$this->load->library('upload',$config);
+				if($this->upload->do_upload('cericullum_img'))
+				{
+				$uploaddata=$this->upload->data();
+				$cericullum_img =  $uploaddata['file_name'];
+				}
+		    }else{
+				$cericullum_img = $_POST['h_cericullum_img'];
+			}
+			if($_FILES['project_img']['size']>0)
+			{
+				$config['upload_path'] = './assets/images/course/';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['encrypt_name'] = true;
+				$config['max_size'] = 5000;
+				$this->load->library('upload',$config);
+				if($this->upload->do_upload('project_img'))
+				{
+				$uploaddata=$this->upload->data();
+				$project_img =  $uploaddata['file_name'];
+				}
+		    }else{
+				$project_img = $_POST['h_project_img'];
+			}
 			$table_name = "tc_course";
 			$redirect = "Course-List";
 			$data =array(
@@ -304,16 +378,16 @@ class Admin extends CI_Controller {
 				"no_of_lessons"=>$no_of_lessons,
 				"language"=>$language,
 				"overview_heading"=>$overview_heading,
-				"overview_desc"=>$overview_desc,
+				"overview_desc"=>"$overview_desc",
 				"overview_img"=>$overview_img,
 				"keyoutcome_heading"=>$keyoutcome_heading,
-				"keyoutcome_desc"=>$keyoutcome_desc,
+				"keyoutcome_desc"=>"$keyoutcome_desc",
 				"keyoutcome_img"=>$keyoutcome_img,
 				"benifits_heading"=>$benifits_heading,
-				"benifits_desc"=>$benifits_desc,
+				"benifits_desc"=>"$benifits_desc",
 				"benifits_img"=>$benifits_img,
 				"sec_1_heading"=>$sec_1_heading,
-				"sec_1_desc"=>$sec_1_desc,
+				"sec_1_desc"=>"$sec_1_desc",
 				"sec_1_img"=>$sec_1_img,
 				"sec_2_heading"=>$sec_2_heading,
 				"sec_2_sub_heading"=>$sec_2_sub_heading,
@@ -322,6 +396,12 @@ class Admin extends CI_Controller {
 				"overview_points"=>$overview_points,
 				"keyoutcome_points"=>$keyoutcome_points,
 				"benifits_points"=>$benifits_points,
+				"cericullum_heading"=>$cericullum_heading,
+				"cericullum_desc"=>"$cericullum_desc",
+				"cericullum_img"=>$cericullum_img,
+				"project_heading"=>$project_heading,
+				"project_desc"=>"$project_desc",
+				"project_img"=>$project_img,
 				"created_at"=>$created_at,
 				"price"=>$price,
 				"status"=>"1"

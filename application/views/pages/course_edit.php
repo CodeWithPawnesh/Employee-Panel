@@ -71,8 +71,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input name="price" type="number" class="form-control"
-                                            placeholder="Start Writing Here..."
-                                            value="<?= $course_data['price']; ?>">
+                                            placeholder="Start Writing Here..." value="<?= $course_data['price']; ?>">
                                     </div>
                                 </div>
                                 <div class="col">
@@ -284,7 +283,7 @@
                                     </div>
                                     <input type="file" name="keyoutcome_img" class="form-control">
                                     <input type="hidden" name="h_keyoutcome_img"
-                                        value="<?= $course_data['keyoutcome_img']; ?>s">
+                                        value="<?= $course_data['keyoutcome_img']; ?>">
                                     <br>
                                     <div style="padding-left:150px;padding-right:150px">
                                         <img src="assets/images/course/<?= $course_data['keyoutcome_img']; ?>"
@@ -387,12 +386,86 @@
                                             </div>
                                         </div>
                                         <?php } ?>
-                                        <div id="BenifitsPointsRow"></div>
+                                        <div id="BenifitsPointsRow">
+
+                                        </div>
                                         <button id="addBenifitsPointsRow" type="button" class="btn btn-info">Add
                                             Row</button>
                                     </div>
                                 </div>
                             </div>
+                            <!-- course Cericullum -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Cericullum Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="cericullum_heading" value=<?= $course_data['cericullum_heading'] ?> required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Cericullum Image</label>
+                                    </div>
+                                    <input type="file" name="cericullum_img" class="form-control">
+                                    <input type="hidden" name="h_cericullum_img"
+                                        value="<?= $course_data['cericullum_img']; ?>">
+                                    <br>
+                                    <div style="padding-left:150px;padding-right:150px">
+                                        <img src="assets/images/course/<?= $course_data['cericullum_img']; ?>"
+                                            style="width:200px;height:150px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Cericullum Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="cericullum_desc" row="10"
+                                            class="form-control"><?= $course_data['cericullum_desc'] ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Course Cericullum  -->
+                            <!-- course Project -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Project Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="project_heading" value="<?= $course_data['project_heading'] ?>" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Project Image</label>
+                                    </div>
+                                    <input type="file" name="project_img" class="form-control">
+                                    <input type="hidden" name="h_project_img"
+                                        value="<?= $course_data['project_img']; ?>">
+                                    <br>
+                                    <div style="padding-left:150px;padding-right:150px">
+                                        <img src="assets/images/course/<?= $course_data['project_img']; ?>"
+                                            style="width:200px;height:150px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Project Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="project_desc" row="10"
+                                            class="form-control"><?= $course_data['project_desc'] ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Course Project  -->
                     </div>
                     <div class="card-footer ">
                         <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
@@ -429,6 +502,12 @@ CKEDITOR.replace('keyoutcome_desc');
 </script>
 <script>
 CKEDITOR.replace('benifits_desc');
+</script>
+<script>
+CKEDITOR.replace('cericullum_desc');
+</script>
+<script>
+CKEDITOR.replace('project_desc');
 </script>
 <script type="text/javascript">
 // add row

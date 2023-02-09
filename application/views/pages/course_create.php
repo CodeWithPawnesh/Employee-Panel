@@ -305,6 +305,65 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- course Cericullum -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Cericullum Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="cericullum_heading" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Cericullum Image</label>
+                                    </div>
+                                    <input type="file" name="cericullum_img" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Cericullum Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="cericullum_desc" row="10"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Course Cericullum  -->
+                            <!-- course Project -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Project Heading</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="project_heading"
+                                             class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Project Image</label>
+                                    </div>
+                                    <input type="file" name="project_img" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Project Description</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="project_desc" row="10"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Course Project  -->
                     </div>
                 </div>
                 <div class="card-footer ">
