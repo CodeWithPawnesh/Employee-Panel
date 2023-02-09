@@ -1392,4 +1392,35 @@ public function order(){
 	$data['order_data'] = $this->CM->get_order_data();
 	$this->load->admin_temp('order',$data);
 }
+public function student_placed_companies(){
+	$data['page']="page";
+	$table_name = "tc_student_placed";
+	$data['std_p_data'] = $this->CM->get($table_name);
+	$this->load->admin_temp('student_placed_companies',$data);
+}
+public function student_placed_companies_create(){
+	$data['page']="page";
+	if(isset($_POST['submit'])){
+		if($_FILES['placed_at']['size']>0)
+		{
+			$config['upload_path'] = './assets/images/placed_at/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['encrypt_name'] = true;
+			$config['max_size'] = 5000;
+			$this->load->library('upload',$config);
+			if($this->upload->do_upload('placed_at'))
+			{
+			$uploaddata=$this->upload->data();
+			$placed_at =  $uploaddata['file_name'];
+			}
+		}
+		$data = array(
+			"image"=>$placed_at
+		);
+		$table_name = "tc_student_placed";
+		$redirect = "Student-Placed-Companies";
+		$this->CM->save($data,$table_name,$redirect);
+	}
+	$this->load->admin_temp('student_placed_companies_create',$data);
+}
 }

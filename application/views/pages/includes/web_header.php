@@ -525,6 +525,25 @@ $emp_info = $this->session->userdata('emp_data');
                             <p> Testimonial</p>
                         </a>
                     </li>
+                    <!--  -->
+                    <?php
+                    $active="";
+                    $current_page =  $_SERVER['REQUEST_URI'] ;
+                    $current_page = explode("/",$current_page);
+                    foreach($current_page as $c_p)
+                    {
+                     if($c_p=="Student-Placed-Companies"){
+                         $active = "active";
+                     }
+                    }
+                     ?>
+                    <li class="nav-item <?= $active; ?>">
+                        <a class="nav-link" href="Student-Placed-Companies">
+                            <i class="material-icons">place</i>
+                            <p> Student Placed Companies</p>
+                        </a>
+                    </li>
+                    <!--  -->
                     <li class="nav-item ">
                         <a class="nav-link" href="#" onclick="logout();">
                             <i class="material-icons">input</i>

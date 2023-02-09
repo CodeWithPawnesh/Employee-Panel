@@ -104,6 +104,8 @@ $route['Community']="Admin/community";
 $route['Order']="Admin/order";
 $route['Certificate']="Certificate";
 $route['Certificate-Edit']="Certificate/edit";
+$route['Student-Placed-Companies']="admin/student_placed_companies";
+$route['Student-Placed-Companies-Create']="admin/student_placed_companies_create";
 //END ADMIN ROUTES
 $route['Programing-Quiz'] = "Programing_module";
 $route['Programing-Quiz-Create'] = "Programing_module/create";
