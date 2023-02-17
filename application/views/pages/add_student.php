@@ -103,6 +103,29 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Payment Type</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="pay_type" id="pay_type" onchange="price_change()" class="form-control">
+                                            <option value="1">Full Payment</option>
+                                            <option value="2">2 Installments</option>
+                                            <option value="3">3 Installments</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Amount Paid</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="amount_paid" id="amount_paid" class="form-control" value="<?= $course_price['price'];  ?>" readonly>
+                                        <input type="hidden" name="t_price" class="form-control" value="<?= $course_price['price'];  ?>">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-footer ">
                                 <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
                             </div>
@@ -131,3 +154,20 @@
 </div>
 </div>
 </body>
+<script>
+    function price_change(){
+        let tPrice = <?= $course_price['price'] ?>;
+        let payType = document.getElementById("pay_type").value;
+        if(payType == 2){
+            let val = Math.round(tPrice/2);
+            document.getElementById("amount_paid").value=val;
+        }
+        if(payType == 3){
+            let val = Math.round(tPrice/3);
+            document.getElementById("amount_paid").value=val;
+        }
+        if(payType == 1){
+            document.getElementById("amount_paid").value=tPrice;
+        }
+    }
+</script>

@@ -199,12 +199,14 @@ class Panel extends CI_Controller {
             $live_id= $_GET['id'];
             $ids = $_GET['ids'];
             if($emp_role==1){
-        $sql = "SELECT s.student_name, s.email,s.phone FROM tc_student AS s, tc_live_classes AS c WHERE s.student_id IN($ids) AND live_id = $live_id";
+        $sql = "SELECT s.student_name, s.email,s.phone FROM tc_student AS s, tc_live_classes AS c WHERE s.student_id IN($ids) AND c.live_id = $live_id";
             }
             if($emp_role == 2){
-        $sql = "SELECT s.student_name, s.email,s.phone,pm.status,pm.marks_obtained,pm.id AS pr_m_id FROM tc_student AS s, tc_live_classes AS c,tc_programming_class_marks as pm 
-                WHERE s.student_id IN($ids) AND c.live_id = $live_id
-                AND pm.live_class_id = c.live_id
+        $sql = "SELECT s.student_name, s.email,s.phone,pm.status,pm.marks_obtained,pm.id AS pr_m_id
+               FROM tc_student AS s,
+                tc_live_classes AS c,
+                tc_programming_class_marks as pm 
+                WHERE s.student_id IN($ids) AND c.live_id = $live_id AND pm.live_class_id = c.live_id AND pm.student_id =s.student_id
                 ";
             }
         $data['present_std_data'] = $this->CM->get_join($sql);

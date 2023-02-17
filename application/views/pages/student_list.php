@@ -88,6 +88,8 @@ $access_level = $user_info->access_level;
 
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item"
+                                                    href="<?= base_url("Add-Student-Course?id=").$s_d['student_id'] ?>">Add Course</a>
                                                 <a class="dropdown-item"
                                                     href="<?= base_url("Student-Edit?id=").$s_d['student_id'] ?>">Edit</a>
                                                 <a class="dropdown-item"

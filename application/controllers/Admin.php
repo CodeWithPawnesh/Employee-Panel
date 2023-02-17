@@ -936,8 +936,7 @@ public function add_student_course(){
 	$data['page'] = "add";
 	if(isset($_GET['id'])){
 	$student_id = $_GET['id'];
-	$sql = "SELECT c.course_name, c.course_id FROM tc_course AS c , tc_enrollment AS er WHERE c.course_id != er.course_id
-	AND er.student_id = $student_id";
+	$sql = "SELECT c.course_name, c.course_id FROM tc_course AS c , tc_enrollment AS e WHERE c.course_id <> e.course_id AND e.student_id = $student_id";
 	$data['course_data'] = $this->CM->get_join($sql);
 	}
 	if(isset($_POST['course_id'])){
@@ -947,6 +946,9 @@ public function add_student_course(){
 	}
 	if(isset($_POST['batch_id']) && !isset($_GET['group_id'])){
 		$batch_id = $_POST['batch_id'];
+		$course_id = $_POST['course_id'];
+		$data['course_price'] = $this->CM->get_course_price($course_id);
+		$data['course_price'] = $data['course_price'][0];
 		$sql = "SELECT group_name, group_id FROM tc_batch_group WHERE batch_id = $batch_id ";
 		$data['group_data'] = $this->CM->get_join($sql);
 	}
@@ -964,7 +966,71 @@ public function add_student_course(){
 			"group_id"=> $group_id,
 			"enroll_date"=>$curr_ts
 		);
-		$this->CM->en_existing_std($data,$course_data,$student_data);
+		$amount_paid = $_POST['amount_paid'];
+		$t_price = $_POST['t_price'];
+		$pay_type = $_POST['pay_type'];
+		$order_data = array(
+			"main_order_id"=>"MAIN-OD-".$student_id."-".date('d-m-y'),
+			"pay_order_id"=>"PAY-OD-".$student_id."-".date('d-m-y'),
+			"payment_id"=>"PAYMENT-ID-".$student_id."-".date('d-m-y'),
+			"student_id"=> $student_id,
+			"mode"=>2,
+			"pay_type"=>$pay_type,
+			"pay_no"=>1,
+			"fee_paid"=>$amount_paid,
+			"pending_amount"=>0,
+			"course_id"=>$course_id,
+			"batch_id"=>$batch_id,
+			"order_date"=>$curr_date,
+			"order_tc"=>$curr_ts,
+			"status"=>1,
+			"method"=>"Offline"
+	     );
+		 $order_data_inst_2=0;
+		 $order_data_inst_3=0;
+		 if($pay_type==2){
+			$pending_amount = round($t_price/2);
+			$date = date('y-m-d');
+			$ins_2_date = strtotime(date("Y-m-d", strtotime($date)) . " +15 days");
+			$order_data_inst_2 = array(
+			"main_order_id"=>"MAIN-OD-".$student_id."-".date('d-m-y'),
+			"student_id"=> $student_id,
+			"pending_amount"=>$pending_amount,
+			"course_id"=>$course_id,
+			"batch_id"=>$batch_id,
+			"pay_type"=>$pay_type,
+			"pay_no"=>2,
+			"due_date"=>$ins_2_date
+			);
+			 }
+	  if($pay_type==3){
+		  $pending_amount = round($t_price/3);
+		  $date = date('y-m-d');
+		  $ins_2_date = strtotime(date("Y-m-d", strtotime($date)) . " +15 days");
+		  $date = date('y-m-d');
+		  $ins_3_date = strtotime(date("Y-m-d", strtotime($date)) . " +30 days");
+		  $order_data_inst_2 = array(
+			  "main_order_id"=>"MAIN-OD-".$student_id."-".date('d-m-y'),
+			  "student_id"=> $student_id,
+			  "pending_amount"=>$pending_amount,
+			  "course_id"=>$course_id,
+			  "batch_id"=>$batch_id,
+			  "pay_type"=>$pay_type,
+			  "pay_no"=>2,
+			  "due_date"=>$ins_2_date,
+			  );
+		   $order_data_inst_3 = array(
+		   "main_order_id"=>"MAIN-OD-".$student_id."-".date('d-m-y'),
+		   "student_id"=> $student_id,
+		   "pending_amount"=>$pending_amount,
+		   "course_id"=>$course_id,
+		   "batch_id"=>$batch_id,
+		   "pay_type"=>$pay_type,
+		   "pay_no"=>3,
+		   "due_date"=>$ins_3_date
+			);
+		}
+		$this->CM->en_existing_std($data,$course_data,$student_data,$order_data,$order_data_inst_2,$order_data_inst_3);
 	}
 	$this->load->admin_temp('add_student_course',$data);
 }
@@ -1168,6 +1234,9 @@ public function add_student(){
 			$data['batch_data'] = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select);
 	}
 	if(isset($_POST['batch_data'])){
+		$course_id = $_POST['course_id'];
+		$data['course_price'] = $this->CM->get_course_price($course_id);
+		$data['course_price'] = $data['course_price'][0];
 		$batch_id = $_POST['batch_data'];
 		$table_name = "tc_batch_group";
 			$select = "group_id, group_name";
@@ -1206,11 +1275,66 @@ public function add_student(){
 			"group_id"=>$group_id,
 			"enroll_date"=>$date_ts
 		);
+		// 
+		$amount_paid = $_POST['amount_paid'];
+		$t_price = $_POST['t_price'];
+		$pay_type = $_POST['pay_type'];
+		$order_data = array(
+			"mode"=>2,
+			"pay_type"=>$pay_type,
+			"pay_no"=>1,
+			"fee_paid"=>$amount_paid,
+			"pending_amount"=>0,
+			"course_id"=>$course_id,
+			"batch_id"=>$batch_id,
+			"order_date"=>$current_date,
+			"order_tc"=>$date_ts,
+			"status"=>1,
+			"method"=>"Offline"
+	     );
+		 $order_data_inst_2=0;
+		 $order_data_inst_3=0;
+		 if($pay_type==2){
+			$pending_amount = round($t_price/2);
+			$date = date('y-m-d');
+			$ins_2_date = strtotime(date("Y-m-d", strtotime($date)) . " +15 days");
+			$order_data_inst_2 = array(
+			"pending_amount"=>$pending_amount,
+			"course_id"=>$course_id,
+			"batch_id"=>$batch_id,
+			"pay_type"=>$pay_type,
+			"pay_no"=>2,
+			"due_date"=>$ins_2_date
+			);
+			 }
+	  if($pay_type==3){
+		  $pending_amount = round($t_price/3);
+		  $date = date('y-m-d');
+		  $ins_2_date = strtotime(date("Y-m-d", strtotime($date)) . " +15 days");
+		  $date = date('y-m-d');
+		  $ins_3_date = strtotime(date("Y-m-d", strtotime($date)) . " +30 days");
+		  $order_data_inst_2 = array(
+			  "pending_amount"=>$pending_amount,
+			  "course_id"=>$course_id,
+			  "batch_id"=>$batch_id,
+			  "pay_type"=>$pay_type,
+			  "pay_no"=>2,
+			  "due_date"=>$ins_2_date,
+			  );
+		   $order_data_inst_3 = array(
+		   "pending_amount"=>$pending_amount,
+		   "course_id"=>$course_id,
+		   "batch_id"=>$batch_id,
+		   "pay_type"=>$pay_type,
+		   "pay_no"=>3,
+		   "due_date"=>$ins_3_date
+			);
+		  }
 		$table_name= "tc_course";
 		$select ="course_name";
 		$where =array("course_id"=>$course_id);
 		$course_name = $this->CM->get($table_name,$limit=Null,$offset=Null,$order_by=Null,$where,$select,$join=Null);
-		$this->CM->add_student($login_data,$student_data,$course_name,$enroll_data);
+		$this->CM->add_student($login_data,$student_data,$course_name,$enroll_data,$order_data,$order_data_inst_2,$order_data_inst_3);
 	}
 	$this->load->admin_temp('add_student',$data);
 }

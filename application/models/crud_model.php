@@ -130,7 +130,7 @@ class crud_model extends CI_Model
     function delete_employee(){
 
     }
-    function add_student($login_data,$student_data,$course_name,$enroll_data){
+    function add_student($login_data,$student_data,$course_name,$enroll_data,$order_data,$order_data_inst_2,$order_data_inst_3){
         $this->load->library('email');
         $this->db->trans_start();
         $this->db->insert('tc_login', $login_data);
@@ -140,6 +140,21 @@ class crud_model extends CI_Model
         $insert_id = $this->db->insert_id();
         $enroll_data['student_id'] = $insert_id;
         $this->db->insert('tc_enrollment',$enroll_data);
+        $order_data['student_id'] = $insert_id;
+        $order_data['main_order_id']="MAIN-OD-".$insert_id."-".date('d-m-y');
+        $order_data['pay_order_id']="PAY-OD-".$insert_id."-".date('d-m-y');
+        $order_data['payment_id']="PAYMENT-ID-".$insert_id."-".date('d-m-y');
+        $this->db->insert('tc_order',$order_data);
+        if($order_data_inst_2!=0){
+            $order_data_inst_2['student_id'] = $insert_id;
+            $order_data_inst_2['main_order_id']="MAIN-OD-".$insert_id."-".date('d-m-y');
+            $this->db->insert('tc_order',$order_data_inst_2);
+        }
+        if($order_data_inst_3!=0){
+            $order_data_inst_3['student_id'] = $insert_id;
+            $order_data_inst_3['main_order_id']="MAIN-OD-".$insert_id."-".date('d-m-y');
+            $this->db->insert('tc_order',$order_data_inst_3);
+        }
         if($this->db->trans_complete()){
          $this->send_mail_student_enrolment($student_data,$login_data,$course_name);
          $this->session->set_flashdata('isuccMess', 'Record Insert Succesfully');
@@ -318,13 +333,21 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
             redirect("Student-List");
         }
     }
-    function en_existing_std($data,$course_data,$student_data){
-        $query = $this->db->insert("tc_enrollment", $data);
-        if($query)
+    function en_existing_std($data,$course_data,$student_data,$order_data,$order_data_inst_2,$order_data_inst_3){
+        $this->db->trans_start();
+        $this->db->insert("tc_enrollment", $data);
+        $this->db->insert('tc_order',$order_data);
+        if($order_data_inst_2!=0){
+            $this->db->insert('tc_order',$order_data_inst_2);
+        }
+        if($order_data_inst_3!=0){
+            $this->db->insert('tc_order',$order_data_inst_3);
+        }
+        if($this->db->trans_complete())
         {
             $this->send_mail_exi_student_enrolment($course_data,$student_data);
             $this->session->set_flashdata('usuccMess', 'Course Added Succesfully');
-            redirect("Student-Course-List?id=".$data['student_id']);
+            redirect("Student-List");
             }else{
                 return true;
             }
@@ -387,6 +410,15 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
     function get_order_data(){
         $sql = "SELECT o.*, c.course_name, s.student_name, b.batch_name FROM tc_order AS o, tc_course AS c, tc_student AS s, tc_batch AS b 
         WHERE o.course_id = c.course_id AND o.batch_id = b.batch_id AND o.student_id = s.student_id";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }else{
+            return false;
+        }
+    }
+    function get_course_price($course_id){
+        $sql = "SELECT price FROM tc_course WHERE course_id = $course_id";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
