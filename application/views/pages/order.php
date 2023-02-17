@@ -77,6 +77,9 @@
                                     <?php if($o_d['mode']==2){ ?>
                                     <td class="text-center">Offline</td>
                                     <?php } ?>
+                                    <?php if($o_d['mode']==0){ ?>
+                                    <td class="text-center">--</td>
+                                    <?php } ?>
                                     <!-- END MODE
                                          PAY TYPE
                                     -->
