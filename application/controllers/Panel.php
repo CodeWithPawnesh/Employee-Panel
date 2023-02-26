@@ -198,7 +198,7 @@ class Panel extends CI_Controller {
         if(isset($_GET['id'])){
             $live_id= $_GET['id'];
             $ids = $_GET['ids'];
-            if($emp_role==1){
+            if($emp_role==1 ){
         $sql = "SELECT s.student_name, s.email,s.phone FROM tc_student AS s, tc_live_classes AS c WHERE s.student_id IN($ids) AND c.live_id = $live_id";
             }
             if($emp_role == 2){

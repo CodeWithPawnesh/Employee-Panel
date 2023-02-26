@@ -10,6 +10,34 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <?php if(empty($cl_link['live_link'])){ ?>
+                        <!-- Modal -->
+                        <div class="modal fade" id="classLink" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"
+                            data-keyboard="false">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-danger" id="exampleModalLabel">Upload Live Class Link</h5>
+                                    </div>
+                                   
+                                    <form action="Teacher/update_link" method="post">
+                                        <div class="modal-body">
+                                        <p class="text-center">Before you can start taking classes its necessary to upload a google meet link.</p>
+                                            <div class="form-group">
+                                                <input type="text" name="class_link" class="form-control" placeholder="Live Class Link"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" name="submit_link" class="btn btn-primary">Save changes</button>
+                                            <p class="text-center font-weight-bold">NOTE: While Taking Classes Always Login Your Browser With Same Email By Which You Have Created The Link</p>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
                         <table class="table table-hover table-responsive">
                             <thead>
                                 <tr>
@@ -25,7 +53,9 @@
                                     <td class="text-center"><?= $c_d['class_name'] ?></td>
                                     <td class="text-center"><?= $c_d['batch_name'] ?></td>
                                     <td class="text-center" id="ti"><?= date("h:i A", ($c_d['class_ts'])) ?></td>
-                                    <td class="text-center"><a id="<?= $c_d['class_id'] ?>" href="Teacher-Dashboard?id=<?= $c_d['class_id'] ?>&cl_l=<?= $cl_link['live_link'] ?>" target="_blank"  class="btn btn-sm btn-success">Join Room</a></th>
+                                    <td class="text-center"><a id="<?= $c_d['class_id'] ?>"
+                                            href="Teacher-Dashboard?id=<?= $c_d['class_id'] ?>&cl_l=<?= $cl_link['live_link'] ?>"
+                                            target="_blank" class="btn btn-sm btn-success">Join Room</a></th>
                                 </tr>
                                 <?php  } ?>
                             </tbody>
@@ -54,10 +84,10 @@
                                     $i=1;
                                     foreach($student_leave as $s_l){
                                     ?>
-                               <tr>
-                                <td Class="text-center"><?= $i++; ?></td>
-                                <td Class="text-center"><?= $s_l['student_name'] ?></td>
-                                <td Class="text-center"><?= $s_l['batch_name'] ?></td>
+                                <tr>
+                                    <td Class="text-center"><?= $i++; ?></td>
+                                    <td Class="text-center"><?= $s_l['student_name'] ?></td>
+                                    <td Class="text-center"><?= $s_l['batch_name'] ?></td>
                                 </tr>
                                 <?php } } ?>
                             </tbody>
@@ -86,18 +116,24 @@
 </div>
 </div>
 </body>
+<script src="assets/dashboard/js/jquery1-3.4.1.min.js"></script>
 <script>
-   function check_class_time(){
-    
+$(document).ready(function() {
+    $("#classLink").modal('show');
+});
+</script>
+<script>
+function check_class_time() {
+
     var today = new Date();
     var h = zeros(today.getHours() % 12 || 12);
     var m = today.getMinutes();
     var s = today.getSeconds();
-    if( m < 10){
-        m = "0"+m;
+    if (m < 10) {
+        m = "0" + m;
     }
-    if( s < 10){
-        s = "0"+s;
+    if (s < 10) {
+        s = "0" + s;
     }
     var time = h + ':' + m + ':' + s;
     <?php foreach($class_data as $c_d){
@@ -107,22 +143,22 @@
     console.log('<?= $s_time ?>');
     console.log('<?= $e_time ?>');
     console.log(time);
-    if('<?=  $s_time ?>' <= time && '<?= $e_time ?>' >=  time)
-    {
-    document.getElementById("<?= $c_d['class_id'] ?>").style.display="block";
-    }else{
-        document.getElementById("<?= $c_d['class_id'] ?>").style.display="none";
+    if ('<?=  $s_time ?>' <= time && '<?= $e_time ?>' >= time) {
+        document.getElementById("<?= $c_d['class_id'] ?>").style.display = "block";
+    } else {
+        document.getElementById("<?= $c_d['class_id'] ?>").style.display = "none";
     }
-   <?php  }  ?>
-    }
-    setInterval(function(){
-        check_class_time();
-    }, 100);
-    function zeros(i) {
-      if (i < 10) {
+    <?php  }  ?>
+}
+setInterval(function() {
+    check_class_time();
+}, 100);
+
+function zeros(i) {
+    if (i < 10) {
         return "0" + i;
-      } else {
+    } else {
         return i;
-      }
     }
+}
 </script>
