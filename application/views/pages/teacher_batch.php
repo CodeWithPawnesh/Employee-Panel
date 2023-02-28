@@ -63,6 +63,9 @@ $access_level = $user_info->access_level;
                                                 <?php if($access_level == 1){ ?>
                                                 <a class="dropdown-item" href="<?= base_url("Class-Video-Requests?batch_id=").$b_d['batch_id'] ?>">Class-Video-Requests</a>
                                                 <?php } ?>
+                                                <?php if($access_level == 1){ ?>
+                                                <a class="dropdown-item" href="<?= base_url("Manual-Class-Recording-List?batch_id=").$b_d['batch_id'] ?>">Manual-Class-Recording-List</a>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </td>

@@ -24,6 +24,8 @@ $emp_info = $this->session->userdata('emp_data');
     <link href="assets/assets/assets-for-demo/demo.css" rel="stylesheet" />
     <script src="<?= base_url("assets/ckeditor/ckeditor.js") ?>"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <!-- iframe removal -->
     <script type="text/javascript">
     if (document.readyState === 'complete') {

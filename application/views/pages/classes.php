@@ -76,10 +76,23 @@ $access_level = $user_info->access_level;
                                                 <i class="material-icons">list</i>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <?php if($c_d['status']=='1'){ ?>
+
+                                                <a href="<?= base_url('Classes?id='); echo $c_d['class_id']; ?>&status=0"
+                                                    class="dropdown-item">Un-Publish</a>
+
+                                                <?php } ?>
+                                                <?php if($c_d['status']=='0'){ ?>
+
+                                                <a href="<?= base_url('Classes?id='); echo $c_d['class_id']; ?>&status=1"
+                                                    class="dropdown-item">Publish</a>
+
+                                                <?php } ?>
                                                 <a class="dropdown-item"
-                                                    href="<?= base_url("Class-History?class_id=").$c_d['class_id'] ?>">Class History</a>
+                                                    href="<?= base_url("Class-History?class_id=").$c_d['class_id'] ?>">Class
+                                                    History</a>
                                                 <a href="<?= base_url('Class-Edit?id=');echo $c_d['class_id']; ?>"
-                                                class="dropdown-item" >Edit</a>
+                                                    class="dropdown-item">Edit</a>
                                             </div>
                                         </div>
 

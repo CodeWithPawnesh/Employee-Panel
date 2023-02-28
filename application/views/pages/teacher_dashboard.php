@@ -152,7 +152,7 @@ function check_class_time() {
 }
 setInterval(function() {
     check_class_time();
-}, 100);
+}, 1000);
 
 function zeros(i) {
     if (i < 10) {

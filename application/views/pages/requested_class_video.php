@@ -76,8 +76,9 @@
                                     <?php if($r_d['status']==0){ ?>
                                     <td class="text-center ">
                                         <!-- Button trigger modal -->
-                                        <button type="button" onclick="populate_batch_id(<?= $_GET['batch_id'] ?>,<?= $r_d['class_video_id'] ?>)" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#exampleModal">
+                                        <button type="button"
+                                            onclick="populate_batch_id(<?= $_GET['batch_id'] ?>,<?= $r_d['class_video_id'] ?>)"
+                                            class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                             Give Video
                                         </button>
                                     </td>
@@ -110,14 +111,26 @@
                 </button>
             </div>
             <form action="<?= base_url("Classes/give_class_video") ?>" method="post">
-            <div class="modal-body">
-                <input type="hidden" name="batch_id" id="batch_id">
-                <input type="hidden" name="class_video_id" id="class_video_id">
-                <input type="text" name="you_tube_url" class="form-control" placeholder="You Tube URL" required>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" name="submit" class="btn btn-primary">Save</button>
-            </div>
+                <div class="modal-body">
+                    <input type="hidden" name="batch_id" id="batch_id">
+                    <input type="hidden" name="class_video_id" id="class_video_id">
+                    <div class="form-group">
+                        <label>You tube Video URL</label>
+                    </div>
+                    <input type="text" name="you_tube_url" class="form-control" placeholder="You Tube URL" required>
+                    <div class="form-group">
+                        <label>Video Access</label>
+                    </div>
+                    <div class="form-group">
+                        <select name="video_access" id="acc" onchange="videoAccess()" class="form-control">
+                            <option value="1">Everyone</option>
+                            <option value="2">Choose Manually</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                </div>
             </form>
         </div>
     </div>
@@ -140,9 +153,9 @@
 </div>
 </body>
 <script>
-    function populate_batch_id(i,a){
-        console.log(a);
-        document.getElementById("batch_id").value=i;
-        document.getElementById("class_video_id").value=a;
-    }
+function populate_batch_id(i, a) {
+    console.log(a);
+    document.getElementById("batch_id").value = i;
+    document.getElementById("class_video_id").value = a;
+}
 </script>

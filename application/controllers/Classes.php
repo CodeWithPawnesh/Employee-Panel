@@ -22,6 +22,18 @@ class Classes extends CI_Controller {
 		}else{
 			$page_no = 1;
 		}
+		if(isset($_GET['id']) && isset($_GET['status']) ){
+			$id = $_GET['id'];
+			$status =$_GET['status'];
+			$table_name = "tc_classes";
+			$data = array(
+				"status"=>$status
+			);
+			$where = array(
+				"class_id"=>$id
+			);
+			$this->CM->update($data,$table_name,$where);
+		}
 		$order_by = "class_id";
 		$table_name="tc_classes";
 		$limit = 10;
@@ -136,6 +148,63 @@ class Classes extends CI_Controller {
 		}
         $this->load->admin_temp('requested_class_video',$data);
     }
+	public function manual_class_video_list(){
+		$batch_id = $_GET['batch_id'];
+		if(isset($_GET['g_id'])){
+			$group_id = $_GET['g_id'];
+		}else{
+			$group_id = 0;
+		}
+		$sql = "SELECT video_title,type,video_link,video_access,std_ids,given_at,status FROM tc_manual_video 
+		        WHERE batch_id = $batch_id AND group_id = $group_id ORDER BY m_video_id DESC 
+		       ";
+		$data['manual_video'] = $this->CM->get_join($sql);
+		$this->load->admin_temp('manual_video_list',$data);
+	}
+	public function manual_class_video(){
+		$data['page'] = "";
+		if(isset($_GET['id'])){
+			$batch_id = $_GET['id'];
+			$sql = "SELECT s.student_name,s.student_id FROM tc_student AS s, tc_enrollment AS e WHERE s.student_id = e.student_id AND e.batch_id = $batch_id";
+			$data['student_list'] = $this->CM->get_join($sql);
+		}
+		if(isset($_POST['submit'])){
+			$video_title = $_POST['video_title'];
+			$video_access = $_POST['video_access'];
+			$video_link = $_POST['video_link'];
+			$batch_id = $_POST['batch_id'];
+			if(isset($_POST['group_id'])){
+				$group_id =$_POST['group_id'];
+				$type = 2;
+			}else{
+				$group_id = "";
+				$type = 1;
+			}
+			if($video_access==2){
+				$std_ids = implode(",",$_POST['std_ids']);
+			}else{
+				$std_ids = "";
+			}
+			$data = array(
+				"video_title"=>$video_title,
+				"batch_id"=>$batch_id,
+				"group_id"=>$group_id,
+				"type"=>$type,
+				"video_link"=>$video_link,
+				"video_access"=>$video_access,
+				"std_ids"=>$std_ids,
+				"status"=>1
+			);
+			$table_name = "tc_manual_video";
+			if(isset($_GET['group_id'])){
+				$redirect = "Class-Video-Requests?batch_id=".$batch_id."&group_id=".$group_id;
+			}else{
+			$redirect = "Class-Video-Requests?batch_id=".$batch_id;
+			}
+			$this->CM->save($data,$table_name,$redirect);
+		}
+		$this->load->admin_temp('add_manual_class_video',$data);
+	}
 	public function give_class_video(){
 		if(isset($_POST['submit'])){
 		$currDate = date('y-m-d');
