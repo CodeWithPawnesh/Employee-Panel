@@ -354,9 +354,9 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
         }
     function send_mail_student_enrolment($student_data,$login_data,$course_name){
         $email = $student_data['email'];
-        $this->email->from('pawnesh1999@gmail.com', 'Think Champ Pvt.Ltd');
+        $this->email->from('thinkchamp.pvt.ltd@gmail.com', 'Think Champ Pvt.Ltd');
         $this->email->to($email);
-        $this->email->bcc('thinkchamp.pvt.ltd@gmail.com');
+        $this->email->cc('pawnesh1999@gmail.com');
         $this->email->subject('Enrollment In '.$course_name[0]['course_name']);
         $message = $this->template_student_enrollment($student_data,$login_data,$course_name); 
         $this->email->message($message);
@@ -368,9 +368,9 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
     }
     function send_mail_exi_student_enrolment($course_data,$student_data){
         $email = $student_data[0]['email'];
-        $this->email->from('pawnesh1999@gmail.com', 'Think Champ Pvt.Ltd');
+        $this->email->from('thinkchamp.pvt.ltd@gmail.com', 'Think Champ Pvt.Ltd');
         $this->email->to($email);
-        $this->email->bcc('thinkchamp.pvt.ltd@gmail.com');
+        $this->email->cc('pawnesh1999@gmail.com');
         $this->email->subject('Enrollment In '.$course_name[0]['course_name']);
         $message = $this->template_exi_student_enrollment($course_data,$student_data); 
         $this->email->message($message);
@@ -391,7 +391,7 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
         <p>&nbsp;</p><a style="padding:15px 30px; background:#8b4cdc; margin:15px 0px; cursor:pointer; color:#fff; text-decoration:none" href="https://think-champ.com/auth/">Login Now</a><p>&nbsp;</p>
         <p>In case the above link does not work, copy and paste following link in browser.</p>
         <a href="https://think-champ.com/auth/" style="font-weight:bold">https://think-champ.com/auth/</a>
-        <p>Don't forget to change your password once you login. In case of any query, feel free to contact us.</p><p>Regards,<br>Think Champ Team</p><img src="https://think-champ.com/assets2/images/logo2.png" >">www.facebook.com/think-champ</a></p></div></td></tr></tbody> </table> </td></tr></tbody> </table></body></html>
+        <p>Don't forget to change your password once you login. In case of any query, feel free to contact us.</p><p>Regards,<br>Think Champ Team</p><img style="width:100px;height:50px"  src="https://think-champ.com/assets2/images/logo2.png" >">www.facebook.com/think-champ</a></p></div></td></tr></tbody> </table> </td></tr></tbody> </table></body></html>
     <?php
         return ob_get_clean();
     }
@@ -403,7 +403,7 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
             <p>&nbsp;</p><a style="padding:15px 30px; background:#8b4cdc; margin:15px 0px; cursor:pointer; color:#fff; text-decoration:none" href="https://think-champ.com/auth/">Login Now</a><p>&nbsp;</p>
             <p>In case the above link does not work, copy and paste following link in browser.</p>
             <a href="https://think-champ.com/auth/" style="font-weight:bold">https://think-champ.com/auth/</a>
-            <p>Don't forget to change your password once you login. In case of any query, feel free to contact us.</p><p>Regards,<br>Think Champ Team</p><img src="https://think-champ.com/assets2/images/logo2.png" >">www.facebook.com/think-champ</a></p></div></td></tr></tbody> </table> </td></tr></tbody> </table></body></html>
+            <p>Don't forget to change your password once you login. In case of any query, feel free to contact us.</p><p>Regards,<br>Think Champ Team</p><img style="width:100px;height:50px"  src="https://think-champ.com/assets2/images/logo2.png" >">www.facebook.com/think-champ</a></p></div></td></tr></tbody> </table> </td></tr></tbody> </table></body></html>
         <?php
             return ob_get_clean();
     }
