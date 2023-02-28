@@ -1250,6 +1250,7 @@ public function add_student(){
 		$student_name = $_POST['student_name'];
 		$email = $_POST['email'];
 		$phone = $_POST['phone'];
+		$gender = $_POST['gender'];
 		$str = date('ymd');
 		$current_date  = date('y-m-d');
 		$date_ts = strtotime($current_date);
@@ -1267,6 +1268,7 @@ public function add_student(){
 			"student_name"=>$student_name,
 			"email"=>$email,
 			"phone"=>$phone,
+			"gender"=>$gender,
 			"status"=>1   
 		);
 		$enroll_data = array(

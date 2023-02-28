@@ -126,6 +126,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                       <label >Student Gender</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="gender" class="form-control" >
+                                            <option value="1">Male</option>
+                                            <option value="2">Fe-male</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-footer ">
                                 <button type="submit" name="submit" class="btn btn-sm btn-success">Submit</button>
                             </div>
