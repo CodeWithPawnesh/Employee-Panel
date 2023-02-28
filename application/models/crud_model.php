@@ -391,7 +391,7 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
         <p>&nbsp;</p><a style="padding:15px 30px; background:#8b4cdc; margin:15px 0px; cursor:pointer; color:#fff; text-decoration:none" href="https://think-champ.com/auth/">Login Now</a><p>&nbsp;</p>
         <p>In case the above link does not work, copy and paste following link in browser.</p>
         <a href="https://think-champ.com/auth/" style="font-weight:bold">https://think-champ.com/auth/</a>
-        <p>Don't forget to change your password once you login. In case of any query, feel free to contact us.</p><p>Regards,<br>Think Champ Team</p><img style="width:100px;height:50px"  src="https://think-champ.com/assets2/images/logo2.png" >">www.facebook.com/think-champ</a></p></div></td></tr></tbody> </table> </td></tr></tbody> </table></body></html>
+        <p>Don't forget to change your password once you login. In case of any query, feel free to contact us.</p><p>Regards,<br>Think Champ Team</p><img width="100" height="50px"  src="https://think-champ.com/assets2/images/logo2.png" ></a></p></div></td></tr></tbody> </table> </td></tr></tbody> </table></body></html>
     <?php
         return ob_get_clean();
     }
