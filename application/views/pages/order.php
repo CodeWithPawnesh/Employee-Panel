@@ -55,6 +55,7 @@
                                     <th class="text-center">Payment Type</th>
                                     <th class="text-center">Payment No.</th>
                                     <th class="text-center">Amount Paid</th>
+                                    <th class="text-center">Pendign Amount</th>
                                     <th class="text-center">Method</th>
                                     <th class="text-center">Order Date</th>
                                     <th class="text-center">Status</th>
@@ -68,8 +69,8 @@
                                     <td class="text-center"><?= $o_d['course_name'] ?></td>
                                     <td class="text-center"><?= $o_d['batch_name'] ?></td>
                                     <td class="text-center"><?= $o_d['main_order_id'] ?></td>
-                                    <td class="text-center"><?= $o_d['pay_order_id'] ?></td>
-                                    <td class="text-center"><?= $o_d['payment_id'] ?></td>
+                                    <td class="text-center"><?php if(!empty($o_d['pay_order_id'])){ echo $o_d['pay_order_id'];  }else{echo  "<span class='text-danger'>Pending</span>"; } ?></td>
+                                    <td class="text-center"><?php if(!empty($o_d['payment_id'])){ echo $o_d['payment_id'];  }else{echo  "<span class='text-danger'>Pending</span>"; } ?></td>
                                     <!-- MODE -->
                                     <?php if($o_d['mode']==1){ ?>
                                     <td class="text-center">Online</td>
@@ -78,7 +79,7 @@
                                     <td class="text-center">Offline</td>
                                     <?php } ?>
                                     <?php if($o_d['mode']==0){ ?>
-                                    <td class="text-center">--</td>
+                                    <td class="text-center"><?php echo  "<span class='text-danger'>Pending</span>"; ?></td>
                                     <?php } ?>
                                     <!-- END MODE
                                          PAY TYPE
@@ -94,12 +95,15 @@
                                     <?php } ?>
                                     <!-- END PAY TYPE -->
                                     <td class="text-center"><?= $o_d['pay_no'] ?></td>
-                                    <td class="text-center"><?= $o_d['fee_paid'] ?></td>
-                                    <td class="text-center"><?= $o_d['method'] ?></td>
+                                    <td class="text-center"><?php if($o_d['fee_paid']==0){ echo "<span class='text-danger'>Pending</span>";}else{ echo $o_d['fee_paid']; } ?></td>
+                                    <td class="text-center"><?= $o_d['pending_amount'] ?></td>
+                                    <td class="text-center"><?php if(!empty($o_d['method'])){ echo $o_d['method'];  }else{echo  "<span class='text-danger'>Pending</span>"; } ?></td>
                                     <td class="text-center"><?= date('d M, Y h:i A',$o_d['order_tc']) ?></td>
                                     <?php if($o_d['status']==1){ ?>
-                                    <td class="text-center text-success">Active</td>
-                                    <?php } ?>
+                                    <td class="text-center text-success">Paid</td>
+                                    <?php }else{ ?>
+                                         <td class="text-center text-danger">Pending</td>
+                                   <?php } ?>
                                 </tr>
                                 <?php } }else{ ?>
                                     <h1 class='text-center text-warning'>No Data Found</h1>

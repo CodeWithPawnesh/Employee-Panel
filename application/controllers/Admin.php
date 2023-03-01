@@ -1297,7 +1297,7 @@ public function add_student(){
 		 $order_data_inst_2=0;
 		 $order_data_inst_3=0;
 		 if($pay_type==2){
-			$pending_amount = round($t_price/2);
+			$pending_amount = round($t_price-$amount_paid);
 			$date = date('y-m-d');
 			$ins_2_date = strtotime(date("Y-m-d", strtotime($date)) . " +15 days");
 			$order_data_inst_2 = array(
@@ -1310,7 +1310,7 @@ public function add_student(){
 			);
 			 }
 	  if($pay_type==3){
-		  $pending_amount = round($t_price/3);
+		  $pending_amount = round($t_price-$amount_paid/2);
 		  $date = date('y-m-d');
 		  $ins_2_date = strtotime(date("Y-m-d", strtotime($date)) . " +15 days");
 		  $date = date('y-m-d');

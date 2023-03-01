@@ -121,7 +121,7 @@
                                         <label>Amount Paid</label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" name="amount_paid" id="amount_paid" class="form-control" value="<?= $course_price['price'];  ?>" readonly>
+                                        <input type="number" name="amount_paid" id="amount_paid" class="form-control" value="<?= $course_price['price'];  ?>">
                                         <input type="hidden" name="t_price" class="form-control" value="<?= $course_price['price'];  ?>">
                                     </div>
                                 </div>

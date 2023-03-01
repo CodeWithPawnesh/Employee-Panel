@@ -127,6 +127,9 @@
                             <option value="2">Choose Manually</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" name="submit" class="btn btn-primary">Save</button>
