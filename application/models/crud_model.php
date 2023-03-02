@@ -354,9 +354,10 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
         }
     function send_mail_student_enrolment($student_data,$login_data,$course_name){
         $email = $student_data['email'];
-        $this->email->from('thinkchamp.pvt.ltd@gmail.com', 'Think Champ Pvt.Ltd');
+        $this->email->from('no-replay@think-champ.com', 'Think Champ Pvt.Ltd');
         $this->email->to($email);
-        $this->email->cc('pawnesh1999@gmail.com');
+        // $this->email->cc('pawnesh1999@gmail.com');
+        $this->email->bcc('leadsget99@gmail.com');
         $this->email->subject('Enrollment In '.$course_name[0]['course_name']);
         $message = $this->template_student_enrollment($student_data,$login_data,$course_name); 
         $this->email->message($message);
@@ -368,9 +369,10 @@ function update_teacher($emp_data,$emp_us_data,$where,$u_where){
     }
     function send_mail_exi_student_enrolment($course_data,$student_data){
         $email = $student_data[0]['email'];
-        $this->email->from('thinkchamp.pvt.ltd@gmail.com', 'Think Champ Pvt.Ltd');
+        $this->email->from('no-replay@think-champ.com', 'Think Champ Pvt.Ltd');
         $this->email->to($email);
-        $this->email->cc('pawnesh1999@gmail.com');
+        // $this->email->cc('pawnesh1999@gmail.com');
+        $this->email->bcc('leadsget99@gmail.com');
         $this->email->subject('Enrollment In '.$course_name[0]['course_name']);
         $message = $this->template_exi_student_enrollment($course_data,$student_data); 
         $this->email->message($message);
