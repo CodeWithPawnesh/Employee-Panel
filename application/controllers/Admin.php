@@ -1596,6 +1596,38 @@ public function order(){
 	$row = $this->CM->get_row($table_name);
 	$data['total_pages'] = ceil($row/$limit);
 	$data['order_data'] = $this->CM->get_order_data();
+	if(isset($_POST['submit'])){
+		$o_date = date('y-m-d');
+		$o_tc = strtotime($o_date);
+		$order_id = $_POST['order_id'];
+		$student_id = $_POST['student_id'];
+		$student_name = $_POST['student_name'];
+		$course_id = $_POST['course_id'];
+		$pending_amount = $_POST['pending_amount'];
+		$pay_amount = $_POST['pay_amount'];
+		$newPendingAmount = $pending_amount - $pay_amount;
+		$pay_order_id= "PAY-OD-".$student_id."-".date('d-m-y');
+		$payment_id = "PAYMENT-ID-".$student_id."-".date('d-m-y');
+		$method = "Offline";
+		$mode = 2;
+		$data = array(
+			"pay_order_id"=>$pay_order_id,
+			"payment_id"=>$payment_id,
+			"mode"=>$mode,
+			"method"=>$method,
+			"status"=>1,
+			"fee_paid"=>$pay_amount,
+			"order_date"=>$o_date,
+			"order_tc"=>$o_tc,
+			"pending_amount"=>$newPendingAmount
+		);
+		$where = array(
+			"order_id"=>$order_id
+		);
+		$table_name = "tc_order";
+		$redirect=base_url()."Order";
+		$this->CM->update($data,$table_name,$where,$redirect);
+	}
 	$this->load->admin_temp('order',$data);
 }
 public function student_placed_companies(){
@@ -1628,5 +1660,63 @@ public function student_placed_companies_create(){
 		$this->CM->save($data,$table_name,$redirect);
 	}
 	$this->load->admin_temp('student_placed_companies_create',$data);
+}
+public function order_detail(){
+	if(isset($_POST['id'])){
+		$id = $_POST['id'];
+		$sql = "SELECT s.student_name,s.student_id,c.course_name,c.course_id, o.pending_amount
+		       FROM tc_student AS s,tc_course AS c, tc_order AS o
+			   WHERE o.order_id = $id AND s.student_id = o.student_id AND c.course_id = o.course_id";
+	    $data = $this->CM->get_join($sql);
+		$data = $data[0];
+		echo
+		"<input type='hidden' name='student_id' value='".$data['student_id']."'>" 
+		."<input type='hidden' name='order_id' value='".$id."'>"
+		."<input type='hidden' name='course_id' value ='".$data['course_id']."'>"
+		."<div class='row'>"
+		."<div class='col'>"
+		."<div class='form-group'>"
+		."<label> Student Name </label>"
+		."</div>"
+		."<div class='form-group'>"
+		."<input type='text' name='student_name'  class='form-control' value='".$data['student_name']."' readonly>"
+		."</div>"
+		."</div>"
+		."</div>"
+		// course name
+		."<div class='row'>"
+		."<div class='col'>"
+		."<div class='form-group'>"
+		."<label> Course Name </label>"
+		."</div>"
+		."<div class='form-group'>"
+		."<input type='text' name='course_name'  class='form-control' value='".$data['course_name']."' readonly>"
+		."</div>"
+		."</div>"
+		."</div>"
+		// Pending Amount
+		."<div class='row'>"
+		."<div class='col'>"
+		."<div class='form-group'>"
+		."<label> Pending Amount </label>"
+		."</div>"
+		."<div class='form-group'>"
+		."<input type='text' name='pending_amount' class='form-control' value='".$data['pending_amount']."' readonly>"
+		."</div>"
+		."</div>"
+		."</div>"
+		// Pay Amount
+		."<div class='row'>"
+		."<div class='col'>"
+		."<div class='form-group'>"
+		."<label>  Amount Paying </label>"
+		."</div>"
+		."<div class='form-group'>"
+		."<input type='text' name='pay_amount'  class='form-control' value='".$data['pending_amount']."' readonly>"
+		."</div>"
+		."</div>"
+		."</div>"
+		;
+	}
 }
 }
